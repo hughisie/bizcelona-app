@@ -59,6 +59,17 @@ export default function SignupPage() {
         // Profile is automatically created by the database trigger
         // No need to manually update it
 
+        // Send notification to admin about new user
+        try {
+          await fetch('/api/notifications/new-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          });
+        } catch (notifError) {
+          console.error('Failed to send admin notification:', notifError);
+          // Don't block signup if notification fails
+        }
+
         setSuccess(true);
         setLoading(false);
 

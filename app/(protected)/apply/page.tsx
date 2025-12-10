@@ -175,7 +175,7 @@ export default function ApplyPage() {
       // Clean WhatsApp number - remove spaces and dashes for database storage
       const cleanWhatsapp = formData.whatsappNumber.replace(/[\s-]/g, '');
 
-      const { error: submitError } = await supabase.from('applications').insert({
+      const { data: insertedApp, error: submitError } = await supabase.from('applications').insert({
         user_id: user.id,
         full_name: formData.fullName,
         email: formData.email,
@@ -192,7 +192,7 @@ export default function ApplyPage() {
         additional_info: formData.additionalInfo || null,
         consent_given: true,
         status: 'submitted',
-      });
+      }).select().single();
 
       if (submitError) {
         if (submitError.code === '23505') {
@@ -215,6 +215,20 @@ export default function ApplyPage() {
         }
         setSubmitting(false);
         return;
+      }
+
+      // Send notification to admin about new application
+      if (insertedApp) {
+        try {
+          await fetch('/api/notifications/new-application', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ applicationId: insertedApp.id }),
+          });
+        } catch (notifError) {
+          console.error('Failed to send admin notification:', notifError);
+          // Don't block application submission if notification fails
+        }
       }
 
       setSuccess(true);
