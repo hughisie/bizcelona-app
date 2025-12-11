@@ -71,13 +71,6 @@ export default function Navbar() {
                 About
               </a>
               <a
-                href="#rules"
-                onClick={(e) => scrollToSection(e, '#rules')}
-                className="nav-link text-navy hover:text-saffron transition-colors duration-200"
-              >
-                Rules
-              </a>
-              <a
                 href="#apply"
                 onClick={(e) => scrollToSection(e, '#apply')}
                 className="nav-link text-navy hover:text-saffron transition-colors duration-200"
@@ -152,13 +145,6 @@ export default function Navbar() {
             className="nav-link block px-3 py-2 text-navy hover:text-saffron transition-colors duration-200"
           >
             About
-          </a>
-          <a
-            href="#rules"
-            onClick={(e) => scrollToSection(e, '#rules')}
-            className="nav-link block px-3 py-2 text-navy hover:text-saffron transition-colors duration-200"
-          >
-            Rules
           </a>
           <a
             href="#apply"
