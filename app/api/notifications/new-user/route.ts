@@ -3,7 +3,10 @@ import { Resend } from 'resend';
 import { createClient } from '@/lib/supabase/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@bizcelona.com';
+// Support multiple admin emails separated by comma
+const ADMIN_EMAILS = process.env.ADMIN_EMAIL
+  ? process.env.ADMIN_EMAIL.split(',').map(email => email.trim())
+  : ['admin@bizcelona.com'];
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,10 +30,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
 
-    // Send email to admin
+    // Send email to all admin emails
     const emailData = await resend.emails.send({
       from: 'Bizcelona <notifications@bizcelona.com>',
-      to: ADMIN_EMAIL,
+      to: ADMIN_EMAILS,
       subject: `New User Signup: ${profile.full_name || user.email}`,
       html: `
         <!DOCTYPE html>

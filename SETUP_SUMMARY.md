@@ -35,8 +35,10 @@ Your Bizcelona application now has **automatic email notifications** for admins!
 
 ```
 RESEND_API_KEY = re_your_actual_key_here
-ADMIN_EMAIL = your-email@bizcelona.com
+ADMIN_EMAIL = owen@bizcelona.com,matthew@bizcelona.com
 ```
+
+**Note:** For multiple admins, separate emails with commas (no spaces needed - they're automatically trimmed)
 
 4. Click **Save**
 

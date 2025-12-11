@@ -69,7 +69,12 @@ Value: v=spf1 include:_spf.resend.com ~all
 #### Local Development (.env.local):
 ```bash
 RESEND_API_KEY=re_123456789abcdefg  # Your actual API key
-ADMIN_EMAIL=your-email@bizcelona.com  # Where to send notifications
+
+# Single admin email:
+ADMIN_EMAIL=your-email@bizcelona.com
+
+# Multiple admin emails (separate with commas):
+ADMIN_EMAIL=owen@bizcelona.com,matthew@bizcelona.com
 ```
 
 #### Production (Vercel):
@@ -80,8 +85,12 @@ ADMIN_EMAIL=your-email@bizcelona.com  # Where to send notifications
 
 ```
 RESEND_API_KEY = re_123456789abcdefg
-ADMIN_EMAIL = your-email@bizcelona.com
+ADMIN_EMAIL = owen@bizcelona.com,matthew@bizcelona.com
 ```
+
+**Note:** For multiple admins, separate emails with commas. Spaces are automatically trimmed, so you can use either format:
+- `owen@bizcelona.com,matthew@bizcelona.com` ✅
+- `owen@bizcelona.com, matthew@bizcelona.com` ✅
 
 4. Click **Save**
 5. **Redeploy** your application for changes to take effect
