@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { isUserAdmin } from '@/lib/admin';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -9,6 +10,12 @@ export default async function DashboardPage() {
 
   if (!user) {
     redirect('/login');
+  }
+
+  // Check if user is admin and redirect to admin panel
+  const isAdmin = await isUserAdmin();
+  if (isAdmin) {
+    redirect('/admin');
   }
 
   // Get user profile
