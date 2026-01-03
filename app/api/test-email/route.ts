@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     // Try to send test email
     try {
       const emailData = await resend.emails.send({
-        from: 'Bizcelona <notifications@bizcelona.com>',
+        from: 'Bizcelona <onboarding@resend.dev>',
         to: ADMIN_EMAILS,
         subject: '🧪 Test Email - Bizcelona Notification System',
         html: `

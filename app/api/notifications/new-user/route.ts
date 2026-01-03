@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to all admin emails
     const emailData = await resend.emails.send({
-      from: 'Bizcelona <notifications@bizcelona.com>',
+      from: 'Bizcelona <onboarding@resend.dev>',
       to: ADMIN_EMAILS,
       subject: `New User Signup: ${profile.full_name || user.email}`,
       html: `
