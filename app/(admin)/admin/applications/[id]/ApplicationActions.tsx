@@ -68,7 +68,7 @@ export default function ApplicationActions({
   };
 
   const handleApprove = async () => {
-    if (!confirm('Are you sure you want to approve this application?')) {
+    if (!confirm('Are you sure you want to approve this application? This will send an approval email to the applicant.')) {
       return;
     }
 
@@ -103,6 +103,23 @@ export default function ApplicationActions({
 
       if (memberError) {
         throw memberError;
+      }
+
+      // Send approval email to applicant
+      try {
+        const emailResponse = await fetch('/api/notifications/application-approved', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applicationId: application.id }),
+        });
+
+        if (!emailResponse.ok) {
+          console.error('Failed to send approval email');
+          // Don't block approval if email fails
+        }
+      } catch (emailError) {
+        console.error('Error sending approval email:', emailError);
+        // Don't block approval if email fails
       }
 
       router.push('/admin/applications?status=approved');
@@ -182,9 +199,18 @@ export default function ApplicationActions({
       <div className="space-y-6">
         <div className="bg-green-50 border border-green-200 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-green-900 mb-2">✓ Application Approved</h3>
-          <p className="text-green-700">
+          <p className="text-green-700 mb-3">
             This application has been approved and the user is now an active member.
           </p>
+          <div className="bg-white border border-green-300 rounded-lg p-4">
+            <p className="text-sm font-medium text-green-900 mb-1">📧 Approval Email Sent</p>
+            <p className="text-sm text-gray-700">
+              An approval email was automatically sent to <span className="font-semibold">{application.email}</span>
+            </p>
+            <p className="text-xs text-gray-600 mt-2">
+              Email sent from: owen@bizcelona.com | CC: matthew@bizcelona.com
+            </p>
+          </div>
           {application.review_notes && (
             <div className="mt-4">
               <p className="text-sm font-medium text-green-900">Admin Notes:</p>
@@ -193,11 +219,11 @@ export default function ApplicationActions({
           )}
         </div>
 
-        {/* WhatsApp Welcome Message */}
+        {/* WhatsApp Welcome Message (for reference) */}
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h3 className="text-lg font-semibold text-navy mb-1">WhatsApp Welcome Message</h3>
+              <h3 className="text-lg font-semibold text-navy mb-1">WhatsApp Welcome Message (Reference)</h3>
               <p className="text-sm text-gray-600">
                 {application.contributor_interest
                   ? 'Message for contributors (includes contributor paragraph)'
