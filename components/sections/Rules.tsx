@@ -2,13 +2,42 @@
 
 import { useEffect } from 'react';
 
-const rules = [
-  'Be respectful and professional',
-  'Keep conversations focused on business and collaboration',
-  'No spam, unsolicited DMs, or group links',
-  'Give more than you take',
-  'Treat all conversations as private and confidential',
-  "Ask an admin if you're ever unsure about posting",
+const coreValues = [
+  {
+    number: 1,
+    title: 'Give Before You Take',
+    description: 'We foster a culture where members contribute their knowledge and support before seeking help themselves. Whether it\'s sharing advice, making introductions, or offering a helping hand, generosity strengthens our network and ensures it thrives for all. Members who consistently give are the ones who gain the most in return.'
+  },
+  {
+    number: 2,
+    title: 'Active Participation',
+    description: 'We ask members to stay engaged. This means reading group messages regularly, contributing thoughtfully to discussions, and being present in the community. Passive membership dilutes the value we\'re building together. If you notice a fellow member needs help within your expertise, reach out. Active members drive the culture we all benefit from.'
+  },
+  {
+    number: 3,
+    title: 'Mutual Respect and Trust',
+    description: 'Our community is built on professionalism, courtesy, and integrity. Treat every member with respect, honor your commitments, and assume positive intent in all interactions. We\'re building long-term relationships here, not transactional encounters.'
+  },
+  {
+    number: 4,
+    title: 'No Unsolicited Private Messages',
+    description: 'Before sending a private message to a member, always ask permission in the group or ensure there\'s an existing relationship. Cold outreach, sales pitches, or unsolicited networking requests undermine trust. If you want to connect privately, introduce yourself in the group first and let relationships develop naturally.'
+  },
+  {
+    number: 5,
+    title: 'No Promotional Posts',
+    description: 'This is not a marketing channel. Promotional content, hard sells, or thinly-veiled advertisements are not allowed. If your business, product, or service becomes relevant in a conversation, share it naturally and authentically. If you\'re unsure whether something is promotional, ask an admin first. Repeat offenders will be removed.'
+  },
+  {
+    number: 6,
+    title: 'Privacy and Confidentiality',
+    description: 'What\'s shared in Bizcelona stays in Bizcelona. Do not screenshot, share, or republish group content without explicit permission. Respect the privacy of members and treat all discussions as confidential. Trust is the foundation of this community, and breaches of confidentiality are taken seriously.'
+  },
+  {
+    number: 7,
+    title: 'Tiered Involvement',
+    description: 'Not everyone will engage at the same level, and that\'s okay. Some members will be highly active, while others will observe and contribute when relevant. We respect different levels of involvement, but we do expect everyone to respect the guidelines and add value when they do participate. If you\'re rarely active, consider whether this community is the right fit for you—our goal is mutual growth, not passive consumption.'
+  }
 ];
 
 export default function Rules() {
@@ -40,40 +69,37 @@ export default function Rules() {
 
   return (
     <section id="rules" className="py-20 bg-beige relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 fade-in-on-scroll">
           <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">
-            Community Guidelines
+            Core Values and Participation Guidelines
           </h2>
-          <p className="text-lg text-gray-700">
-            Simple rules that keep our community thriving
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+            At Bizcelona, we believe that the strength of our community lies in active participation, mutual generosity, and a shared sense of trust. Here are the core values and expectations we encourage every member to uphold:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {rules.map((rule, index) => (
+        <div className="space-y-6">
+          {coreValues.map((value, index) => (
             <div
               key={index}
-              className="rule-card bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 fade-in-on-scroll border-l-4 border-saffron"
+              className="rule-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 fade-in-on-scroll"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-gradient-to-br from-saffron to-orange-400 rounded-full flex items-center justify-center shadow-md">
-                    <svg
-                      className="w-5 h-5 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
+                  <div className="w-10 h-10 bg-saffron rounded-full flex items-center justify-center font-bold text-navy">
+                    {value.number}
                   </div>
                 </div>
-                <p className="text-gray-800 font-medium">{rule}</p>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-navy mb-2">
+                    {value.title}
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed">
+                    {value.description}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

@@ -87,8 +87,7 @@ export default function Apply() {
           </div>
 
           <p className="text-lg text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto">
-            Click the button below to submit your application. We review each one
-            personally and will reach out via WhatsApp if approved.
+            <strong>We review all applications individually, but aim to get back to all applicants as soon as possible.</strong> If approved, we'll reach out via WhatsApp to welcome you to the community.
           </p>
           <a
             href="#contact"

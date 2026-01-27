@@ -55,7 +55,7 @@ export default function Hero() {
             textShadow: '0 2px 12px rgba(0, 0, 0, 0.9), 0 1px 6px rgba(0, 0, 0, 0.7)'
           }}
         >
-          Barcelona's Elite Business Community for Entrepreneurs & Executives
+          Barcelona's Business Community for Entrepreneurs & Executives
         </p>
         <p
           className="text-lg md:text-xl mb-8 opacity-0 animate-fade-in-up font-light"

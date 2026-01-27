@@ -45,28 +45,16 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="fade-in-on-scroll">
             <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">
-              Barcelona's Premier Business Network
+              About Bizcelona
             </h2>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              <strong>Bizcelona</strong> is Barcelona's exclusive, invite-only business community designed specifically for
-              <strong className="text-navy"> entrepreneurs</strong>, <strong className="text-navy">senior executives</strong>,{' '}
-              <strong className="text-navy">business owners</strong>, and <strong className="text-navy">digital nomads</strong>{' '}
-              who are serious about collaboration and growth.
+              At Bizcelona, we are creating a <strong className="text-navy">trusted network of English-speaking entrepreneurs in Barcelona</strong>. Our mission is to cultivate a community where members build lasting, trust-based relationships, inspired by old-world guilds.
             </p>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Whether you're a C-level executive, startup founder, digital nomad on Spain's digital nomad visa,
-              or established business owner in Barcelona, our curated community connects you with
-              like-minded professionals who value meaningful partnerships over superficial networking.
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              We bring together Barcelona's most talented entrepreneurs and business leaders who want to collaborate,
-              share ideas, invest together, and grow their ventures. From venture capital connections to
-              strategic partnerships, this space was made for serious professionals.
+              In Bizcelona, every member is both a resource and a friend, committing to help each other on a no-charge basis, so that support and advice flow freely both ways. By sharing our expertise generously, we all move closer to financial freedom and professional success.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Our community is <strong>closed, carefully vetted, and focused on quality over
-              quantity</strong>. Join Barcelona's elite network of business professionals and surround yourself
-              with the energy, ideas, and trusted relationships that drive real business growth.
+              Bizcelona is <strong>more than a networking group</strong>; it is a close-knit community where each member is valued for their camaraderie and collective growth.
             </p>
           </div>
           <div
