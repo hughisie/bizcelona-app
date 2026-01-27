@@ -5,7 +5,6 @@ import About from '@/components/sections/About';
 import Rules from '@/components/sections/Rules';
 import Partnerships from '@/components/sections/Partnerships';
 import Apply from '@/components/sections/Apply';
-import Contact from '@/components/sections/Contact';
 import Script from 'next/script';
 
 export default function Home() {
@@ -94,7 +93,6 @@ export default function Home() {
         <Rules />
         <Partnerships />
         <Apply />
-        <Contact />
       </main>
       <Footer />
     </>

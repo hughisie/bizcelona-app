@@ -58,7 +58,7 @@ export default function Partnerships() {
           <p className="text-gray-600 mb-6">Interested in partnering with Bizcelona?</p>
           <a
             href="#contact"
-            className="inline-block bg-navy text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            className="inline-block bg-saffron text-navy px-8 py-4 rounded-lg font-semibold text-lg hover:bg-orange-400 transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
             Get in Touch
           </a>
