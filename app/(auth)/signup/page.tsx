@@ -66,7 +66,8 @@ export default function SignupPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               userId: data.user.id,
-              email: email
+              email: email,
+              fullName: fullName
             }),
           });
         } catch (notifError) {

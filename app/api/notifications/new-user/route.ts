@@ -12,30 +12,17 @@ export async function POST(request: NextRequest) {
   try {
     // Get user data from request body
     const body = await request.json();
-    const { userId, email } = body;
+    const { userId, email, fullName } = body;
 
     if (!userId || !email) {
       return NextResponse.json({ error: 'User ID and email required' }, { status: 400 });
-    }
-
-    const supabase = await createClient();
-
-    // Fetch user profile details
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
-
-    if (profileError || !profile) {
-      return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
 
     // Send email to all admin emails
     const emailData = await resend.emails.send({
       from: 'Bizcelona <info@bizcelona.com>',
       to: ADMIN_EMAILS,
-      subject: `New User Signup: ${profile.full_name || email}`,
+      subject: `New User Signup: ${fullName || email}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -63,7 +50,7 @@ export async function POST(request: NextRequest) {
 
                 <div class="field">
                   <div class="label">Name:</div>
-                  <div class="value">${profile.full_name || 'Not provided yet'}</div>
+                  <div class="value">${fullName || 'Not provided'}</div>
                 </div>
 
                 <div class="field">
@@ -72,8 +59,8 @@ export async function POST(request: NextRequest) {
                 </div>
 
                 <div class="field">
-                  <div class="label">Created:</div>
-                  <div class="value">${new Date(profile.created_at).toLocaleString('en-US', {
+                  <div class="label">Signed Up:</div>
+                  <div class="value">${new Date().toLocaleString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
