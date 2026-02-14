@@ -10,20 +10,21 @@ const ADMIN_EMAILS = process.env.ADMIN_EMAIL
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    // Get user data from request body
+    const body = await request.json();
+    const { userId, email } = body;
 
-    // Verify the request is authenticated
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!userId || !email) {
+      return NextResponse.json({ error: 'User ID and email required' }, { status: 400 });
     }
+
+    const supabase = await createClient();
 
     // Fetch user profile details
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('*')
-      .eq('id', user.id)
+      .eq('id', userId)
       .single();
 
     if (profileError || !profile) {
@@ -32,9 +33,9 @@ export async function POST(request: NextRequest) {
 
     // Send email to all admin emails
     const emailData = await resend.emails.send({
-      from: 'Bizcelona <onboarding@resend.dev>',
+      from: 'Bizcelona <info@bizcelona.com>',
       to: ADMIN_EMAILS,
-      subject: `New User Signup: ${profile.full_name || user.email}`,
+      subject: `New User Signup: ${profile.full_name || email}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
 
                 <div class="field">
                   <div class="label">Email:</div>
-                  <div class="value">${user.email}</div>
+                  <div class="value">${email}</div>
                 </div>
 
                 <div class="field">

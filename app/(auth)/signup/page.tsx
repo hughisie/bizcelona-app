@@ -64,6 +64,10 @@ export default function SignupPage() {
           await fetch('/api/notifications/new-user', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: data.user.id,
+              email: email
+            }),
           });
         } catch (notifError) {
           console.error('Failed to send admin notification:', notifError);
