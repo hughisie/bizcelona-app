@@ -22,8 +22,30 @@ export default function ResetPasswordPage() {
     const handlePasswordReset = async () => {
       const supabase = createClient();
 
-      // FIRST: Check if Supabase put tokens in the URL hash
-      // This is the PRIMARY way Supabase sends password reset sessions
+      // FIRST: Check if there's a code in the URL (OAuth flow)
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+
+      if (code) {
+        console.log('Found code in URL - attempting code exchange');
+        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (error) {
+          console.error('Code exchange error:', error.message);
+          setError('Unable to verify reset link. Please request a new one.');
+          return;
+        }
+
+        if (data.session) {
+          console.log('Code exchange successful - session established');
+          // Clear URL parameters
+          window.history.replaceState({}, '', '/reset-password');
+          setValidSession(true);
+          return;
+        }
+      }
+
+      // SECOND: Check if Supabase put tokens in the URL hash
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const accessToken = hashParams.get('access_token');
       const refreshToken = hashParams.get('refresh_token');
@@ -55,8 +77,8 @@ export default function ResetPasswordPage() {
         return;
       }
 
-      // SECOND: Check if there's already a valid session
-      console.log('No hash tokens - checking for existing session');
+      // THIRD: Check if there's already a valid session
+      console.log('No code or hash tokens - checking for existing session');
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
       if (sessionError) {
