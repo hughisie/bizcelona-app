@@ -16,34 +16,67 @@ export default function ResetPasswordPage() {
   const hasRun = useRef(false);
 
   useEffect(() => {
-    // Prevent running multiple times (React Strict Mode runs effects twice in dev)
     if (hasRun.current) return;
     hasRun.current = true;
 
-    // Check for existing session (should be set by /api/auth/confirm endpoint)
-    const checkSession = async () => {
+    const handlePasswordReset = async () => {
       const supabase = createClient();
 
-      console.log('Checking for session...');
+      // FIRST: Check if Supabase put tokens in the URL hash
+      // This is the PRIMARY way Supabase sends password reset sessions
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get('access_token');
+      const refreshToken = hashParams.get('refresh_token');
+      const errorDescription = hashParams.get('error_description');
 
-      const { data: { session }, error } = await supabase.auth.getSession();
-
-      if (error) {
-        console.error('Error getting session:', error);
-        setError('Invalid or expired reset link. Please request a new one.');
+      if (errorDescription) {
+        console.error('Error in URL hash:', errorDescription);
+        setError(decodeURIComponent(errorDescription));
         return;
       }
 
-      if (!session) {
-        console.log('No session found. Please click the reset link from your email.');
-        setError('Invalid or expired reset link. Please request a new one.');
-      } else {
-        console.log('Session found - user can reset password');
+      if (accessToken && refreshToken) {
+        console.log('Found tokens in URL hash - setting session');
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        });
+
+        if (error) {
+          console.error('Error setting session from hash tokens:', error);
+          setError('Unable to establish session. Please request a new reset link.');
+          return;
+        }
+
+        // Clear the hash
+        window.history.replaceState({}, '', '/reset-password');
+        console.log('Session established successfully');
         setValidSession(true);
+        return;
       }
+
+      // SECOND: Check if there's already a valid session
+      console.log('No hash tokens - checking for existing session');
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+      if (sessionError) {
+        console.error('Error getting session:', sessionError);
+        setError('Please use the password reset link from your email.');
+        return;
+      }
+
+      if (session) {
+        console.log('Found existing session');
+        setValidSession(true);
+        return;
+      }
+
+      // NO session found
+      console.log('No session found');
+      setError('Please use the password reset link from your email to access this page.');
     };
 
-    checkSession();
+    handlePasswordReset();
   }, []);
 
   const handleResetPassword = async (e: React.FormEvent) => {
