@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Your Bizcelona Email</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f5f0; line-height: 1.6;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f5f5f0; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); padding: 40px 30px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600;">
+                Welcome to Bizcelona!
+              </h1>
+              <p style="margin: 10px 0 0; color: #e0e7ff; font-size: 16px;">
+                Let's confirm your email address
+              </p>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="padding: 40px 30px;">
+              <p style="margin: 0 0 20px; color: #333333; font-size: 16px;">
+                Hello,
+              </p>
+
+              <p style="margin: 0 0 20px; color: #333333; font-size: 16px;">
+                Thank you for joining <strong>Bizcelona</strong>, Barcelona's premier business community for entrepreneurs and executives!
+              </p>
+
+              <p style="margin: 0 0 20px; color: #333333; font-size: 16px;">
+                To complete your registration and access your account, please confirm your email address by clicking the button below:
+              </p>
+
+              <!-- CTA Button -->
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin: 30px 0;">
+                <tr>
+                  <td align="center">
+                    <a href="{{ .ConfirmationURL }}" style="display: inline-block; background-color: #f59e0b; color: #1e3a5f; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      Confirm Your Email
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin: 20px 0; color: #666666; font-size: 14px; padding: 15px; background-color: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px;">
+                <strong>⏱️ This link expires in 24 hours</strong> for your security.
+              </p>
+
+              <p style="margin: 20px 0 10px; color: #333333; font-size: 16px;">
+                If the button doesn't work, copy and paste this link into your browser:
+              </p>
+
+              <p style="margin: 0 0 20px; padding: 12px; background-color: #f5f5f5; border-radius: 6px; word-break: break-all; font-size: 13px; color: #666666;">
+                {{ .ConfirmationURL }}
+              </p>
+
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+
+              <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid #2563eb;">
+                <p style="margin: 0 0 10px; color: #1e3a5f; font-size: 15px; font-weight: 600;">
+                  What's Next?
+                </p>
+                <p style="margin: 0 0 8px; color: #333333; font-size: 14px;">
+                  ✓ Confirm your email
+                </p>
+                <p style="margin: 0 0 8px; color: #333333; font-size: 14px;">
+                  ✓ Complete your membership application
+                </p>
+                <p style="margin: 0; color: #333333; font-size: 14px;">
+                  ✓ Get reviewed by our team (we aim to respond within 48 hours)
+                </p>
+              </div>
+
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+
+              <p style="margin: 20px 0 10px; color: #666666; font-size: 14px;">
+                <strong>Didn't create an account?</strong>
+              </p>
+
+              <p style="margin: 0 0 20px; color: #666666; font-size: 14px;">
+                If you didn't sign up for Bizcelona, you can safely ignore this email. No account will be created without email confirmation.
+              </p>
+
+              <p style="margin: 0; color: #666666; font-size: 14px;">
+                Looking forward to having you in our community!<br>
+                <strong style="color: #1e3a5f;">The Bizcelona Team</strong>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0 0 10px; color: #9ca3af; font-size: 12px;">
+                This email was sent to you because someone created a Bizcelona account with this email address.
+              </p>
+              <p style="margin: 0 0 10px; color: #9ca3af; font-size: 12px;">
+                Bizcelona - Barcelona's Business Community for Entrepreneurs & Executives
+              </p>
+              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                <a href="https://bizcelona.com" style="color: #f59e0b; text-decoration: none;">bizcelona.com</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
