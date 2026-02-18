@@ -20,45 +20,12 @@ export default function ResetPasswordPage() {
     if (hasRun.current) return;
     hasRun.current = true;
 
-    // Handle password reset by checking URL hash parameters
-    const handlePasswordReset = async () => {
+    // Check for existing session (should be set by /api/auth/confirm endpoint)
+    const checkSession = async () => {
       const supabase = createClient();
 
-      // Supabase redirects with hash parameters (not query params)
-      // e.g., #access_token=...&refresh_token=...&type=recovery
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
-      const accessToken = hashParams.get('access_token');
-      const refreshToken = hashParams.get('refresh_token');
-      const type = hashParams.get('type');
+      console.log('Checking for session...');
 
-      console.log('Hash params:', { accessToken: accessToken ? 'exists' : 'null', refreshToken: refreshToken ? 'exists' : 'null', type });
-
-      // If we have tokens in the hash, set the session
-      if (accessToken && refreshToken && type === 'recovery') {
-        console.log('Setting session from hash tokens...');
-
-        const { data, error } = await supabase.auth.setSession({
-          access_token: accessToken,
-          refresh_token: refreshToken
-        });
-
-        if (error) {
-          console.error('Error setting session from tokens:', error);
-          setError('Invalid or expired reset link. Please request a new one.');
-          return;
-        }
-
-        console.log('Session set successfully');
-
-        // Clean up the hash
-        window.history.replaceState({}, '', '/reset-password');
-
-        setValidSession(true);
-        return;
-      }
-
-      // Fallback: check if there's already a valid session
-      console.log('Checking for existing session...');
       const { data: { session }, error } = await supabase.auth.getSession();
 
       if (error) {
@@ -68,15 +35,15 @@ export default function ResetPasswordPage() {
       }
 
       if (!session) {
-        console.log('No session found - reset link may be expired');
+        console.log('No session found. Please click the reset link from your email.');
         setError('Invalid or expired reset link. Please request a new one.');
       } else {
-        console.log('Valid session found - user can reset password');
+        console.log('Session found - user can reset password');
         setValidSession(true);
       }
     };
 
-    handlePasswordReset();
+    checkSession();
   }, []);
 
   const handleResetPassword = async (e: React.FormEvent) => {
