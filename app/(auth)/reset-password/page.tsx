@@ -20,55 +20,38 @@ export default function ResetPasswordPage() {
     if (hasRun.current) return;
     hasRun.current = true;
 
-    // Exchange code for session if present in URL, then check for valid session
-    const handleAuthCode = async () => {
+    // For password resets, Supabase sets the session via cookies automatically
+    // We just need to check if a valid session exists
+    const checkSession = async () => {
       const supabase = createClient();
 
-      // Check if there's a code in the URL (from password reset redirect)
+      // Clean up the URL (remove code parameter if present)
       const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-
-      if (code) {
-        console.log('Exchanging code for session...');
-
-        // Exchange the code for a session
-        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-
-        if (error) {
-          console.error('Error exchanging code:', error);
-          setError('Invalid or expired reset link. Please request a new one.');
-          return;
-        }
-
-        console.log('Code exchange successful, session:', data.session ? 'exists' : 'null');
-
-        // Clear the code from URL to prevent re-processing
+      if (urlParams.has('code') || urlParams.has('token')) {
         window.history.replaceState({}, '', '/reset-password');
-
-        // Check if we got a valid session from the exchange
-        if (data.session) {
-          setValidSession(true);
-          return;
-        } else {
-          console.error('No session returned from code exchange');
-          setError('Invalid or expired reset link. Please request a new one.');
-          return;
-        }
       }
 
-      // Fallback: check if there's already a valid session
-      const { data: { session } } = await supabase.auth.getSession();
+      console.log('Checking for existing session...');
+
+      // Check if there's a valid session (set by Supabase via cookies)
+      const { data: { session }, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error('Error getting session:', error);
+        setError('Invalid or expired reset link. Please request a new one.');
+        return;
+      }
 
       if (!session) {
-        console.log('No session found');
+        console.log('No session found - reset link may be expired');
         setError('Invalid or expired reset link. Please request a new one.');
       } else {
-        console.log('Existing session found');
+        console.log('Valid session found - user can reset password');
         setValidSession(true);
       }
     };
 
-    handleAuthCode();
+    checkSession();
   }, []);
 
   const handleResetPassword = async (e: React.FormEvent) => {
