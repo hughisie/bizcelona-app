@@ -15,9 +15,26 @@ export default function ResetPasswordPage() {
   const [validSession, setValidSession] = useState(false);
 
   useEffect(() => {
-    // Check if user has a valid session from the reset link
-    const checkSession = async () => {
+    // Exchange code for session if present in URL, then check for valid session
+    const handleAuthCode = async () => {
       const supabase = createClient();
+
+      // Check if there's a code in the URL (from password reset redirect)
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+
+      if (code) {
+        // Exchange the code for a session
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (error) {
+          console.error('Error exchanging code:', error);
+          setError('Invalid or expired reset link. Please request a new one.');
+          return;
+        }
+      }
+
+      // Now check if we have a valid session
       const { data: { session } } = await supabase.auth.getSession();
 
       if (!session) {
@@ -27,7 +44,7 @@ export default function ResetPasswordPage() {
       }
     };
 
-    checkSession();
+    handleAuthCode();
   }, []);
 
   const handleResetPassword = async (e: React.FormEvent) => {
