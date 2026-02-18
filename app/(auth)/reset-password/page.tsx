@@ -20,20 +20,45 @@ export default function ResetPasswordPage() {
     if (hasRun.current) return;
     hasRun.current = true;
 
-    // For password resets, Supabase sets the session via cookies automatically
-    // We just need to check if a valid session exists
-    const checkSession = async () => {
+    // Handle password reset by checking URL hash parameters
+    const handlePasswordReset = async () => {
       const supabase = createClient();
 
-      // Clean up the URL (remove code parameter if present)
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('code') || urlParams.has('token')) {
+      // Supabase redirects with hash parameters (not query params)
+      // e.g., #access_token=...&refresh_token=...&type=recovery
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get('access_token');
+      const refreshToken = hashParams.get('refresh_token');
+      const type = hashParams.get('type');
+
+      console.log('Hash params:', { accessToken: accessToken ? 'exists' : 'null', refreshToken: refreshToken ? 'exists' : 'null', type });
+
+      // If we have tokens in the hash, set the session
+      if (accessToken && refreshToken && type === 'recovery') {
+        console.log('Setting session from hash tokens...');
+
+        const { data, error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        });
+
+        if (error) {
+          console.error('Error setting session from tokens:', error);
+          setError('Invalid or expired reset link. Please request a new one.');
+          return;
+        }
+
+        console.log('Session set successfully');
+
+        // Clean up the hash
         window.history.replaceState({}, '', '/reset-password');
+
+        setValidSession(true);
+        return;
       }
 
+      // Fallback: check if there's already a valid session
       console.log('Checking for existing session...');
-
-      // Check if there's a valid session (set by Supabase via cookies)
       const { data: { session }, error } = await supabase.auth.getSession();
 
       if (error) {
@@ -51,7 +76,7 @@ export default function ResetPasswordPage() {
       }
     };
 
-    checkSession();
+    handlePasswordReset();
   }, []);
 
   const handleResetPassword = async (e: React.FormEvent) => {
