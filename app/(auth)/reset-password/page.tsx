@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -13,8 +13,13 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [validSession, setValidSession] = useState(false);
+  const hasRun = useRef(false);
 
   useEffect(() => {
+    // Prevent running multiple times (React Strict Mode runs effects twice in dev)
+    if (hasRun.current) return;
+    hasRun.current = true;
+
     // Exchange code for session if present in URL, then check for valid session
     const handleAuthCode = async () => {
       const supabase = createClient();
@@ -24,6 +29,8 @@ export default function ResetPasswordPage() {
       const code = urlParams.get('code');
 
       if (code) {
+        console.log('Exchanging code for session...');
+
         // Exchange the code for a session
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
@@ -33,12 +40,18 @@ export default function ResetPasswordPage() {
           return;
         }
 
+        console.log('Code exchange successful, session:', data.session ? 'exists' : 'null');
+
         // Clear the code from URL to prevent re-processing
         window.history.replaceState({}, '', '/reset-password');
 
         // Check if we got a valid session from the exchange
         if (data.session) {
           setValidSession(true);
+          return;
+        } else {
+          console.error('No session returned from code exchange');
+          setError('Invalid or expired reset link. Please request a new one.');
           return;
         }
       }
@@ -47,8 +60,10 @@ export default function ResetPasswordPage() {
       const { data: { session } } = await supabase.auth.getSession();
 
       if (!session) {
+        console.log('No session found');
         setError('Invalid or expired reset link. Please request a new one.');
       } else {
+        console.log('Existing session found');
         setValidSession(true);
       }
     };
