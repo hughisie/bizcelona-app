@@ -25,16 +25,25 @@ export default function ResetPasswordPage() {
 
       if (code) {
         // Exchange the code for a session
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
         if (error) {
           console.error('Error exchanging code:', error);
           setError('Invalid or expired reset link. Please request a new one.');
           return;
         }
+
+        // Clear the code from URL to prevent re-processing
+        window.history.replaceState({}, '', '/reset-password');
+
+        // Check if we got a valid session from the exchange
+        if (data.session) {
+          setValidSession(true);
+          return;
+        }
       }
 
-      // Now check if we have a valid session
+      // Fallback: check if there's already a valid session
       const { data: { session } } = await supabase.auth.getSession();
 
       if (!session) {
