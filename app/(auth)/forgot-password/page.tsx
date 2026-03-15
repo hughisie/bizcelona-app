@@ -25,7 +25,7 @@ export default function ForgotPasswordPage() {
       );
 
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: 'https://bizcelona.com/reset-password',
       });
 
       if (error) {
