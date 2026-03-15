@@ -18,7 +18,7 @@ export default function ForgotPasswordPage() {
     try {
       const supabase = createClient();
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://www.bizcelona.com/reset-password',
+        redirectTo: 'https://bizcelona-app.vercel.app/auth/callback',
       });
 
       if (error) {
