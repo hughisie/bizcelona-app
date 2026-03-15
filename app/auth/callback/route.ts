@@ -8,25 +8,31 @@ export async function GET(request: Request) {
   const next = requestUrl.searchParams.get('next');
   const origin = requestUrl.origin;
 
+  // For password recovery, skip server-side code exchange.
+  // The PKCE code verifier is stored in the browser's localStorage by the
+  // client-side Supabase client, so it's not accessible here on the server.
+  // Instead, pass the code to the client-side reset-password page which will
+  // call exchangeCodeForSession() using the browser Supabase client.
+  if (type === 'recovery') {
+    const resetUrl = code
+      ? `${origin}/reset-password?code=${code}`
+      : `${origin}/reset-password`;
+    return NextResponse.redirect(resetUrl);
+  }
+
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
       console.error('Auth callback error:', error);
-      // If there's an error, redirect to login with error message
       return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`);
     }
   }
 
-  // Determine redirect based on auth type or next parameter
   let redirectPath = '/apply';
 
-  if (type === 'recovery') {
-    // Password recovery flow - redirect to reset password page
-    redirectPath = '/reset-password';
-  } else if (next) {
-    // Use the next parameter if provided
+  if (next) {
     redirectPath = next;
   }
 
