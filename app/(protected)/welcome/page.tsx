@@ -82,6 +82,7 @@ export default function WelcomePage() {
       step={step} total={2} labels={LABELS}
       title={step === 1 ? "Welcome in. Let's polish your profile." : 'How you help — and what you need'}
       subtitle={step === 1 ? 'This is what other members will see.' : 'Help us connect you to the right people.'}
+      estimatedMinutes={2}
       footer={
         <>
           <button

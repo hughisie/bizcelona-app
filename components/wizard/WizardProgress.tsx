@@ -5,11 +5,11 @@ export function WizardProgress({
 }: { step: number; total: number; labels: string[] }) {
   return (
     <div className="w-full max-w-2xl mx-auto mb-8">
-      <div className="flex items-center justify-between text-[11px] uppercase tracking-wider text-gray-500 mb-2">
+      <div className="flex items-center justify-between text-xs uppercase tracking-wider text-gray-500 mb-2">
         <span>Step {step} of {total}</span>
         <span>{Math.round((step / total) * 100)}%</span>
       </div>
-      <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
         <div
           className="h-full bg-saffron transition-all duration-300"
           style={{ width: `${(step / total) * 100}%` }}

@@ -18,6 +18,7 @@ type State = {
   email: string; password: string; full_name: string;
   company: string; business_role: string; industry: string; headline: string;
   hopes_to_get: string; hopes_to_bring: string; contributor_interest: boolean;
+  contributor_interest_picked: boolean;
   linkedin_url: string; whatsapp_number: string; heard_from: string; additional_info: string;
   consent_guidelines: boolean; consent_privacy: boolean; consent_contact: boolean;
   consent_selective: boolean; consent_directory: boolean;
@@ -28,6 +29,7 @@ const INITIAL: State = {
   email: '', password: '', full_name: '',
   company: '', business_role: '', industry: '', headline: '',
   hopes_to_get: '', hopes_to_bring: '', contributor_interest: false,
+  contributor_interest_picked: false,
   linkedin_url: '', whatsapp_number: '', heard_from: '', additional_info: '',
   consent_guidelines: false, consent_privacy: false, consent_contact: false,
   consent_selective: false, consent_directory: false,
@@ -68,6 +70,7 @@ export default function SignupWizardPage() {
         setStep(3); return;
       }
       if (step === 3) {
+        if (!state.contributor_interest_picked) { setErr('Please pick Yes or No'); return; }
         const r = step3Schema.safeParse({
           hopes_to_get: state.hopes_to_get, hopes_to_bring: state.hopes_to_bring,
           contributor_interest: state.contributor_interest,
@@ -106,6 +109,7 @@ export default function SignupWizardPage() {
       step={step} total={5} labels={LABELS}
       title={step === 1 ? 'Create your account' : step === 5 ? 'Consent & submit' : LABELS[step-1]}
       subtitle={step === 1 ? 'Welcome to Bizcelona. Takes about 5 minutes.' : undefined}
+      estimatedMinutes={5}
       footer={
         <>
           <button
@@ -132,7 +136,7 @@ export default function SignupWizardPage() {
     >
       {step === 1 && <Step1Account state={state} update={update} />}
       {step === 2 && <Step2AboutYou state={state} update={update} />}
-      {step === 3 && <Step3Intentions state={state} update={update} />}
+      {step === 3 && <Step3Intentions state={state} update={update} picked={state.contributor_interest_picked} onPick={(v) => update({ contributor_interest: v, contributor_interest_picked: true })} />}
       {step === 4 && <Step4Socials state={state} update={update} />}
       {step === 5 && <Step5Consent state={state} update={update} />}
     </WizardShell>

@@ -1,10 +1,15 @@
 'use client';
 export function Step3Intentions({
-  state, update,
+  state, update, picked, onPick,
 }: {
   state: { hopes_to_get: string; hopes_to_bring: string; contributor_interest: boolean };
   update: (p: Partial<{ hopes_to_get: string; hopes_to_bring: string; contributor_interest: boolean }>) => void;
+  picked: boolean;
+  onPick: (v: boolean) => void;
 }) {
+  const selectedClass = 'bg-navy text-white border-navy';
+  const unselectedClass = 'bg-gray-100 border-gray-300 text-navy hover:bg-gray-200';
+
   return (
     <div className="space-y-5">
       <div>
@@ -31,15 +36,15 @@ export function Step3Intentions({
         <div className="mt-2 flex gap-2">
           <button
             type="button"
-            className={`px-4 py-2 text-sm rounded-md border ${state.contributor_interest ? 'bg-navy text-white border-navy' : 'bg-white border-gray-300 text-navy'}`}
-            onClick={() => update({ contributor_interest: true })}
+            className={`px-4 py-2 text-sm rounded-md border ${picked && state.contributor_interest ? selectedClass : unselectedClass}`}
+            onClick={() => { update({ contributor_interest: true }); onPick(true); }}
           >
             Yes
           </button>
           <button
             type="button"
-            className={`px-4 py-2 text-sm rounded-md border ${!state.contributor_interest ? 'bg-navy text-white border-navy' : 'bg-white border-gray-300 text-navy'}`}
-            onClick={() => update({ contributor_interest: false })}
+            className={`px-4 py-2 text-sm rounded-md border ${picked && !state.contributor_interest ? selectedClass : unselectedClass}`}
+            onClick={() => { update({ contributor_interest: false }); onPick(false); }}
           >
             No
           </button>
