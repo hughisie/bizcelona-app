@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Tailwind v4 theme — custom brand colours. Without this block, classes like
+   bg-navy / text-saffron / bg-off-white silently emit no CSS. */
+@theme {
+  --color-navy: #1a202c;
+  --color-saffron: #f6ad55;
+  --color-off-white: #fafafa;
+  --color-beige: #f7fafc;
+  --font-inter: Inter, sans-serif;
+}
+
 /* Custom animations from original site */
 @keyframes fadeInUp {
   from {
