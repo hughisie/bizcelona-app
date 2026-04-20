@@ -16,7 +16,7 @@ const LABELS = ['Account', 'About you', 'Intentions', 'Socials & source', 'Conse
 
 type State = {
   email: string; password: string; full_name: string;
-  company: string; business_role: string; industry: string; headline: string;
+  company: string; business_role: string; industry: string; industry_other: string; headline: string;
   hopes_to_get: string; hopes_to_bring: string; contributor_interest: boolean;
   contributor_interest_picked: boolean;
   linkedin_url: string; whatsapp_number: string; heard_from: string; additional_info: string;
@@ -27,7 +27,7 @@ type State = {
 
 const INITIAL: State = {
   email: '', password: '', full_name: '',
-  company: '', business_role: '', industry: '', headline: '',
+  company: '', business_role: '', industry: '', industry_other: '', headline: '',
   hopes_to_get: '', hopes_to_bring: '', contributor_interest: false,
   contributor_interest_picked: false,
   linkedin_url: '', whatsapp_number: '', heard_from: '', additional_info: '',
@@ -64,7 +64,8 @@ export default function SignupWizardPage() {
       if (step === 2) {
         const r = step2Schema.safeParse({
           company: state.company, business_role: state.business_role,
-          industry: state.industry, headline: state.headline,
+          industry: state.industry, industry_other: state.industry_other || undefined,
+          headline: state.headline,
         });
         if (!r.success) {
           const issue = r.error.issues[0];
@@ -73,6 +74,7 @@ export default function SignupWizardPage() {
             company: 'Company',
             business_role: 'Role',
             industry: 'Industry',
+            industry_other: 'Industry (Other)',
             headline: 'Headline',
           };
           const label = field && fieldLabel[field];

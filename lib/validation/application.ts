@@ -7,14 +7,20 @@ export const step1Schema = z.object({
   full_name: z.string().min(2, 'Name too short').max(100),
 });
 
-export const step2Schema = z.object({
+const step2Base = z.object({
   company: z.string().min(1, 'Company or employer required').max(120),
   business_role: z.string().min(1, 'Role required').max(120),
   industry: z.enum(INDUSTRIES as unknown as [string, ...string[]], {
     message: 'Pick an industry',
   }),
+  industry_other: z.string().max(120).optional(),
   headline: z.string().min(5, 'At least 5 characters').max(200, 'Keep it under 200'),
 });
+
+export const step2Schema = step2Base.refine(
+  (d) => d.industry !== 'Other' || (d.industry_other && d.industry_other.trim().length >= 2),
+  { path: ['industry_other'], message: 'Please tell us which industry' }
+);
 
 export const step3Schema = z.object({
   hopes_to_get: z.string().min(50, 'A sentence or two — at least 50 characters').max(1000),
@@ -44,9 +50,13 @@ export const step5Schema = z.object({
 });
 
 export const fullApplicationSchema = step1Schema
-  .merge(step2Schema)
+  .merge(step2Base)
   .merge(step3Schema)
   .merge(step4Schema)
-  .merge(step5Schema);
+  .merge(step5Schema)
+  .refine(
+    (d) => d.industry !== 'Other' || (d.industry_other && d.industry_other.trim().length >= 2),
+    { path: ['industry_other'], message: 'Please tell us which industry' }
+  );
 
 export type FullApplication = z.infer<typeof fullApplicationSchema>;

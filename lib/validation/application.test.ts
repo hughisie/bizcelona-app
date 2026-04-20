@@ -29,6 +29,37 @@ describe('step2Schema', () => {
     });
     expect(r.success).toBe(false);
   });
+  it('rejects Other without industry_other', () => {
+    const r = step2Schema.safeParse({
+      company: 'X', business_role: 'Y', industry: 'Other',
+      headline: 'Hello world',
+    });
+    expect(r.success).toBe(false);
+    expect(r.success === false && r.error.issues[0]?.path[0]).toBe('industry_other');
+  });
+  it('rejects Other with too-short industry_other', () => {
+    const r = step2Schema.safeParse({
+      company: 'X', business_role: 'Y', industry: 'Other',
+      industry_other: 'X',
+      headline: 'Hello world',
+    });
+    expect(r.success).toBe(false);
+  });
+  it('accepts Other with valid industry_other', () => {
+    const r = step2Schema.safeParse({
+      company: 'X', business_role: 'Y', industry: 'Other',
+      industry_other: 'Beekeeping',
+      headline: 'Hello world',
+    });
+    expect(r.success).toBe(true);
+  });
+  it('does not require industry_other for non-Other industries', () => {
+    const r = step2Schema.safeParse({
+      company: 'X', business_role: 'Y', industry: 'Tech',
+      headline: 'Hello world',
+    });
+    expect(r.success).toBe(true);
+  });
 });
 
 describe('step3Schema', () => {
