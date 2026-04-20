@@ -19,5 +19,10 @@ export async function POST(_: Request, { params }: { params: Promise<{ id: strin
     body: JSON.stringify({ application_id: id }),
   }).catch(() => {});
 
+  fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/notifications/status-change`, {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ application_id: id, action: 'approve', reviewer_id: user.id }),
+  }).catch(() => {});
+
   return NextResponse.json({ ok: true });
 }
