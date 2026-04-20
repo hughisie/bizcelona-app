@@ -32,11 +32,25 @@ describe('step2Schema', () => {
 });
 
 describe('step3Schema', () => {
-  it('requires >= 10 chars on each prompt', () => {
+  it('rejects input shorter than 50 chars', () => {
     const r = step3Schema.safeParse({
       hopes_to_get: 'short', hopes_to_bring: 'also short', contributor_interest: false,
     });
     expect(r.success).toBe(false);
+  });
+  it('rejects input of exactly 49 chars', () => {
+    const fortyNine = 'a'.repeat(49);
+    const r = step3Schema.safeParse({
+      hopes_to_get: fortyNine, hopes_to_bring: fortyNine, contributor_interest: false,
+    });
+    expect(r.success).toBe(false);
+  });
+  it('accepts input of 50+ chars', () => {
+    const fifty = 'a'.repeat(50);
+    const r = step3Schema.safeParse({
+      hopes_to_get: fifty, hopes_to_bring: fifty, contributor_interest: true,
+    });
+    expect(r.success).toBe(true);
   });
 });
 

@@ -17,8 +17,8 @@ export const step2Schema = z.object({
 });
 
 export const step3Schema = z.object({
-  hopes_to_get: z.string().min(10, 'Tell us a little more').max(1000),
-  hopes_to_bring: z.string().min(10, 'Tell us a little more').max(1000),
+  hopes_to_get: z.string().min(50, 'A sentence or two — at least 50 characters').max(1000),
+  hopes_to_bring: z.string().min(50, 'A sentence or two — at least 50 characters').max(1000),
   contributor_interest: z.boolean(),
 });
 
@@ -28,8 +28,8 @@ export const step4Schema = z.object({
     { message: 'Must be a LinkedIn URL' }
   ),
   whatsapp_number: z.string().regex(
-    /^\+\d{7,15}$/,
-    'Include country code, digits only (e.g. +34612345678)'
+    /^\+\d{10,15}$/,
+    'Include country code, digits only (e.g. +34612345678, at least 10 digits)'
   ),
   heard_from: z.string().min(2, 'Tell us how').max(500),
   additional_info: z.string().max(2000).optional(),
