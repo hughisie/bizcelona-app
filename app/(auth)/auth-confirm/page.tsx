@@ -13,70 +13,58 @@ function AuthConfirm() {
     if (hasRun.current) return;
     hasRun.current = true;
 
-    const confirmAuth = async () => {
+    const run = async () => {
       const supabase = createClient();
-
-      console.log('Auth confirm page loaded');
-      console.log('Search params:', Object.fromEntries(searchParams));
-
-      // Try to get token from different possible locations
       const token_hash = searchParams.get('token_hash') || searchParams.get('token');
-      const type = searchParams.get('type') || 'recovery';
-      const next = searchParams.get('next') || '/reset-password';
+      const type = searchParams.get('type');
       const code = searchParams.get('code');
 
-      console.log('Extracted params:', { token_hash: token_hash ? 'exists' : 'null', type, next, code: code ? 'exists' : 'null' });
+      // Determine destination based on type
+      const isRecovery = type === 'recovery';
+      const defaultNext = isRecovery ? '/reset-password' : '/dashboard';
+      const next = searchParams.get('next') || defaultNext;
+      const errorRedirect = (msg: string) =>
+        isRecovery
+          ? `/reset-password?error=${encodeURIComponent(msg)}`
+          : `/login?error=${encodeURIComponent(msg)}`;
 
-      // If we have a code parameter, try to exchange it
+      // OAuth-style code flow
       if (code && !token_hash) {
-        console.log('Got code parameter, trying exchangeCodeForSession');
-
         const { error } = await supabase.auth.exchangeCodeForSession(code);
-
         if (error) {
-          console.error('Error exchanging code:', error);
-          router.push(`/reset-password?error=${encodeURIComponent('Please try the password reset link from your email')}`);
+          router.push(errorRedirect(error.message));
           return;
         }
-
-        console.log('Code exchange successful, redirecting to', next);
         router.push(next);
         return;
       }
 
-      // If we have a token_hash, verify the OTP
-      if (token_hash) {
-        console.log('Attempting OTP verification with token_hash');
-
+      // OTP flow (both signup and recovery)
+      if (token_hash && type) {
         const { error } = await supabase.auth.verifyOtp({
           token_hash,
           type: type as any,
         });
-
         if (error) {
-          console.error('Error verifying OTP:', error);
-          router.push(`/reset-password?error=${encodeURIComponent(error.message)}`);
+          router.push(errorRedirect(error.message));
           return;
         }
-
-        console.log('OTP verification successful, redirecting to', next);
         router.push(next);
         return;
       }
 
-      // No valid parameters found
-      console.error('No valid token_hash or code found');
-      router.push('/reset-password?error=' + encodeURIComponent('Invalid reset link - no token found'));
+      // Nothing to work with
+      router.push(errorRedirect('No valid token found'));
     };
 
-    confirmAuth();
+    run();
   }, [searchParams, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-beige">
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-navy mx-auto mb-4"></div>
-        <p className="text-navy text-lg">Verifying your reset link...</p>
+        <p className="text-navy text-lg">Verifying…</p>
       </div>
     </div>
   );
