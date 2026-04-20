@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { isUserAdmin } from '@/lib/admin';
 import Link from 'next/link';
 import { AdminNav } from '../AdminNav';
+import { ApplicationsTable, type ApplicationRow } from './ApplicationsTable';
 
 export default async function ApplicationsListPage({
   searchParams,
@@ -33,7 +34,7 @@ export default async function ApplicationsListPage({
   // Build query
   let query = supabase
     .from('applications')
-    .select('*')
+    .select('id, user_id, full_name, email, job_title, employer_business, status, created_at')
     .order('created_at', { ascending: false });
 
   if (statusFilter !== 'all') {
@@ -42,10 +43,23 @@ export default async function ApplicationsListPage({
 
   const { data: applications } = await query;
 
+  // Fetch slugs for applicant profiles separately (avoids FK ambiguity with reviewed_by)
+  const userIds = (applications ?? []).map((a) => a.user_id).filter(Boolean) as string[];
+  const { data: profileSlugs } = userIds.length > 0
+    ? await supabase.from('profiles').select('id, slug').in('id', userIds)
+    : { data: [] };
+
+  const slugByUserId = new Map((profileSlugs ?? []).map((p) => [p.id, p.slug]));
+
+  const rows: ApplicationRow[] = (applications ?? []).map((a) => ({
+    ...a,
+    slug: a.user_id ? (slugByUserId.get(a.user_id) ?? null) : null,
+  }));
+
   return (
     <div className="min-h-screen bg-beige">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AdminNav active="applications"/>
+        <AdminNav active="applications" />
         {/* Header */}
         <div className="mb-8">
           <div className="flex justify-between items-center">
@@ -120,84 +134,8 @@ export default async function ApplicationsListPage({
 
         {/* Applications Table */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {applications && applications.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Email
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Job Title
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Company
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Submitted
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {applications.map((application) => (
-                    <tr key={application.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {application.full_name}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{application.email}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{application.job_title}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{application.employer_business}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            application.status === 'submitted'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : application.status === 'under_review'
-                              ? 'bg-blue-100 text-blue-800'
-                              : application.status === 'approved'
-                              ? 'bg-green-100 text-green-800'
-                              : application.status === 'rejected'
-                              ? 'bg-red-100 text-red-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          {application.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(application.created_at).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <Link
-                          href={`/admin/applications/${application.id}`}
-                          className="text-saffron hover:text-orange-600 font-semibold"
-                        >
-                          Review →
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          {rows.length > 0 ? (
+            <ApplicationsTable initialRows={rows} />
           ) : (
             <div className="text-center py-12">
               <svg
