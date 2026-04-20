@@ -42,18 +42,18 @@ export function Step5Consent({
   return (
     <div className="space-y-3">
       <p className="text-sm text-gray-600">Please confirm the following. All five are required.</p>
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-end gap-2 py-1">
         <button
           type="button"
           onClick={clearAll}
-          className="px-3 py-1 text-xs border border-gray-300 rounded-md text-navy hover:bg-gray-100"
+          className="px-3 py-1.5 text-xs text-gray-500 underline hover:text-navy"
         >
           Clear all
         </button>
         <button
           type="button"
           onClick={acceptAll}
-          className="px-3 py-1 text-xs border border-navy rounded-md bg-navy text-white hover:bg-navy/90"
+          className="px-4 py-1.5 text-xs font-semibold rounded-md bg-saffron text-navy border border-saffron hover:brightness-95"
         >
           Accept all
         </button>

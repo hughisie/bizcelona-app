@@ -9,9 +9,9 @@ export function WizardProgress({
         <span>Step {step} of {total}</span>
         <span>{Math.round((step / total) * 100)}%</span>
       </div>
-      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-gray-300 rounded-full overflow-hidden">
         <div
-          className="h-full bg-saffron transition-all duration-300"
+          className="h-full bg-navy transition-all duration-300"
           style={{ width: `${(step / total) * 100}%` }}
         />
       </div>
@@ -21,7 +21,7 @@ export function WizardProgress({
             key={l}
             className={cn(
               'truncate',
-              i + 1 === step ? 'text-navy font-semibold' : '',
+              i + 1 === step ? 'text-sm text-navy font-semibold' : '',
               i + 1 < step ? 'text-saffron' : ''
             )}
           >

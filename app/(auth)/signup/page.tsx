@@ -66,7 +66,19 @@ export default function SignupWizardPage() {
           company: state.company, business_role: state.business_role,
           industry: state.industry, headline: state.headline,
         });
-        if (!r.success) { setErr(r.error.issues[0]?.message ?? 'Invalid input'); return; }
+        if (!r.success) {
+          const issue = r.error.issues[0];
+          const field = issue?.path?.[0] as string | undefined;
+          const fieldLabel: Record<string, string> = {
+            company: 'Company',
+            business_role: 'Role',
+            industry: 'Industry',
+            headline: 'Headline',
+          };
+          const label = field && fieldLabel[field];
+          setErr(label ? `${label}: ${issue?.message}` : (issue?.message ?? 'Invalid input'));
+          return;
+        }
         setStep(3); return;
       }
       if (step === 3) {
@@ -75,7 +87,18 @@ export default function SignupWizardPage() {
           hopes_to_get: state.hopes_to_get, hopes_to_bring: state.hopes_to_bring,
           contributor_interest: state.contributor_interest,
         });
-        if (!r.success) { setErr(r.error.issues[0]?.message ?? 'Invalid input'); return; }
+        if (!r.success) {
+          const issue = r.error.issues[0];
+          const field = issue?.path?.[0] as string | undefined;
+          const fieldLabel: Record<string, string> = {
+            hopes_to_get: "What you're hoping to get",
+            hopes_to_bring: "What you're hoping to bring",
+            contributor_interest: 'Contributor question',
+          };
+          const label = field && fieldLabel[field];
+          setErr(label ? `${label}: ${issue?.message}` : (issue?.message ?? 'Invalid input'));
+          return;
+        }
         setStep(4); return;
       }
       if (step === 4) {
@@ -83,7 +106,19 @@ export default function SignupWizardPage() {
           linkedin_url: state.linkedin_url, whatsapp_number: state.whatsapp_number,
           heard_from: state.heard_from, additional_info: state.additional_info || undefined,
         });
-        if (!r.success) { setErr(r.error.issues[0]?.message ?? 'Invalid input'); return; }
+        if (!r.success) {
+          const issue = r.error.issues[0];
+          const field = issue?.path?.[0] as string | undefined;
+          const fieldLabel: Record<string, string> = {
+            linkedin_url: 'LinkedIn URL',
+            whatsapp_number: 'WhatsApp number',
+            heard_from: 'How you heard about us',
+            additional_info: 'Additional info',
+          };
+          const label = field && fieldLabel[field];
+          setErr(label ? `${label}: ${issue?.message}` : (issue?.message ?? 'Invalid input'));
+          return;
+        }
         setStep(5); return;
       }
       if (step === 5) {
