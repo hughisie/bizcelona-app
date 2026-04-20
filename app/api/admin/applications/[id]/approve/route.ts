@@ -10,7 +10,7 @@ export async function POST(_: Request, { params }: { params: Promise<{ id: strin
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
 
   const { error } = await supabase.rpc('approve_application', {
-    p_application_id: id, p_reviewer_id: user.id, p_notes: undefined,
+    p_application_id: id, p_reviewer_id: user.id,
   });
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
 

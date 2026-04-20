@@ -143,8 +143,11 @@ UPDATE profiles SET slug = generate_profile_slug(full_name, id) WHERE slug IS NU
 -- directory-visible members. SECURITY INVOKER means the caller's policies apply,
 -- so we separately grant anon/authenticated SELECT on the view itself below.
 -- -----------------------------------------------------
+-- security_invoker = false so anon users can read these narrow columns
+-- (id, slug, profile_picture_url) without needing a permissive RLS policy
+-- on the entire profiles table.
 CREATE OR REPLACE VIEW public_profile_slugs
-WITH (security_invoker = true) AS
+WITH (security_invoker = false) AS
 SELECT p.id, p.slug, p.profile_picture_url
 FROM profiles p
 JOIN members m ON m.user_id = p.id
