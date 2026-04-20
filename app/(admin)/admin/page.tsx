@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { isUserAdmin } from '@/lib/admin';
 import Link from 'next/link';
 import { AdminNav } from './AdminNav';
+import { SignupsWithoutAppsTable } from './SignupsWithoutAppsTable';
 
 export default async function AdminDashboardPage() {
   const supabase = await createClient();
@@ -81,6 +82,7 @@ export default async function AdminDashboardPage() {
           <div>
             <h1 className="text-4xl font-bold text-navy mb-2">Admin Dashboard</h1>
             <p className="text-gray-600">Manage Bizcelona applications and members</p>
+            <Link href="/profile" className="text-sm text-navy underline mt-1 inline-block">Edit my profile</Link>
           </div>
           <Link
             href="/admin/applications"
@@ -135,28 +137,7 @@ export default async function AdminDashboardPage() {
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h2 className="text-xl font-bold text-navy mb-1">Signed Up — No Application Yet</h2>
             <p className="text-sm text-gray-500 mb-4">These users created an account but haven't submitted their application form</p>
-            {signupsWithoutApplication.length > 0 ? (
-              <div className="space-y-3">
-                {signupsWithoutApplication.map((profile) => (
-                  <div key={profile.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">{profile.full_name || 'No name'}</p>
-                      <p className="text-xs text-gray-500">{profile.email}</p>
-                      <p className="text-xs text-gray-400">
-                        {new Date(profile.created_at).toLocaleDateString('en-GB', {
-                          day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-                        })}
-                      </p>
-                    </div>
-                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 whitespace-nowrap">
-                      No Application
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500 text-center py-8 text-sm">All registered users have submitted applications</p>
-            )}
+            <SignupsWithoutAppsTable rows={signupsWithoutApplication} />
           </div>
 
           {/* Quick Actions */}
