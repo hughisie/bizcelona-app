@@ -1,7 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const PROTECTED = ['/dashboard', '/members', '/profile', '/admin', '/welcome'];
+const PROTECTED = ['/dashboard', '/profile', '/admin', '/welcome'];
+// /members is handled separately: /members (index) is members-only, /members/[slug] is public
 const AUTH_ROUTES = ['/login'];   // NOTE: /signup intentionally NOT here — wizard must be reachable while authed
 const WELCOME_EXEMPT = ['/welcome', '/api/', '/auth-confirm', '/logout'];
 
@@ -34,6 +35,14 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('redirectTo', path);
+    return NextResponse.redirect(url);
+  }
+
+  // /members index is members-only; /members/[slug] is public (shareable profile links)
+  if (!user && path === '/members') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.searchParams.set('redirectTo', '/members');
     return NextResponse.redirect(url);
   }
 
