@@ -54,10 +54,20 @@ export function DirectoryClient({ members }: { members: DirectoryMember[] }) {
           />
           <div>
             <div className="text-xs text-gray-500 mb-2">{filtered.length} of {members.length} members</div>
-            <div className="space-y-2">
-              {filtered.map((m) => <MemberRow key={m.id} m={m}/>)}
-              {filtered.length === 0 && <div className="text-sm text-gray-500 italic p-6">No members match these filters.</div>}
-            </div>
+            {members.length === 0 ? (
+              <div className="rounded-xl bg-white border border-gray-200 p-10 text-center">
+                <div className="text-4xl mb-3">🧭</div>
+                <h2 className="text-lg font-semibold text-navy">The directory is getting started</h2>
+                <p className="text-sm text-gray-600 mt-1 max-w-md mx-auto">
+                  New members are joining in waves. Come back after the next admissions cycle and this will be full of people you want to meet.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {filtered.map((m) => <MemberRow key={m.id} m={m}/>)}
+                {filtered.length === 0 && <div className="text-sm text-gray-500 italic p-6">No members match these filters.</div>}
+              </div>
+            )}
           </div>
         </div>
       </div>
