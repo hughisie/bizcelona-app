@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: 'All users in window have applied', sent: 0 });
     }
 
-    const applyUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.bizcelona.com'}/apply`;
+    const applyUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.bizcelona.com'}/signup`;
     let sent = 0;
     const errors: string[] = [];
 

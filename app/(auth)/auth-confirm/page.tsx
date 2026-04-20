@@ -46,6 +46,13 @@ function AuthConfirm() {
           type: type as any,
         });
         if (error) {
+          // Our signup flow auto-confirms server-side, so the OTP may already be "used"
+          // or the user already "confirmed" by the time they click. Treat that as a success.
+          const already = /already|confirmed|used|expired|verified/i.test(error.message);
+          if (already && !isRecovery) {
+            router.push(next);
+            return;
+          }
           router.push(errorRedirect(error.message));
           return;
         }
