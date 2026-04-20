@@ -1,11 +1,16 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { isUserAdmin } from '@/lib/admin';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
+
+  // Admins bypass all wizard/queue/onboarding logic and land on the admin home.
+  const admin = await isUserAdmin();
+  if (admin) redirect('/admin');
 
   const [{ data: profile }, { data: application }, { data: member }] = await Promise.all([
     supabase.from('profiles').select('full_name, onboarding_completed_at').eq('id', user.id).maybeSingle(),
@@ -21,8 +26,8 @@ export default async function DashboardPage() {
   const status = member?.status ?? application.status;
   const firstName = (profile?.full_name ?? '').split(' ')[0] || 'there';
 
-  // Approved + onboarding done → full dashboard (this branch will grow in Phase 4)
-  if (status === 'approved' && profile?.onboarding_completed_at) {
+  // Approved (or active) + onboarding done → full dashboard (this branch will grow in Phase 4)
+  if ((status === 'approved' || status === 'active') && profile?.onboarding_completed_at) {
     return (
       <div className="min-h-screen bg-beige">
         <div className="max-w-5xl mx-auto px-4 py-12">
@@ -64,7 +69,7 @@ export default async function DashboardPage() {
         )}
 
         <h1 className="text-3xl font-bold text-navy">Thanks, {firstName} — you&apos;re in the queue.</h1>
-        <p className="mt-2 text-gray-600">We typically review applications within 3–5 working days. We&apos;ll email you as soon as we&apos;ve decided.</p>
+        <p className="mt-2 text-gray-600">We review applications in waves — we&apos;ll be in touch as soon as the next cohort opens. No need to do anything else right now.</p>
 
         <div className="mt-8 bg-white rounded-xl border border-gray-200 p-6">
           <div className="text-xs uppercase tracking-wider text-gray-500">A peek at the community</div>

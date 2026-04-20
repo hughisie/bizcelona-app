@@ -57,6 +57,16 @@ export async function updateSession(request: NextRequest) {
   if (user) {
     const exempt = WELCOME_EXEMPT.some((p) => path.startsWith(p));
     if (!exempt) {
+      // Admins bypass the welcome gate entirely
+      const { data: adminRow } = await supabase
+        .from('admins')
+        .select('user_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (adminRow) {
+        return supabaseResponse;
+      }
+
       const { data: rows } = await supabase
         .from('profiles')
         .select('onboarding_completed_at, id')
@@ -69,7 +79,7 @@ export async function updateSession(request: NextRequest) {
           .select('status')
           .eq('user_id', user.id)
           .maybeSingle();
-        if (mem?.status === 'approved' && path !== '/welcome') {
+        if ((mem?.status === 'approved' || mem?.status === 'active') && path !== '/welcome') {
           const url = request.nextUrl.clone();
           url.pathname = '/welcome';
           return NextResponse.redirect(url);
