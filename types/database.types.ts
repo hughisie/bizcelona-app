@@ -7,6 +7,8 @@ export type Json =
   | Json[]
 
 export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "13.0.5"
   }
@@ -51,6 +53,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "activity_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
         ]
       }
       admins: {
@@ -75,7 +84,36 @@ export type Database = {
           role?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "admins_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "admins_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "admins_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "admins_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       applications: {
         Row: {
@@ -101,6 +139,7 @@ export type Database = {
           how_heard_about: string
           id: string
           industry: string | null
+          industry_other: string | null
           industry_sector: string
           ip_address: string | null
           job_title: string | null
@@ -138,6 +177,7 @@ export type Database = {
           how_heard_about: string
           id?: string
           industry?: string | null
+          industry_other?: string | null
           industry_sector: string
           ip_address?: string | null
           job_title?: string | null
@@ -175,6 +215,7 @@ export type Database = {
           how_heard_about?: string
           id?: string
           industry?: string | null
+          industry_other?: string | null
           industry_sector?: string
           ip_address?: string | null
           job_title?: string | null
@@ -189,7 +230,164 @@ export type Database = {
           what_do_you_do?: string
           whatsapp_number?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "applications_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      connection_requests: {
+        Row: {
+          clicked_at: string
+          confirmed_at: string | null
+          id: string
+          initiator_id: string
+          recipient_id: string
+          reminder_sent_at: string | null
+          reply_confirmed: boolean | null
+        }
+        Insert: {
+          clicked_at?: string
+          confirmed_at?: string | null
+          id?: string
+          initiator_id: string
+          recipient_id: string
+          reminder_sent_at?: string | null
+          reply_confirmed?: boolean | null
+        }
+        Update: {
+          clicked_at?: string
+          confirmed_at?: string | null
+          id?: string
+          initiator_id?: string
+          recipient_id?: string
+          reminder_sent_at?: string | null
+          reply_confirmed?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "connection_requests_initiator_id_fkey"
+            columns: ["initiator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "connection_requests_initiator_id_fkey"
+            columns: ["initiator_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "connection_requests_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "connection_requests_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          category: string
+          cover_image_url: string | null
+          created_at: string | null
+          description: string | null
+          end_date: string | null
+          event_date: string
+          external_url: string
+          id: string
+          is_published: boolean
+          location: string | null
+          organiser_id: string
+          platform: string
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_date?: string | null
+          event_date: string
+          external_url: string
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          organiser_id: string
+          platform: string
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_date?: string | null
+          event_date?: string
+          external_url?: string
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          organiser_id?: string
+          platform?: string
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_organiser_id_fkey"
+            columns: ["organiser_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_organiser_id_fkey"
+            columns: ["organiser_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       help_tags: {
         Row: {
@@ -213,7 +411,22 @@ export type Database = {
           tag?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "help_tags_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "help_tags_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       member_help_requests: {
         Row: {
@@ -240,7 +453,22 @@ export type Database = {
           is_active?: boolean | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "member_help_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_help_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       member_skills: {
         Row: {
@@ -264,7 +492,22 @@ export type Database = {
           skill_name?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "member_skills_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_skills_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       members: {
         Row: {
@@ -300,7 +543,86 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "members_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "members_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organiser_roles: {
+        Row: {
+          granted_at: string | null
+          granted_by: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          granted_at?: string | null
+          granted_by?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          granted_at?: string | null
+          granted_by?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organiser_roles_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organiser_roles_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organiser_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organiser_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       posts: {
         Row: {
@@ -348,7 +670,22 @@ export type Database = {
           updated_at?: string | null
           video_url?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "public_profile_slugs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -361,6 +698,7 @@ export type Database = {
           headline: string | null
           id: string
           industry: string | null
+          industry_other: string | null
           linkedin_url: string | null
           onboarding_completed_at: string | null
           phone_number: string | null
@@ -383,6 +721,7 @@ export type Database = {
           headline?: string | null
           id: string
           industry?: string | null
+          industry_other?: string | null
           linkedin_url?: string | null
           onboarding_completed_at?: string | null
           phone_number?: string | null
@@ -405,6 +744,7 @@ export type Database = {
           headline?: string | null
           id?: string
           industry?: string | null
+          industry_other?: string | null
           linkedin_url?: string | null
           onboarding_completed_at?: string | null
           phone_number?: string | null
@@ -469,12 +809,17 @@ export type Database = {
         }
         Returns: undefined
       }
+      generate_event_slug: {
+        Args: { p_id: string; p_title: string }
+        Returns: string
+      }
       generate_profile_slug: {
         Args: { p_full_name: string; p_id: string }
         Returns: string
       }
       is_admin: { Args: { user_id: string }; Returns: boolean }
       is_approved_member: { Args: { user_id: string }; Returns: boolean }
+      is_organiser: { Args: { user_id: string }; Returns: boolean }
       is_super_admin: { Args: { user_id: string }; Returns: boolean }
       is_user_admin: { Args: { user_id_param: string }; Returns: boolean }
       log_activity: {
@@ -505,3 +850,126 @@ export type Database = {
     }
   }
 }
+
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {},
+  },
+} as const
