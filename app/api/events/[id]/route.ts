@@ -49,12 +49,13 @@ export async function DELETE(_req: Request, { params }: Params) {
     return NextResponse.json({ ok: false, error: 'Unauthorised' }, { status: 401 });
   }
 
-  const { error } = await supabase
+  const { error, count } = await supabase
     .from('events')
-    .delete()
+    .delete({ count: 'exact' })
     .eq('id', id);
 
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+  if (count === 0) return NextResponse.json({ error: 'Event not found or not authorised' }, { status: 404 });
 
   return NextResponse.json({ ok: true, success: true });
 }

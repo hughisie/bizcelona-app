@@ -6,6 +6,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import { validateEventUrl } from './fetch-url';
+import { validateGrantOrganiserBody } from '@/lib/organiser/validators';
 
 // -----------------------------------------------------------------------
 // /api/events/fetch-url — URL validation
@@ -96,22 +97,6 @@ describe('validateEventUrl', () => {
 // -----------------------------------------------------------------------
 // /api/admin/organiser-roles — grant validation helpers
 // -----------------------------------------------------------------------
-
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-function validateGrantOrganiserBody(
-  body: unknown
-): { ok: true; userId: string } | { ok: false; error: string; status: number } {
-  if (!body || typeof body !== 'object') {
-    return { ok: false, error: 'Invalid JSON', status: 400 };
-  }
-  const { userId } = body as Record<string, unknown>;
-  if (!userId || typeof userId !== 'string') {
-    return { ok: false, error: 'userId is required', status: 400 };
-  }
-  // Accept any non-empty string — UUID validation happens at DB level via FK
-  return { ok: true, userId };
-}
 
 describe('validateGrantOrganiserBody', () => {
   const VALID_UUID = '123e4567-e89b-12d3-a456-426614174000';

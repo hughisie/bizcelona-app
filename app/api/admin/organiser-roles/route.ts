@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { isUserAdmin } from '@/lib/admin';
+import { validateGrantOrganiserBody } from '@/lib/organiser/validators';
 
 /** POST /api/admin/organiser-roles — grant organiser role to a user */
 export async function POST(req: Request) {
@@ -18,11 +19,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { userId } = (body as Record<string, unknown>) ?? {};
-
-  if (!userId || typeof userId !== 'string') {
-    return NextResponse.json({ ok: false, error: 'userId is required' }, { status: 400 });
+  const parsed = validateGrantOrganiserBody(body);
+  if (!parsed.ok) {
+    return NextResponse.json({ ok: false, error: parsed.error }, { status: parsed.status });
   }
+  const { userId } = parsed;
 
   // Verify the user exists in profiles
   const { data: profile, error: profileError } = await supabase
