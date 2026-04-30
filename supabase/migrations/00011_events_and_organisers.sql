@@ -163,6 +163,9 @@ CREATE TRIGGER events_set_slug_trigger
 -- -----------------------------------------------------
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 
+-- No TO clause intentionally — applies to both anon and authenticated roles.
+-- Required: the public marketing website embed (/api/events/public) fetches
+-- events without auth tokens. Anonymous access to published events is by design.
 -- Anyone (including anonymous) can read published events
 DROP POLICY IF EXISTS events_select_published ON events;
 CREATE POLICY events_select_published ON events

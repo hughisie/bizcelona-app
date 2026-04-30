@@ -50,6 +50,11 @@ CREATE POLICY connection_requests_update_admin ON connection_requests
   TO authenticated
   USING (public.is_admin(auth.uid()));
 
+-- UPDATE is admin-only via RLS.
+-- The /api/connections/confirm and /api/cron/connection-reminders endpoints
+-- use the Supabase service_role key (server-side), which bypasses RLS.
+-- Do NOT add an anon or authenticated UPDATE policy — service role is correct here.
+
 COMMENT ON TABLE connection_requests IS
   'Tracks WhatsApp connection clicks between members. Each row represents one click by initiator_id on recipient_id''s connect button.';
 
