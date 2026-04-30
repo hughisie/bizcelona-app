@@ -55,6 +55,7 @@ export function EventCard({ event, canEdit = false, onDelete, onEdit }: EventCar
     <img
       src={event.cover_image_url}
       alt=""
+      loading="lazy"
       className="w-full h-40 object-cover"
     />
   ) : (

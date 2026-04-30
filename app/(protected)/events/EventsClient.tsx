@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { EventsCalendar, type EventSummary } from '@/components/events/EventsCalendar';
 import { EventCard, type EventCardEvent } from '@/components/events/EventCard';
 import { EventForm } from '@/components/events/EventForm';
@@ -12,11 +12,6 @@ export type EventsClientProps = {
   isAdmin: boolean;
   currentUserId: string | null;
 };
-
-function currentMonthStr(): string {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-}
 
 export function EventsClient({
   events: initialEvents,
@@ -32,6 +27,23 @@ export function EventsClient({
   // Modal state
   const [showForm, setShowForm] = useState(false);
   const [editingEvent, setEditingEvent] = useState<EventCardEvent | null>(null);
+
+  // Keep a ref so async callbacks always see the latest month value
+  const currentMonthRef = useRef(currentMonth);
+  useEffect(() => { currentMonthRef.current = currentMonth; }, [currentMonth]);
+
+  // Close modal on Escape
+  useEffect(() => {
+    if (!showForm) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowForm(false);
+        setEditingEvent(null);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [showForm]);
 
   const canManage = isOrganiser || isAdmin;
 
@@ -72,20 +84,20 @@ export function EventsClient({
   }
 
   async function handleDelete(id: string) {
-    // Optimistic remove
     setEvents((prev) => prev.filter((e) => e.id !== id));
     try {
-      await fetch(`/api/events/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/events/${id}`, { method: 'DELETE' });
+      const json = await res.json();
+      if (!res.ok || !json.ok) await refetch(currentMonthRef.current);
     } catch {
-      // Refetch on failure to restore state
-      await refetch(currentMonth);
+      await refetch(currentMonthRef.current);
     }
   }
 
   function handleFormSuccess() {
     setShowForm(false);
     setEditingEvent(null);
-    refetch(currentMonth);
+    refetch(currentMonthRef.current);
   }
 
   function handleEditClick(event: EventCardEvent) {

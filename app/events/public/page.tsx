@@ -1,5 +1,5 @@
+import { createClient } from '@/lib/supabase/server';
 import { PublicEventsClient } from './PublicEventsClient';
-import type { EventCardEvent } from '@/components/events/EventCard';
 
 type SearchParams = Promise<{ month?: string }>;
 
@@ -10,20 +10,21 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
   const currentMonth =
     monthParam ?? `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
 
-  // Use the public API endpoint — no auth required, CORS-open
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
-  let events: EventCardEvent[] = [];
+  const supabase = await createClient();
+  const startOf = `${currentMonth}-01`;
+  const endOf = new Date(parseInt(currentMonth.split('-')[0]), parseInt(currentMonth.split('-')[1]), 0)
+    .toISOString()
+    .split('T')[0];
 
-  try {
-    const res = await fetch(`${baseUrl}/api/events/public?month=${currentMonth}`, {
-      // Don't cache in dev; in prod cache for 5 minutes
-      next: { revalidate: 300 },
-    });
-    const json = await res.json();
-    if (json.ok) events = json.data ?? [];
-  } catch {
-    // Silently fall back to empty list if fetch fails
-  }
+  const { data: events } = await supabase
+    .from('events')
+    .select('id, slug, title, description, event_date, end_date, location, cover_image_url, external_url, platform, category, organiser_id, is_published')
+    .eq('is_published', true)
+    .gte('event_date', `${startOf}T00:00:00.000Z`)
+    .lte('event_date', `${endOf}T23:59:59.999Z`)
+    .order('event_date', { ascending: true });
 
-  return <PublicEventsClient events={events} currentMonth={currentMonth} />;
+  const safeEvents = events ?? [];
+
+  return <PublicEventsClient events={safeEvents} currentMonth={currentMonth} />;
 }

@@ -106,7 +106,6 @@ export function EventForm({ initialValues, eventId, onSuccess, onCancel }: Event
       event_date: form.event_date ? new Date(form.event_date).toISOString() : form.event_date,
       end_date: form.end_date ? new Date(form.end_date).toISOString() : null,
       description: form.description || null,
-      end_date_val: form.end_date || null,
       location: form.location || null,
       cover_image_url: form.cover_image_url || null,
     };
