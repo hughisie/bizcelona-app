@@ -18,12 +18,13 @@ export async function DELETE(_req: Request, { params }: Params) {
 
   const supabase = await createClient();
 
-  const { error } = await supabase
+  const { error, count } = await supabase
     .from('organiser_roles')
-    .delete()
+    .delete({ count: 'exact' })
     .eq('user_id', userId);
 
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+  if (count === 0) return NextResponse.json({ ok: false, error: 'User is not an organiser' }, { status: 404 });
 
   return NextResponse.json({ ok: true, success: true });
 }

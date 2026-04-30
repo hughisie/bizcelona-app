@@ -19,7 +19,7 @@ export type UrlValidationResult =
   | { ok: true; url: URL; platform: EventPlatform }
   | { ok: false; error: string; status: number };
 
-const ALLOWED_HOSTNAMES: Record<string, EventPlatform> = {
+export const ALLOWED_HOSTNAMES: Record<string, EventPlatform> = {
   'lu.ma': 'luma',
   'luma.co': 'luma',
   'www.eventbrite.com': 'eventbrite',

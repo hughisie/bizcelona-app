@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { validateEventUrl, parseEventDataFromHtml } from '@/lib/events/fetch-url';
+import { validateEventUrl, parseEventDataFromHtml, ALLOWED_HOSTNAMES } from '@/lib/events/fetch-url';
 
 const FETCH_TIMEOUT_MS = 10_000;
 
@@ -47,6 +47,18 @@ export async function POST(req: Request) {
         );
       }
       html = await response.text();
+
+      // Re-validate the final URL after any redirects
+      const finalHostname = new URL(response.url).hostname.toLowerCase();
+      const isTrustedFinal = Object.keys(ALLOWED_HOSTNAMES).some(
+        h => finalHostname === h || finalHostname.endsWith('.' + h)
+      );
+      if (!isTrustedFinal) {
+        return NextResponse.json(
+          { ok: false, error: 'URL redirected to an untrusted domain' },
+          { status: 422 }
+        );
+      }
     } finally {
       clearTimeout(timeout);
     }

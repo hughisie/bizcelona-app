@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const PROTECTED = ['/dashboard', '/profile', '/admin', '/welcome'];
+const PROTECTED = ['/dashboard', '/profile', '/admin', '/welcome', '/events'];
 // /members is handled separately: /members (index) is members-only, /members/[slug] is public
 const AUTH_ROUTES = ['/login'];   // NOTE: /signup intentionally NOT here — wizard must be reachable while authed
 const WELCOME_EXEMPT = ['/welcome', '/api/', '/auth-confirm', '/logout'];
