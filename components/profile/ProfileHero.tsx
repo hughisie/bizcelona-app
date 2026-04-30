@@ -3,12 +3,12 @@ import { WhatsAppButton } from './WhatsAppButton';
 
 export function ProfileHero({
   fullName, role, company, industry, headline, pictureUrl,
-  linkedinUrl, whatsappNumber, showWhatsapp, isOwnProfile, signedIn,
+  linkedinUrl, whatsappNumber, showWhatsapp, isOwnProfile, signedIn, profileId,
 }: {
   fullName: string; role: string | null; company: string | null; industry: string | null;
   headline: string | null; pictureUrl: string | null;
   linkedinUrl: string | null; whatsappNumber: string | null;
-  showWhatsapp: boolean; isOwnProfile: boolean; signedIn: boolean;
+  showWhatsapp: boolean; isOwnProfile: boolean; signedIn: boolean; profileId: string;
 }) {
   return (
     <div>
@@ -30,7 +30,7 @@ export function ProfileHero({
               <Link href="/profile" className="px-3 py-2 text-sm border border-gray-300 rounded-md text-navy">Edit</Link>
             )}
             {signedIn && showWhatsapp && whatsappNumber && (
-              <WhatsAppButton number={whatsappNumber} name={fullName} />
+              <WhatsAppButton number={whatsappNumber} name={fullName} recipientId={profileId} />
             )}
             {signedIn && linkedinUrl && (
               <a href={linkedinUrl} target="_blank" rel="noopener noreferrer"

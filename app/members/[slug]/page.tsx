@@ -46,6 +46,7 @@ export default async function PublicProfilePage({
                 pictureUrl={null}
                 linkedinUrl={null} whatsappNumber={null}
                 showWhatsapp={false} isOwnProfile={false} signedIn={false}
+                profileId={slugRow.id}
               />
               <div className="p-6 space-y-5">
                 <ProfileHelpCards offered={['Hidden tag', 'Hidden tag']} needed={['Hidden tag']} />
@@ -96,6 +97,7 @@ export default async function PublicProfilePage({
             showWhatsapp={!!profile!.show_whatsapp}
             isOwnProfile={isOwn}
             signedIn={true}
+            profileId={slugRow.id}
           />
           <div className="p-6 space-y-5">
             {profile!.bio && (

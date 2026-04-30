@@ -47,7 +47,7 @@ export function MemberRow({ m }: { m: DirectoryMember }) {
       </div>
       <div className="flex flex-col items-end gap-2 flex-shrink-0">
         {m.show_whatsapp && m.whatsapp_number && (
-          <WhatsAppButton number={m.whatsapp_number} name={m.full_name} />
+          <WhatsAppButton number={m.whatsapp_number} name={m.full_name} recipientId={m.id} />
         )}
         <Link href={`/members/${m.slug}`} className="hidden md:inline text-xs text-gray-500 hover:text-navy underline">View profile →</Link>
       </div>
