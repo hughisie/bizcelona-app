@@ -42,6 +42,22 @@ export async function POST(request: NextRequest) {
 
   // Insert using service role to bypass RLS cleanly on the server side
   const admin = createAdminClient();
+
+  // Deduplicate: skip if this pair already connected within the last 24 hours.
+  // Prevents duplicate reminder emails from repeat button clicks.
+  const { data: existing } = await admin
+    .from('connection_requests')
+    .select('id')
+    .eq('initiator_id', user.id)
+    .eq('recipient_id', recipientId)
+    .gte('clicked_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+    .limit(1)
+    .maybeSingle();
+
+  if (existing) {
+    return NextResponse.json({ success: true }); // Already tracked recently — silently no-op
+  }
+
   const { error: insertError } = await admin
     .from('connection_requests')
     .insert({
