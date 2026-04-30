@@ -1,7 +1,9 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+// /events/public is intentionally excluded — it's a public page embeddable on the marketing site
 const PROTECTED = ['/dashboard', '/profile', '/admin', '/welcome', '/events'];
+const PROTECTED_EXCEPTIONS = ['/events/public'];
 // /members is handled separately: /members (index) is members-only, /members/[slug] is public
 const AUTH_ROUTES = ['/login'];   // NOTE: /signup intentionally NOT here — wizard must be reachable while authed
 const WELCOME_EXEMPT = ['/welcome', '/api/', '/auth-confirm', '/logout'];
@@ -27,7 +29,8 @@ export async function updateSession(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser();
   const path = request.nextUrl.pathname;
-  const isProtected = PROTECTED.some((p) => path.startsWith(p));
+  const isException = PROTECTED_EXCEPTIONS.some((p) => path.startsWith(p));
+  const isProtected = !isException && PROTECTED.some((p) => path.startsWith(p));
   const isAuthRoute = AUTH_ROUTES.some((p) => path.startsWith(p));
 
   // Not logged in + protected → /login
