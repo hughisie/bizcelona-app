@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { isUserAdmin } from '@/lib/admin';
 import { AdminNav } from '../AdminNav';
+import { OrganiserToggle } from './OrganiserToggle';
 
 type MemberStatus = 'none' | 'pending' | 'approved' | 'active' | 'rejected' | 'inactive';
 
@@ -33,9 +34,18 @@ export default async function AdminMembersPage() {
 
   const statusByUserId = new Map((membersData ?? []).map((m) => [m.user_id, m.status]));
 
+  // Fetch organiser roles — two-query pattern consistent with members fetch above
+  const { data: organiserData } = await supabase
+    .from('organiser_roles')
+    .select('user_id')
+    .in('user_id', profileIds);
+
+  const organiserSet = new Set((organiserData ?? []).map((o) => o.user_id));
+
   const rows = (profilesData ?? []).map((p) => ({
     ...p,
     member_status: (statusByUserId.get(p.id) ?? 'none') as MemberStatus,
+    is_organiser: organiserSet.has(p.id),
   }));
 
   return (
@@ -52,6 +62,7 @@ export default async function AdminMembersPage() {
                 <th className="px-4 py-2">Company / role</th>
                 <th className="px-4 py-2">Industry</th>
                 <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Organiser</th>
                 <th className="px-4 py-2">Onboarded</th>
                 <th className="px-4 py-2"></th>
               </tr>
@@ -75,6 +86,9 @@ export default async function AdminMembersPage() {
                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusStyle[m.member_status] ?? statusStyle.none}`}>
                       {m.member_status}
                     </span>
+                  </td>
+                  <td className="px-4 py-2">
+                    <OrganiserToggle userId={m.id} isOrganiser={m.is_organiser} />
                   </td>
                   <td className="px-4 py-2 text-xs text-gray-500">{m.onboarding_completed_at ? 'Yes' : 'No'}</td>
                   <td className="px-4 py-2 text-right">
