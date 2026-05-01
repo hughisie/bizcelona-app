@@ -27,9 +27,14 @@ export async function POST(req: Request) {
     },
   });
 
-  // "User already registered" → fall through and try to sign them in.
   const alreadyRegistered = signUpErr && /already|exists|registered/i.test(signUpErr.message);
-  if (signUpErr && !alreadyRegistered) {
+  if (alreadyRegistered) {
+    return NextResponse.json(
+      { ok: false, error: 'An account with this email already exists. Please log in instead.' },
+      { status: 400 }
+    );
+  }
+  if (signUpErr) {
     return NextResponse.json({ ok: false, error: signUpErr.message }, { status: 400 });
   }
 

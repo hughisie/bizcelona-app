@@ -85,6 +85,12 @@ export default function Navbar() {
                 Contact
               </a>
               <Link
+                href="/events/public"
+                className="nav-link text-navy hover:text-saffron transition-colors duration-200"
+              >
+                Events
+              </Link>
+              <Link
                 href="/login"
                 className="nav-link text-navy hover:text-saffron transition-colors duration-200"
               >
@@ -160,6 +166,12 @@ export default function Navbar() {
           >
             Contact
           </a>
+          <Link
+            href="/events/public"
+            className="nav-link block px-3 py-2 text-navy hover:text-saffron transition-colors duration-200"
+          >
+            Events
+          </Link>
           <Link
             href="/login"
             className="nav-link block px-3 py-2 text-navy hover:text-saffron transition-colors duration-200"
