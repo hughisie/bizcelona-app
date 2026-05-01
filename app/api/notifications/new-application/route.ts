@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 // Support multiple admin emails separated by comma
@@ -10,23 +10,24 @@ const ADMIN_EMAILS = process.env.ADMIN_EMAIL
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
-    // Verify the request is authenticated
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // Internal server-to-server call — no user session available.
+    // Use the admin client (service role) to bypass RLS.
+    const admin = createAdminClient();
 
     const body = await request.json();
-    const { applicationId } = body;
+    const { user_id } = body;
 
-    // Fetch application details
-    const { data: application, error: appError } = await supabase
+    if (!user_id) {
+      return NextResponse.json({ error: 'Missing user_id' }, { status: 400 });
+    }
+
+    // Fetch the most recent application for this user
+    const { data: application, error: appError } = await admin
       .from('applications')
       .select('*')
-      .eq('id', applicationId)
+      .eq('user_id', user_id)
+      .order('created_at', { ascending: false })
+      .limit(1)
       .single();
 
     if (appError || !application) {
