@@ -22,6 +22,8 @@ export type UrlValidationResult =
 export const ALLOWED_HOSTNAMES: Record<string, EventPlatform> = {
   'lu.ma': 'luma',
   'luma.co': 'luma',
+  'luma.com': 'luma',
+  'www.luma.com': 'luma',
   'www.eventbrite.com': 'eventbrite',
   'eventbrite.com': 'eventbrite',
   'www.eventbrite.co.uk': 'eventbrite',
@@ -72,19 +74,44 @@ export function extractMetaContent(html: string, property: string): string | nul
   return m2 ? m2[1] : null;
 }
 
-/** Extract structured data (application/ld+json) from HTML, returns first parsed object or null */
+/**
+ * Extract structured data (application/ld+json) from HTML.
+ * Scans ALL script blocks and prefers the one with @type === 'Event'.
+ * Eventbrite embeds multiple LD+JSON blocks; the Event schema (with startDate,
+ * endDate, location) is typically not the first one.
+ */
 export function extractStructuredData(html: string): Record<string, unknown> | null {
-  const re = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/i;
-  const m = html.match(re);
-  if (!m) return null;
-  try {
-    const parsed = JSON.parse(m[1]);
-    // Could be an array or single object
-    if (Array.isArray(parsed)) return parsed[0] ?? null;
-    return parsed;
-  } catch {
-    return null;
+  const re = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+  const candidates: Record<string, unknown>[] = [];
+
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    try {
+      const parsed: unknown = JSON.parse(m[1]);
+      const items: unknown[] = Array.isArray(parsed) ? parsed : [parsed];
+      for (const item of items) {
+        if (item && typeof item === 'object' && !Array.isArray(item)) {
+          candidates.push(item as Record<string, unknown>);
+        }
+      }
+    } catch {
+      // skip malformed blocks
+    }
   }
+
+  if (candidates.length === 0) return null;
+
+  // Prefer a block where @type is 'Event' (or an array containing 'Event')
+  const eventBlock = candidates.find(c => {
+    const t = c['@type'];
+    if (typeof t === 'string') return t === 'Event' || t.includes('Event');
+    if (Array.isArray(t)) return (t as unknown[]).some(
+      v => typeof v === 'string' && (v === 'Event' || v.includes('Event'))
+    );
+    return false;
+  });
+
+  return eventBlock ?? candidates[0] ?? null;
 }
 
 function escapeRegex(s: string): string {
@@ -96,36 +123,45 @@ export function parseEventDataFromHtml(html: string, platform: EventPlatform): F
   const description = extractMetaContent(html, 'og:description');
   const coverImageUrl = extractMetaContent(html, 'og:image');
 
-  // Try OG date fields first, then fall back to structured data
-  let eventDate = extractMetaContent(html, 'og:start_time')
-    ?? extractMetaContent(html, 'article:published_time');
+  // Extract LD+JSON once (prefers the Event-typed block — see extractStructuredData)
+  const ld = extractStructuredData(html);
 
-  let endDate = extractMetaContent(html, 'og:end_time')
-    ?? extractMetaContent(html, 'article:expiration_time');
-
-  // Fall back to LD+JSON structured data
-  if (!eventDate || !endDate) {
-    const ld = extractStructuredData(html);
-    if (ld) {
-      if (!eventDate && typeof ld.startDate === 'string') {
-        eventDate = ld.startDate;
-      }
-      if (!endDate && typeof ld.endDate === 'string') {
-        endDate = ld.endDate;
-      }
-    }
+  // Try OG date fields first, then fall back to LD+JSON
+  let eventDate: string | null =
+    extractMetaContent(html, 'og:start_time') ??
+    extractMetaContent(html, 'article:published_time') ??
+    null;
+  if (!eventDate && ld && typeof ld.startDate === 'string') {
+    eventDate = ld.startDate;
   }
 
-  // Location: try og:location first, then LD+JSON location.name
-  let location = extractMetaContent(html, 'og:location');
-  if (!location) {
-    const ld = extractStructuredData(html);
-    if (ld) {
-      const loc = ld.location as Record<string, unknown> | undefined;
-      if (loc && typeof loc.name === 'string') {
+  let endDate: string | null =
+    extractMetaContent(html, 'og:end_time') ??
+    extractMetaContent(html, 'article:expiration_time') ??
+    null;
+  if (!endDate && ld && typeof ld.endDate === 'string') {
+    endDate = ld.endDate;
+  }
+
+  // Location: try og:location first, then LD+JSON location object
+  let location: string | null = extractMetaContent(html, 'og:location');
+  if (!location && ld) {
+    const loc = ld.location as Record<string, unknown> | string | undefined;
+    if (typeof loc === 'string') {
+      location = loc;
+    } else if (loc && typeof loc === 'object') {
+      // Schema.org Place: prefer name, then address.streetAddress, then address (string)
+      if (typeof loc.name === 'string') {
         location = loc.name;
-      } else if (loc && typeof loc.address === 'string') {
-        location = loc.address;
+      } else {
+        const addr = loc.address as Record<string, unknown> | string | undefined;
+        if (typeof addr === 'string') {
+          location = addr;
+        } else if (addr && typeof addr === 'object') {
+          const parts = [addr.streetAddress, addr.addressLocality, addr.addressRegion]
+            .filter((p): p is string => typeof p === 'string' && p.length > 0);
+          if (parts.length > 0) location = parts.join(', ');
+        }
       }
     }
   }
