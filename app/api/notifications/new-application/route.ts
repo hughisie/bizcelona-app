@@ -74,11 +74,6 @@ export async function POST(request: NextRequest) {
                 </div>
 
                 <div class="field">
-                  <div class="label">Phone:</div>
-                  <div class="value">${application.phone_number || 'Not provided'}</div>
-                </div>
-
-                <div class="field">
                   <div class="label">WhatsApp:</div>
                   <div class="value">${application.whatsapp_number}</div>
                 </div>
