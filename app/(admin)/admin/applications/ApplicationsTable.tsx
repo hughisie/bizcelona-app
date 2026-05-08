@@ -117,13 +117,9 @@ export function ApplicationsTable({ initialRows }: { initialRows: ApplicationRow
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {application.slug ? (
-                    <Link href={`/members/${application.slug}`} className="text-sm font-medium text-navy hover:underline">
-                      {application.full_name}
-                    </Link>
-                  ) : (
-                    <div className="text-sm font-medium text-gray-900">{application.full_name}</div>
-                  )}
+                  <Link href={`/admin/applications/${application.id}`} className="text-sm font-medium text-navy hover:underline">
+                    {application.full_name}
+                  </Link>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">{application.email}</div>

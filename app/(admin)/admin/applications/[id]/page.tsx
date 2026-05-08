@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { isUserAdmin } from '@/lib/admin';
 import Link from 'next/link';
 import ApplicationActions from './ApplicationActions';
+import { OrganiserToggle } from '../../members/OrganiserToggle';
 
 export default async function ApplicationDetailPage({
   params,
@@ -39,6 +40,17 @@ export default async function ApplicationDetailPage({
   if (!application) {
     redirect('/admin/applications');
   }
+
+  // Check organiser role for this user
+  const { data: organiserRow } = application.user_id
+    ? await supabase
+        .from('organiser_roles')
+        .select('user_id')
+        .eq('user_id', application.user_id)
+        .maybeSingle()
+    : { data: null };
+
+  const isOrganiser = !!organiserRow;
 
   return (
     <div className="min-h-screen bg-beige">
@@ -204,6 +216,22 @@ export default async function ApplicationDetailPage({
             </div>
           </div>
         </div>
+
+        {/* Permissions */}
+        {application.user_id && (
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 className="text-lg font-bold text-navy mb-4">Permissions</h2>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-900">Organiser role</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Organisers can create, edit, and delete their own events on the events calendar.
+                </p>
+              </div>
+              <OrganiserToggle userId={application.user_id} isOrganiser={isOrganiser} />
+            </div>
+          </div>
+        )}
 
         {/* Actions */}
         <ApplicationActions application={application} userId={user.id} />
