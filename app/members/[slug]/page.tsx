@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { isUserAdmin } from '@/lib/admin';
 import { ProfileHero } from '@/components/profile/ProfileHero';
 import { ProfileHelpCards } from '@/components/profile/ProfileHelpCards';
 import { SkillsGrid } from '@/components/profile/SkillsGrid';
@@ -24,6 +25,7 @@ export default async function PublicProfilePage({
 
   const signedIn = !!user;
   const isOwn = user?.id === slugRow.id;
+  const isAdmin = signedIn && (await isUserAdmin());
 
   if (!signedIn) {
     // Public (signed-out) view — only photo is fully visible
@@ -73,10 +75,14 @@ export default async function PublicProfilePage({
     supabase.from('help_tags').select('direction, tag').eq('user_id', slugRow.id),
   ]);
 
-  if (!profile || (member?.status !== 'approved' || !profile.show_in_directory)) {
-    // Only the owner can see their own non-approved profile
-    if (!isOwn) notFound();
-  }
+  const VISIBLE_STATUSES = ['approved', 'active'];
+  const isVisible =
+    profile &&
+    VISIBLE_STATUSES.includes(member?.status ?? '') &&
+    profile.show_in_directory;
+
+  // Admins and profile owners can always view; everyone else needs a visible profile
+  if (!isVisible && !isOwn && !isAdmin) notFound();
 
   const offered = (help ?? []).filter(h => h.direction === 'offered').map(h => h.tag);
   const needed = (help ?? []).filter(h => h.direction === 'needed').map(h => h.tag);
