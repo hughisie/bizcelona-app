@@ -136,8 +136,13 @@ export async function POST(request: NextRequest) {
               ${messageContent}
 
               <div style="margin-top: 30px; padding: 20px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px;">
-                <p style="margin: 0;"><strong>Next Steps:</strong></p>
-                <p style="margin: 10px 0 0 0;">Watch your WhatsApp for the group invite. We'll be in touch very soon!</p>
+                <p style="margin: 0;"><strong>Next Step: Join the WhatsApp Community</strong></p>
+                <p style="margin: 10px 0 8px 0;">Click the button below to join the Bizcelona WhatsApp community group:</p>
+                <a href="https://chat.whatsapp.com/KbXyAa2jMNHGbt2pDGJP48?mode=gi_t"
+                   style="display: inline-block; background: #25d366; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 15px;">
+                  Join WhatsApp Community
+                </a>
+                <p style="margin: 10px 0 0 0; font-size: 13px; color: #6b7280;">If the button doesn't work, copy this link into your browser: https://chat.whatsapp.com/KbXyAa2jMNHGbt2pDGJP48?mode=gi_t</p>
               </div>
             </div>
             <div class="footer">
