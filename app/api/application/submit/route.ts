@@ -90,8 +90,8 @@ export async function POST(req: Request) {
       .single();
 
     if (application) {
-      await resend.emails.send({
-        from: 'Bizcelona <onboarding@resend.dev>',
+      const { data: emailData, error: emailError } = await resend.emails.send({
+        from: 'Bizcelona <hello@bizcelona.com>',
         to: ADMIN_EMAILS,
         subject: `New Application: ${application.full_name}`,
         html: `
@@ -157,9 +157,15 @@ export async function POST(req: Request) {
           </html>
         `,
       });
+      if (emailError) {
+        // Resend v3+ returns errors as objects rather than throwing
+        console.error('[submit] Resend returned error:', JSON.stringify(emailError));
+      } else {
+        console.log('[submit] Admin notification sent, id:', emailData?.id);
+      }
     }
   } catch (notifyErr) {
-    // Non-fatal — application is saved; log and continue
+    // Fallback for unexpected throws
     console.error('[submit] Admin notification failed:', notifyErr);
   }
 

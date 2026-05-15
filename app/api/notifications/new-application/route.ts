@@ -35,8 +35,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Send email to all admin emails
-    const emailData = await resend.emails.send({
-      from: 'Bizcelona <onboarding@resend.dev>',
+    const { data: emailData, error: emailError } = await resend.emails.send({
+      from: 'Bizcelona <hello@bizcelona.com>',
       to: ADMIN_EMAILS,
       subject: `New Application: ${application.full_name}`,
       html: `
@@ -111,6 +111,12 @@ export async function POST(request: NextRequest) {
       `,
     });
 
+    if (emailError) {
+      console.error('[new-application] Resend returned error:', JSON.stringify(emailError));
+      return NextResponse.json({ error: 'Failed to send email', detail: emailError }, { status: 500 });
+    }
+
+    console.log('[new-application] Admin notification sent, id:', emailData?.id);
     return NextResponse.json({ success: true, data: emailData });
   } catch (error) {
     console.error('Error sending notification:', error);

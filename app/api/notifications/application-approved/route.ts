@@ -66,8 +66,8 @@ export async function POST(request: NextRequest) {
     // Send approval email to applicant
     // From: owen@bizcelona.com (or onboarding@resend.dev if domain not verified)
     // CC: matthew@bizcelona.com
-    const emailData = await resend.emails.send({
-      from: 'Owen Hughes - Bizcelona <onboarding@resend.dev>',
+    const { data: emailData, error: emailError } = await resend.emails.send({
+      from: 'Owen Hughes - Bizcelona <hello@bizcelona.com>',
       to: application.email,
       cc: 'matthew@bizcelona.com',
       subject: '🎉 Welcome to Bizcelona - Application Approved!',
@@ -154,6 +154,12 @@ export async function POST(request: NextRequest) {
       `,
     });
 
+    if (emailError) {
+      console.error('[application-approved] Resend returned error:', JSON.stringify(emailError));
+      return NextResponse.json({ error: 'Failed to send email', detail: emailError }, { status: 500 });
+    }
+
+    console.log('[application-approved] Approval email sent, id:', emailData?.id);
     return NextResponse.json({
       success: true,
       data: emailData,
