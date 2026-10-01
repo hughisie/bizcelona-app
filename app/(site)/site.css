@@ -16,7 +16,7 @@
   --grey-200: #e2e8f0;
 
   --font-display: var(--font-bricolage), var(--font-inter), system-ui, sans-serif;
-  --font-text: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-text: var(--font-inter-site), var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -390,7 +390,7 @@ html:not(.js) .site .nav__panel ul { display: flex; flex-wrap: wrap; gap: var(--
 .site .areas li {
   display: flex; align-items: center; gap: var(--s4);
   padding-block: 0.9rem; border-bottom: 1px solid var(--charcoal);
-  font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; letter-spacing: -0.02em;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.1875rem; letter-spacing: -0.02em;
 }
 
 /* ---------- House rules ---------- */

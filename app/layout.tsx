@@ -6,6 +6,8 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 const inter = Inter({
   subsets: ["latin"],
   display: 'swap',
+  // The public site ships its own trimmed Inter, so this full one is not preloaded for every page.
+  preload: false,
   variable: '--font-inter',
 });
 

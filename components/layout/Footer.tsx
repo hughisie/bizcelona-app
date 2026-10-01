@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -6,14 +5,7 @@ export default function Footer() {
     <footer className="foot">
       <div className="wrap foot__grid">
         <div>
-          <Image
-            src="/images/logo-offwhite.png"
-            alt="Bizcelona"
-            width={763}
-            height={327}
-            sizes="128px"
-            loading="lazy"
-          />
+          <img src="/images/logo-offwhite-256.webp" alt="Bizcelona" width={128} height={55} loading="lazy" decoding="async" />
           <p className="foot__meta">&copy; 2026 Bizcelona. Built with love in Barcelona.</p>
         </div>
         <ul className="foot__links">

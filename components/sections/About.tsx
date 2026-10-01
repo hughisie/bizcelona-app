@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function About() {
   return (
     <section id="about" className="section on-light" aria-labelledby="about-title">
@@ -27,13 +25,15 @@ export default function About() {
             </ul>
           </div>
           <figure className="figure reveal" style={{ '--d': '120ms' } as React.CSSProperties}>
-            <Image
-              src="/images/barcelona-sunset-1280.jpg"
+            <img
+              src="/images/barcelona-sunset-960.webp"
+              srcSet="/images/barcelona-sunset-640.webp 640w, /images/barcelona-sunset-960.webp 960w, /images/barcelona-sunset-1280.webp 1280w"
+              sizes="(min-width: 64em) 36rem, 100vw"
               alt="Barcelona rooftops at sunset, with Torre Glòries and the Columbus monument"
               width={1280}
               height={853}
-              sizes="(min-width: 64em) 36rem, 100vw"
               loading="lazy"
+              decoding="async"
             />
             <figcaption>Our city, in warm, low light.</figcaption>
           </figure>

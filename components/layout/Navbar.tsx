@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -37,14 +36,7 @@ export default function Navbar() {
     <header className="nav">
       <div className="wrap nav__bar">
         <Link className="nav__brand" href="/" aria-label="Bizcelona, home">
-          <Image
-            src="/images/logo-offwhite.png"
-            alt="Bizcelona"
-            width={763}
-            height={327}
-            sizes="128px"
-            loading="eager"
-          />
+          <img src="/images/logo-offwhite-256.webp" alt="Bizcelona" width={128} height={55} decoding="async" />
         </Link>
 
         <button
