@@ -41,3 +41,6 @@ next-env.d.ts
 
 # superpowers brainstorm files
 .superpowers/
+
+# design review screenshots and reports (not committed)
+_review/
