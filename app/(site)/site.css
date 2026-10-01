@@ -203,7 +203,7 @@
   transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
 }
 .site .nav__panel ul { display: grid; gap: var(--s1); }
-.site .nav__panel .btn { margin-top: var(--s3); min-height: 2.75rem; }
+.site .nav__panel .btn { margin-top: var(--s3); min-height: 2.75rem; width: 100%; }
 .site .nav__link {
   display: flex; align-items: center; min-height: 2.75rem;
   padding: 0 var(--s2);
@@ -227,7 +227,7 @@ html:not(.js) .site .nav__panel ul { display: flex; flex-wrap: wrap; gap: var(--
     visibility: visible; opacity: 1; transform: none; transition: none;
   }
   .site .nav__panel ul { display: flex; align-items: center; gap: var(--s5); }
-  .site .nav__panel .btn { margin-top: 0; padding: 0 var(--s5); }
+  .site .nav__panel .btn { margin-top: 0; padding: 0 var(--s5); width: auto; }
   .site .nav__link { padding: 0 var(--s1); }
 }
 
@@ -237,9 +237,17 @@ html:not(.js) .site .nav__panel ul { display: flex; flex-wrap: wrap; gap: var(--
   padding-block: var(--s8) var(--s9);
 }
 .site .hero__bg { position: absolute; inset: 0; z-index: -1; }
+/* On phones the picture lives in the lower part of the hero, where it has room for more of the grid */
+@media (max-width: 47.99em) {
+  .site .hero__bg .net {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 64%; width: 100%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 30%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 30%);
+  }
+}
 .site .hero__bg::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, var(--navy) 0%, rgba(26, 32, 44, 0.88) 38%, rgba(26, 32, 44, 0.1) 100%);
+  background: linear-gradient(180deg, var(--navy) 0%, rgba(26, 32, 44, 0.8) 40%, rgba(26, 32, 44, 0) 100%);
 }
 .site .hero__inner { position: relative; }
 .site .hero .label { color: var(--grey-400); }
