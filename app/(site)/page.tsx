@@ -23,7 +23,7 @@ const structuredData = {
       url: 'https://bizcelona.com/',
       logo: 'https://bizcelona.com/images/logo-navy.png',
       description:
-        "A membership community for Barcelona-based founders, independents and senior business people, built on giving before taking. Where Barcelona's founders and professionals collaborate, share insight, and scale together.",
+        "An invitation-only community for founders, independents and senior business figures based in Barcelona, built on giving before taking. Where the city's founders and professionals work together, exchange ideas and grow as a group.",
       slogan: 'Building wealth through community.',
       areaServed: { '@type': 'City', name: 'Barcelona' },
       email: 'hello@bizcelona.com',

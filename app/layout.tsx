@@ -13,7 +13,7 @@ const inter = Inter({
 
 const TITLE = "Bizcelona | Building wealth through community";
 const DESCRIPTION =
-  "Where Barcelona's founders and professionals collaborate, share insight, and scale together. A membership community by invitation, free during the relaunch.";
+  "Where Barcelona's founders and professionals work together, exchange ideas and grow as a group. An invitation-only members' community, free of charge while the relaunch is under way.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bizcelona.com"),
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bizcelona | Building wealth through community",
     description:
-      "Barcelona's business community for founders, independents and senior business people. Members help each other. By invitation, free during the relaunch.",
+      "Barcelona's business community for founders, independents and senior business figures. Members support one another. Invitation only, free during the relaunch.",
     url: "https://bizcelona.com",
     siteName: "Bizcelona",
     images: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bizcelona | Building wealth through community",
     description:
-      "Barcelona's business community for founders, independents and senior business people. By invitation, free during the relaunch.",
+      "Barcelona's business community for founders, independents and senior business figures. Invitation only, free during the relaunch.",
     images: ["/images/og-image.jpg"],
     creator: "@bizcelona",
   },

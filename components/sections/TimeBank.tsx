@@ -1,20 +1,20 @@
 const STEPS = [
   {
     title: 'Search',
-    body: 'Find the skill you need and see who can help, with their response time and the hours they have given.',
+    body: 'Track down the skill you are after and see who can help, along with how quickly they tend to reply and the hours they have given.',
   },
   {
     title: 'Ask',
-    body: 'Say what you need in one or two lines. Asking is free.',
+    body: 'Set out your request in one or two lines. There is no charge for asking.',
     free: true,
   },
   {
     title: 'Introduce',
-    body: 'We send a WhatsApp introduction to you both, with the context, so nobody starts cold.',
+    body: 'We send both parties a WhatsApp introduction that includes the context, so neither side is starting from scratch.',
   },
   {
     title: '24-hour check',
-    body: 'A day later we ask whether you spoke, how useful it was and roughly how much time it took. The helper confirms you got in touch.',
+    body: 'A day afterwards we check whether you made contact, how helpful it proved and approximately how long it took. The person who helped confirms that you were in touch.',
   },
 ];
 
@@ -26,7 +26,7 @@ export default function TimeBank() {
           <p className="label">How members help each other</p>
           <h2 id="timebank-title">The time bank, in four steps.</h2>
           <p className="lede muted">
-            Search for the skill you need, ask in a line or two, and we introduce you on WhatsApp with context.
+            Looking for a particular skill? Describe what you need in a line or two, and we will make an introduction on WhatsApp, giving both sides the context.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export default function TimeBank() {
         </div>
 
         <p className="note reveal">
-          The time bank is <strong>rolling out to members as part of the relaunch.</strong>
+          The time bank is <strong>being introduced to members as part of the relaunch.</strong>
         </p>
       </div>
     </section>

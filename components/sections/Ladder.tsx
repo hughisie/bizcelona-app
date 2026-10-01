@@ -1,7 +1,7 @@
 const RUNGS = [
   { name: 'Member', body: 'Approved, profile complete, two skills listed.' },
-  { name: 'Core member', body: '30 points in the last 90 days.' },
-  { name: 'Host', body: 'Runs events and co-working days, by invitation.' },
+  { name: 'Core member', body: '30 points within the last 90 days.' },
+  { name: 'Host', body: 'Organises events and co-working days, by invitation.' },
   { name: 'Council', body: 'The seven senior volunteers who run Bizcelona.' },
 ];
 
@@ -14,8 +14,7 @@ export default function Ladder() {
           <h2 id="ladder-title">One rung at a time. Earned by helping.</h2>
           <p className="muted measure">
             <span className="tag-proposed">Proposed</span>
-            A ladder of contribution, not a hierarchy of status. Anyone can move up by helping. These levels go
-            to the council for review.
+            A ladder of contribution rather than a hierarchy of status. Anyone can climb it by helping. These levels are passed to the council for review.
           </p>
         </div>
         <ol className="ladder">

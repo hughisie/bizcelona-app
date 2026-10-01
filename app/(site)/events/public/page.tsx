@@ -5,11 +5,11 @@ import { createClient } from '@/lib/supabase/server';
 export const metadata: Metadata = {
   title: 'Events | Bizcelona',
   description:
-    'A co-working day every two weeks and one quality event a month, for Barcelona founders, independents and senior business people.',
+    'A co-working day once a fortnight and one quality event each month, for Barcelona founders, independents and senior business figures.',
   alternates: { canonical: 'https://bizcelona.com/events/public' },
   openGraph: {
     title: 'Events | Bizcelona',
-    description: 'A co-working day every two weeks and one quality event a month.',
+    description: 'A co-working day once a fortnight and one quality event each month.',
     url: 'https://bizcelona.com/events/public',
   },
 };
@@ -90,7 +90,7 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
         <div className="wrap">
           <p className="label">Show up</p>
           <h1 id="events-title">Events</h1>
-          <p className="lede">A co-working day every two weeks, and one quality event a month.</p>
+          <p className="lede">A co-working day once a fortnight, and one quality event each month.</p>
         </div>
       </section>
 
@@ -105,14 +105,13 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
           {error ? (
             <div className="empty">
               <h2>We could not load the events just now.</h2>
-              <p className="muted measure">Please try again in a moment, or write to us at hello@bizcelona.com.</p>
+              <p className="muted measure">Please try again shortly, or email us at hello@bizcelona.com.</p>
             </div>
           ) : events.length === 0 ? (
             <div className="empty">
               <h2>No dates published yet.</h2>
               <p className="muted measure">
-                We hold a co-working day every two weeks and one quality event a month. Dates appear here as soon
-                as they are confirmed.
+                We run a co-working day once a fortnight and one quality event each month. Dates are posted here as soon as they are confirmed.
               </p>
               <div className="btn-row">
                 <Link className="btn btn--navy" href="/signup">Apply to join</Link>

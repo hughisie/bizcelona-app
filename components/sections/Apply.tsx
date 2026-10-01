@@ -11,11 +11,10 @@ export default function Apply() {
               Bizcelona is by invitation. <span className="accent">Free</span> during the relaunch.
             </h2>
             <p className="lede">
-              If you are a founder, independent or senior business person in Barcelona, we would like to hear from you.
+              If you are a founder, an independent or a senior business person based in Barcelona, we would like to hear from you.
             </p>
             <p className="muted measure apply__gaps">
-              We keep the mix balanced. Right now we would especially like to hear from people in SEO, web, retail,
-              legal and tax, finance, hospitality, and trades and craft.
+              We keep the mix balanced. At the moment we are particularly keen to hear from people working in SEO, web, retail, legal and tax, finance, hospitality, and trades and craft.
             </p>
           </div>
           <div>
@@ -29,25 +28,25 @@ export default function Apply() {
               <li>
                 <div>
                   <strong>Tell us what you do and what you can help with</strong>
-                  <span>Help is the currency here, so list what you can offer.</span>
+                  <span>Help is the currency here, so set out what you can offer.</span>
                 </div>
               </li>
               <li>
                 <div>
                   <strong>We read every application personally</strong>
-                  <span>If you are approved, we welcome you on WhatsApp.</span>
+                  <span>Once approved, we welcome you on WhatsApp.</span>
                 </div>
               </li>
             </ol>
             <div id="contact" className="apply-box reveal">
               <h3>Ready?</h3>
-              <p>Membership is free during the relaunch. We will prove the value before we ever charge.</p>
+              <p>Membership is free while the relaunch is under way. We will demonstrate the value before we ever ask for payment.</p>
               <div className="btn-row">
                 <Link className="btn btn--saffron" href="/signup">Apply to join</Link>
                 <Link className="btn btn--ghost" href="/login">Member log in</Link>
               </div>
               <p className="apply-box__mail">
-                Questions first? Write to <a href="mailto:hello@bizcelona.com">hello@bizcelona.com</a>.
+                Got questions first? Email <a href="mailto:hello@bizcelona.com">hello@bizcelona.com</a>.
               </p>
             </div>
           </div>

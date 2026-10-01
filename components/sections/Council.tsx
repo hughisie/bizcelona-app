@@ -17,16 +17,14 @@ export default function Council() {
           <div className="reveal">
             <p className="label">Who runs it</p>
             <h2 id="council-title">Run by the people in it.</h2>
-            <p className="lede">A council of seven senior volunteers runs Bizcelona.</p>
+            <p className="lede">Seven senior volunteers make up the council that runs Bizcelona.</p>
             <div className="measure stack muted">
               <p>
-                Each of them looks after an area, and each commits to being in the room, because no-shows are the
-                enemy of trust. If someone is overloaded they say so early: a handover is fine, silence is not.
+                Every one of them is responsible for a particular area, and every one of them undertakes to be present, since failing to show up is what destroys trust. Anyone who is stretched too thin should speak up early: handing over is acceptable, staying silent is not.
               </p>
               <p>
                 <span className="tag-proposed">Proposed</span>
-                Inside their own area, a council member decides. Money, membership rules and brand go to the
-                whole council.
+                Within their own area, a council member decides. Matters of money, membership rules and brand are decided by the council as a whole.
               </p>
             </div>
           </div>

@@ -7,21 +7,19 @@ export default function About() {
             <p className="label">What Bizcelona is</p>
             <h2 id="about-title">Give before <mark>you take.</mark></h2>
             <p className="lede">
-              Bizcelona is a membership community for Barcelona founders, independents and senior business people.
+              Bizcelona is a membership community for founders, independents and senior business figures in Barcelona.
             </p>
             <div className="measure stack">
               <p>
-                Members help each other reach their financial and business goals. Helping is the currency here:
-                members who help rise, and members who only take drift down. We keep it small on purpose, a
-                balanced core of 100 to 150 active members, and every application is read personally.
+                Members assist one another in hitting their financial and commercial targets. Here, helping others is the currency: those who give support move up, while those who merely take slip down. The size is limited deliberately, with a balanced core of 100 to 150 active members, and each application is reviewed by hand.
               </p>
               <p>
-                And it is run by the people in it, by a council of senior volunteers, not a one-person show.
+                It is also led by its own members, through a council of senior volunteers, rather than being the project of a single individual.
               </p>
             </div>
             <ul className="not-list measure" aria-label="What Bizcelona is not">
-              <li>It is not an expensive founder club.</li>
-              <li>It is not a bar meetup full of people trying to sell each other something.</li>
+              <li>It is not a costly founders&rsquo; club.</li>
+              <li>Nor is it a bar gathering where everyone is out to sell something to everyone else.</li>
             </ul>
           </div>
           <figure className="figure reveal" style={{ '--d': '120ms' } as React.CSSProperties}>
@@ -39,15 +37,14 @@ export default function About() {
                 ))}
               </svg>
             </div>
-            <figcaption>The Eixample grid, where every corner is open.</figcaption>
+            <figcaption>The Eixample grid, where every corner stays open.</figcaption>
           </figure>
         </div>
 
         <div className="bet reveal">
           <p className="label">Why now</p>
           <p className="muted measure">
-            As AI eats more desk work, a trusted local network of people who actually show up becomes more
-            valuable every year.
+            As AI takes on more desk-based work, a dependable local circle of people who genuinely turn up grows more valuable with each passing year.
           </p>
           <blockquote>
             <p className="display">
@@ -61,15 +58,15 @@ export default function About() {
         <div className="essence">
           <div className="reveal">
             <h3>Curated.</h3>
-            <p>A balanced core of active members. Every application reviewed personally.</p>
+            <p>A well-balanced core of active members. Each application is read personally.</p>
           </div>
           <div className="reveal" style={{ '--d': '90ms' } as React.CSSProperties}>
             <h3>Collaborative.</h3>
-            <p>Give before you take. Helping is the currency here.</p>
+            <p>Give before you take. Here, helping one another is the currency.</p>
           </div>
           <div className="reveal" style={{ '--d': '180ms' } as React.CSSProperties}>
             <h3>Connected.</h3>
-            <p>Long-term, trust-based relationships with people who show up.</p>
+            <p>Relationships built on trust over the long term, with people who show up.</p>
           </div>
         </div>
       </div>
