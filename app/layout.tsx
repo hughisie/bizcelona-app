@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from '@/components/GoogleAnalytics';
@@ -9,37 +9,22 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const TITLE = "Bizcelona | Building wealth through community";
+const DESCRIPTION =
+  "Where Barcelona's founders and professionals collaborate, share insight, and scale together. A membership community by invitation, free during the relaunch.";
+
 export const metadata: Metadata = {
-  title: "Bizcelona | Exclusive Business Community for Barcelona Entrepreneurs & Executives",
-  description: "Join Barcelona's premier invite-only business community for entrepreneurs, senior executives, business owners, and digital nomads. Connect with like-minded professionals, collaborate on ventures, and grow your network in Spain's most vibrant business hub.",
-  keywords: [
-    "Barcelona business community",
-    "Barcelona entrepreneurs network",
-    "Barcelona digital nomad community",
-    "Barcelona business executives",
-    "Barcelona startup community",
-    "Barcelona business owners network",
-    "Spain digital nomad visa community",
-    "Barcelona professional networking",
-    "Barcelona coworking community",
-    "Barcelona business WhatsApp group",
-    "Barcelona entrepreneur meetup",
-    "Barcelona business networking",
-    "Barcelona C-level executives",
-    "Barcelona senior professionals",
-    "Barcelona freelancer community",
-    "Barcelona expat business",
-    "Barcelona venture capital network",
-    "Barcelona angel investors",
-    "Barcelona business collaboration",
-  ].join(", "),
+  metadataBase: new URL("https://bizcelona.com"),
+  title: TITLE,
+  description: DESCRIPTION,
   authors: [{ name: "Bizcelona" }],
   creator: "Bizcelona",
   publisher: "Bizcelona",
-  category: "Business Networking",
+  category: "Business community",
   openGraph: {
-    title: "Bizcelona | Barcelona's Exclusive Community for Entrepreneurs & Business Leaders",
-    description: "Connect with Barcelona's top entrepreneurs, executives, and digital nomads. Invite-only business community focused on collaboration, growth, and meaningful partnerships.",
+    title: "Bizcelona | Building wealth through community",
+    description:
+      "Barcelona's business community for founders, independents and senior business people. Members help each other. By invitation, free during the relaunch.",
     url: "https://bizcelona.com",
     siteName: "Bizcelona",
     images: [
@@ -47,16 +32,17 @@ export const metadata: Metadata = {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Bizcelona - Barcelona Business Community",
+        alt: "Bizcelona logo in off-white on navy, with the line Curated. Collaborative. Connected.",
       },
     ],
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bizcelona | Barcelona's Premier Business Community",
-    description: "Join Barcelona's exclusive network of entrepreneurs, executives, and digital nomads. Curated. Collaborative. Connected.",
+    title: "Bizcelona | Building wealth through community",
+    description:
+      "Barcelona's business community for founders, independents and senior business people. By invitation, free during the relaunch.",
     images: ["/images/og-image.jpg"],
     creator: "@bizcelona",
   },
@@ -71,17 +57,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: "https://bizcelona.com",
-  },
   icons: {
-    icon: "/images/favicon.png",
+    icon: [{ url: "/images/favicon-48.png", sizes: "48x48", type: "image/png" }],
     apple: "/images/apple-touch-icon.png",
   },
-  verification: {
-    // Add Google Search Console verification when available
-    // google: "your-verification-code",
-  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1a202c",
 };
 
 export default function RootLayout({
@@ -90,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en-GB" className={inter.variable}>
       <body className={`${inter.className} font-inter text-navy bg-off-white antialiased`}>
         <GoogleAnalytics measurementId="G-88GKT7X9KG" />
         {children}
