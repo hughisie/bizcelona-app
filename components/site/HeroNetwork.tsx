@@ -8,7 +8,7 @@ const ROWS = 9;
 
 // Block position as [column, row]. Hand-placed, weighted to the right so the headline stays clear.
 const NODES: Array<[number, number]> = [
-  [1, 7], [3, 5], [4, 8], [6, 6], [7, 2], [8, 4], [9, 7], [9, 1], [10, 5],
+  [1, 7], [3, 5], [4, 8], [6, 6], [7, 2], [9, 4], [9, 7], [9, 1], [10, 5],
   [11, 3], [12, 7], [12, 1], [13, 5], [14, 3], [14, 8], [15, 6], [15, 1], [11, 8],
 ];
 

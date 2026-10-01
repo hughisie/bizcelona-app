@@ -34,7 +34,7 @@ export default function Rules() {
     <section id="rules" className="section section--rule on-navy" aria-labelledby="rules-title">
       <div className="wrap">
         <div className="split split--rules">
-          <div className="sticky reveal">
+          <div className="rules__intro reveal">
             <p className="label">House rules</p>
             <h2 id="rules-title">
               What&rsquo;s shared in Bizcelona <span className="accent">stays in Bizcelona.</span>
