@@ -318,6 +318,9 @@ html:not(.js) .site .nav__panel ul { display: flex; flex-wrap: wrap; gap: var(--
 .site .figure { margin: 0; }
 .site .figure img { width: 100%; border-radius: var(--radius); aspect-ratio: 3 / 2; object-fit: cover; }
 @media (min-width: 64em) { .site .figure img { aspect-ratio: 4 / 5; object-position: 62% 50%; } }
+.site .panel-art { background: var(--navy); border-radius: var(--radius); aspect-ratio: 3 / 2; overflow: hidden; }
+.site .panel-art svg { display: block; width: 100%; height: 100%; }
+@media (min-width: 64em) { .site .panel-art { aspect-ratio: 4 / 5; } }
 .site .figure figcaption { font-size: 0.875rem; color: var(--slate); margin-top: var(--s3); }
 
 .site .bet { margin: var(--s8) 0 0; padding-top: var(--s6); border-top: 1px solid var(--navy); }

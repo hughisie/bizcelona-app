@@ -25,17 +25,21 @@ export default function About() {
             </ul>
           </div>
           <figure className="figure reveal" style={{ '--d': '120ms' } as React.CSSProperties}>
-            <img
-              src="/images/barcelona-sunset-960.webp"
-              srcSet="/images/barcelona-sunset-640.webp 640w, /images/barcelona-sunset-960.webp 960w, /images/barcelona-sunset-1280.webp 1280w"
-              sizes="(min-width: 64em) 36rem, 100vw"
-              alt="Barcelona rooftops at sunset, with Torre Glòries and the Columbus monument"
-              width={1280}
-              height={853}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>Our city, in warm, low light.</figcaption>
+            <div className="panel-art" role="img" aria-label="Abstract plan of the Eixample street grid with a few connected points">
+              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+                <defs>
+                  <pattern id="about-blocks" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <path d="M22 10H78L90 22V78L78 90H22L10 78V22Z" className="net__block" />
+                  </pattern>
+                </defs>
+                <rect width="400" height="500" fill="url(#about-blocks)" />
+                <g className="net__edge" fill="none"><path d="M150 150 L250 150 L250 250 L150 350 L250 450" /></g>
+                {[[150,150],[250,150],[250,250],[150,350],[250,450]].map(([x,y]) => (
+                  <g key={`${x}-${y}`}><circle className="net__halo" cx={x} cy={y} r="11" /><circle className="net__dot" cx={x} cy={y} r="3.4" /></g>
+                ))}
+              </svg>
+            </div>
+            <figcaption>The Eixample grid, where every corner is open.</figcaption>
           </figure>
         </div>
 

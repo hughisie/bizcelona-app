@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Bizcelona logo in off-white on navy, with the line Curated. Collaborative. Connected.",
+        alt: "Bizcelona logo in off-white on navy, with the headline Building wealth through community.",
       },
     ],
     locale: "en_GB",
