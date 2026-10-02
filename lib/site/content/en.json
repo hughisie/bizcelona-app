@@ -1,0 +1,343 @@
+{
+  "meta": {
+    "title": "Business Networking Barcelona for Founders | Bizcelona",
+    "description": "Business networking in Barcelona, by invitation only. Founders and senior professionals who back one another’s success. Get introduced, and apply at no cost.",
+    "ogTitle": "Business networking in Barcelona, by invitation | Bizcelona",
+    "ogDescription": "Founders and senior professionals in Barcelona who back one another’s success. A time bank, a co-working day once a fortnight and at least one practical event a month, often more. Free while the relaunch lasts.",
+    "ogImageAlt": "Bizcelona logo in off-white on navy, with the headline Building wealth through community.",
+    "orgDescription": "An invitation-only business networking community in Barcelona, open to founders, independents and senior professionals, founded on giving before taking and on championing one another’s success."
+  },
+  "ui": {
+    "skip": "Skip to main content",
+    "homeAria": "Bizcelona, home",
+    "logoAlt": "Bizcelona",
+    "menu": "Menu",
+    "close": "Close",
+    "mainNav": "Main",
+    "language": "Language",
+    "navAbout": "About",
+    "navTimeBank": "Time bank",
+    "navRules": "House rules",
+    "navFaq": "FAQ",
+    "navEvents": "Events",
+    "navLogin": "Log in",
+    "navApply": "Apply",
+    "footerTagline": "Invitation-only business networking in Barcelona.",
+    "footerCopy": "© 2026 Bizcelona. Built with love in Barcelona.",
+    "footerEvents": "Events",
+    "footerApply": "Apply",
+    "footerLogin": "Member log in",
+    "atAGlance": "At a glance",
+    "free": "Free",
+    "eventsFilterShowing": "Showing ",
+    "eventsFilterAll": "See all upcoming events",
+    "eventsCheckedPre": "Live listing, checked on ",
+    "eventsCheckedPost": ".",
+    "eventsIn": "Events in ",
+    "eventsUpcoming": "Upcoming events",
+    "rsvp": "RSVP",
+    "rsvpOn": " on ",
+    "rsvpFor": " for ",
+    "opensNewTab": " (opens in a new tab)",
+    "dateLocale": "en-GB"
+  },
+  "hero": {
+    "label": "Invitation-only business networking in Barcelona",
+    "h1": "Building wealth through community.",
+    "lede": "Where Barcelona’s founders and professionals collaborate, share insight, and scale together.",
+    "primary": "Apply to join",
+    "secondary": "See how it works",
+    "facts": [
+      "By invitation",
+      "Free during the relaunch"
+    ],
+    "beat": "The city has no shortage of people who could lend you a hand.",
+    "beatSub": "Bizcelona is the way to connect with the right ones, plus the colleagues that self-employment does not provide.",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "label": "What Bizcelona is",
+    "h2": "A Barcelona founder network that runs on genuine mutual support.",
+    "lede": "Bizcelona is a community open by invitation only, aimed at founders, independent workers and senior professionals based in Barcelona.",
+    "paras": [
+      "Networking in the city usually means a room of unfamiliar faces exchanging business cards. Bizcelona flips that model. A human being reviews every application, and each member who gets in has committed to lending a hand.",
+      "Members assist one another with the practical things that generate income: landing a first client, negotiating a better price from a supplier, finding a partner, making a hire, or getting an honest answer from someone who has already been through it. Giving is what counts here. Those who contribute rise; those who only take fall away.",
+      "Self-employment in Barcelona can be an isolating existence. There is no one down the hall to celebrate with when a deal closes, and no one to turn to when problems arise. Bizcelona supplies those colleagues, along with a group that genuinely backs one another’s achievements.",
+      "The size is deliberately limited, with a target core of 100 to 150 active members. A network you can put to real use is smaller than one you can show off."
+    ],
+    "notList": [
+      "This is not a costly founders’ club.",
+      "Nor is it a bar gathering where everyone is angling to sell to everyone else."
+    ],
+    "notListAria": "What Bizcelona is not",
+    "photoAlt": "Barcelona viewed from the hills, the city stretching out towards the sea",
+    "photoCaption": "Barcelona from the air. In every block there is someone who could lend a hand.",
+    "whyNowLabel": "Why now",
+    "whyNow": "With AI absorbing more desk-based work, a dependable local network of people who turn up in person grows more valuable with each passing year."
+  },
+  "outcomes": {
+    "label": "What it is for",
+    "h2": "Money outcomes, not business cards.",
+    "lede": "Wealth built through a community comes down to tangible outcomes: a larger client base, stronger pricing and costly errors avoided. That is what members put to one another.",
+    "items": [
+      {
+        "title": "A client or a partner.",
+        "body": "Say what you offer and who might need it, or name the skill you lack, and ask for an introduction."
+      },
+      {
+        "title": "A better price.",
+        "body": "Which accountant, lawyer, developer or supplier is actually worth hiring? Put the question to members who already work with them."
+      },
+      {
+        "title": "A straight answer.",
+        "body": "Rather than posting on a forum and hoping for a reply, you get an answer on WhatsApp from a named person who has been there before."
+      },
+      {
+        "title": "The right hire.",
+        "body": "Hire a freelancer or your first employee via people who have already worked alongside them."
+      }
+    ]
+  },
+  "band": {
+    "label": "Our principle",
+    "quote": "Like the guilds of old, we don’t just share a space; we actively champion each other’s success.",
+    "cite": "Owen Hughes, founder",
+    "photoAlt": "A broad panorama of Barcelona seen from the hills, with the city and the sea meeting under clear skies"
+  },
+  "wins": {
+    "label": "Celebrating wins",
+    "h2": "No one should have to mark a success on their own.",
+    "lede": "Going it alone is the norm for many people running a company in Barcelona. If a deal comes through, or if things go badly, there is no one along the corridor to share it with. Bizcelona supplies those colleagues.",
+    "moments": [
+      {
+        "kicker": "Any time",
+        "title": "Tell the members’ WhatsApp group",
+        "body": "Share your success, whether modest or major: a first customer, a contract signed, a difficult month seen through. Other members respond, and the news reaches people who know what went into it."
+      },
+      {
+        "kicker": "At each event",
+        "title": "Successes get their moment at every event",
+        "body": "Room is made for members’ successes at each event, so good news is spoken aloud, in the room, in front of those who were present."
+      },
+      {
+        "kicker": "Only with your say-so",
+        "title": "Marked on our LinkedIn, only if you agree",
+        "body": "Where a member has given permission, we mark their success on Bizcelona’s LinkedIn page. Nothing goes up without your approval."
+      }
+    ],
+    "closing": "Difficulties follow the same route. Take a problem you are stuck on to the group, and you will find people who have faced it before."
+  },
+  "timeBank": {
+    "label": "How members help each other",
+    "h2": "The time bank: request assistance and receive a named introduction.",
+    "lede": "Looking for an accountant who gets freelancers, a mentor who has grown a business, or someone to sort out your checkout? Search for the skill, post a short request, and we will make the introduction over WhatsApp.",
+    "steps": [
+      {
+        "title": "Search",
+        "body": "Search the skill you are after. You will see who is available to help, their typical response time and the number of hours they have already contributed."
+      },
+      {
+        "title": "Ask",
+        "body": "Set out what you need in a line or two. There is no charge to ask.",
+        "free": true
+      },
+      {
+        "title": "Introduce",
+        "body": "We open a WhatsApp chat that includes you and the member who can assist, along with the background, so no one has to start from scratch."
+      },
+      {
+        "title": "24-hour check",
+        "body": "After 24 hours we ask whether you made contact, how useful it proved and about how long it took. The member who helped confirms you got in touch. If anything went wrong, we follow up."
+      }
+    ],
+    "note": "The time bank is being presented to members as part of the relaunch."
+  },
+  "rhythm": {
+    "label": "Show up",
+    "h2": "One co-working day per fortnight. A minimum of one hands-on event each month.",
+    "lede": "A regular schedule that suits a working life, so that people genuinely get together and support continues in between gatherings.",
+    "cards": [
+      {
+        "kicker": "Every two weeks",
+        "title": "Co-working day",
+        "body": "A blend of group discussions, in which participants exchange business ideas, and dedicated periods for cracking on with your own tasks, hosted at a partner venue in Barcelona that changes from one co-working day to the next. After that comes a turn around the table: five minutes per person covering what you do and a single problem you would like assistance with. Then lunch as a group.",
+        "clipAlt": "An aerial view of boats moored in a Barcelona marina, with the city stretching out beyond"
+      },
+      {
+        "kicker": "At least once a month, often more",
+        "title": "A practical event, at least monthly",
+        "body": "Compact enough for everyone to be able to speak to one another, and practical: a beginner’s session on using AI at work, for instance. At least one good event a month, often more, rather than a calendar stuffed with networking mixers. Each event sets aside a slot for members to share their wins.",
+        "clipAlt": "An aerial view of the Montjuïc Olympic zone and its communications tower"
+      }
+    ],
+    "notePre": "When dates have been confirmed, they are listed on the ",
+    "noteLink": "business networking events page",
+    "notePost": "."
+  },
+  "forWhom": {
+    "label": "Who it is for",
+    "h2": "Barcelona residents and recent arrivals, collaborating in English.",
+    "paras": [
+      "A number of members have spent years building their businesses in the city. Others touched down only last month and are still hunting for a reliable accountant, a suitable coworking desk and the contacts worth having. Bizcelona brings the two groups together in the same room.",
+      "English is the language of our community. Meetings and introductions are conducted in English, and Spanish is always welcome. Speaking both is not a requirement.",
+      "We deliberately keep the professional mix even, so that no one sector dominates the room. At present we are particularly keen to hear from those working in SEO, web, retail, legal and tax, finance, hospitality, and trades and craft."
+    ],
+    "chips": [
+      "Founders",
+      "Independents",
+      "Senior professionals",
+      "New to Barcelona"
+    ],
+    "chipsAria": "Who we welcome",
+    "cta": "Apply to join"
+  },
+  "rules": {
+    "label": "House rules",
+    "h2Lead": "What’s shared in Bizcelona",
+    "h2Accent": "stays in Bizcelona.",
+    "intro": "Seven rules, kept brief because we trust your judgement.",
+    "items": [
+      {
+        "title": "Give Before You Take",
+        "body": "Pass on what you know, connect people with each other and lend a hand before asking for anything in return. It is the members who contribute without expecting anything back who end up benefiting the most."
+      },
+      {
+        "title": "Active Participation",
+        "body": "Stay involved in the discussion. Follow the group, reply thoughtfully, and reach out whenever you spot someone who could use your expertise. Cheer on fellow members’ achievements: acknowledge a success when you come across one, and post your own too. A membership that remains passive undermines what we are building."
+      },
+      {
+        "title": "Mutual Respect and Trust",
+        "body": "Act with professionalism and courtesy, keep your promises and presume good faith. Our aim is to build lasting relationships, not one-off deals."
+      },
+      {
+        "title": "No Unsolicited Private Messages",
+        "body": "Establish yourself in the group first, or make sure you already know the person, before sliding into their DMs. Trust is quickly eroded by unsolicited approaches and sales spiels. Say hello in the group and allow the relationship to build naturally from that point."
+      },
+      {
+        "title": "No Promotional Posts",
+        "body": "This is not a place for promotion. There is no aggressive selling and no advertising dressed up as something else. If what you do is pertinent to a discussion, bring it up in a natural way. Not certain? Ask an admin beforehand. Anyone who keeps disregarding this will be removed."
+      },
+      {
+        "title": "Privacy and Confidentiality",
+        "body": "Sharing, copying or posting anything from the group without consent is not allowed. Anything members disclose should be regarded as confidential. Any breach is dealt with firmly."
+      },
+      {
+        "title": "Tiered Involvement",
+        "body": "Participation levels differ from person to person, and there is nothing wrong with that. What matters is that everyone follows these rules and pitches in whenever they do join in. If you are rarely present, consider whether this group genuinely suits you. The aim is for us all to develop together, rather than for some to simply consume what others produce."
+      }
+    ]
+  },
+  "partners": {
+    "label": "Partnerships",
+    "h2Lead": "Partners who give before they",
+    "h2Mark": "take.",
+    "lede": "We are looking for partners who improve membership, rather than logos on a banner.",
+    "para": "A good partner operates the way we do: help comes first, relationships endure, and what is offered has genuine value. That could take the form of a members-only benefit, a workshop or a shared resource. We only agree when members stand to gain from it.",
+    "panels": [
+      {
+        "title": "Venue partners",
+        "body": "Co-working days rotate between venues across Barcelona, and our events require a decent room. If you run a space where people can put in a morning’s work and then have lunch together, get in touch."
+      },
+      {
+        "title": "Perks and sponsors",
+        "body": "If you have something members would genuinely use, whether a perk, a workshop or a resource, tell us what it is and how it helps. We only say yes to what is useful."
+      }
+    ],
+    "cta": "Get in touch",
+    "mailSubject": "Partnering with Bizcelona"
+  },
+  "faq": {
+    "label": "Questions",
+    "h2": "What applicants tend to ask beforehand.",
+    "items": [
+      {
+        "q": "What is Bizcelona?",
+        "a": "Bizcelona is a Barcelona business networking community that operates by invitation only, aimed at founders, independents and senior professionals. Members assist one another with genuine business challenges, promote each other’s achievements, gather for a co-working day once a fortnight and for at least one practical event each month, frequently more, and request introductions via the time bank."
+      },
+      {
+        "q": "Who can join Bizcelona?",
+        "a": "For founders, independents and senior business figures based in or working out of Barcelona. You should be able to explain your activity and how you can assist others. We read every application ourselves, as we aim to keep the professional mix balanced."
+      },
+      {
+        "q": "Why is Bizcelona invite-only, and how do I apply?",
+        "a": "A network only has value when the person you are introduced to has been vouched for and matches your level. To apply, set up an account and let us know what you do and where you can offer help. Every application is reviewed by hand before we welcome you on WhatsApp. Owing to demand, approval may take as long as a week."
+      },
+      {
+        "q": "How long does approval take?",
+        "a": "Owing to high demand, the approval process may take as long as seven days. Each application is reviewed individually, and once approved, we will welcome you on WhatsApp."
+      },
+      {
+        "q": "Is Bizcelona free?",
+        "a": "Yes. Joining costs nothing during our relaunch period, and requesting assistance via the time bank carries no charge either. Our aim is to demonstrate the benefit first, then consider charging. We make no guarantee that this will stay free indefinitely, and members will be given clear notice ahead of any change."
+      },
+      {
+        "q": "What is the time bank, and how does it operate?",
+        "a": "The time bank is the means by which members assist one another in between events. Look up the skill you require, make a brief request of a line or two, and we will put you in touch with a member on WhatsApp, supplying the context. Twenty-four hours later we follow up to ask whether you made contact and how helpful it proved."
+      },
+      {
+        "q": "What happens at a co-working day?",
+        "a": "Members gather every fortnight at a partner venue in Barcelona, and the location shifts each time. The day combines group sessions, in which members swap business ideas, with blocks of focused time for your own work. There is also a round-the-table slot: five minutes per person on what you do and a single problem you would like assistance with. Lunch is taken together."
+      },
+      {
+        "q": "What are the events like?",
+        "a": "We hold a minimum of one practical event each month, frequently more, and deliberately keep numbers low so that attendees can speak with everyone present. The subjects are hands-on: a beginner’s session on applying AI in the workplace, for instance. Our approach favours a handful of worthwhile events over a calendar packed with networking mixers. Dates are listed on the events page."
+      },
+      {
+        "q": "How do members mark one another’s successes?",
+        "a": "Members post their successes in the members’ WhatsApp group, and each event provides an opportunity to do so. Where a member agrees, we also mark those wins on Bizcelona’s LinkedIn page. Going it alone is common for those running a business in Barcelona, and this is how you find colleagues with whom to share a win or a difficulty."
+      },
+      {
+        "q": "What language is spoken in the community, and will I need to know Spanish?",
+        "a": "English is the language we use as a community. Introductions and meetings take place in English, though Spanish is also welcome. Speaking Spanish is not a requirement, and there is no expectation that anyone speaks both languages. When introductions are arranged through the time bank, they are conducted in English, or in Spanish when that works better for the two people involved."
+      },
+      {
+        "q": "I’ve only just arrived in Barcelona. Is it possible to sign up?",
+        "a": "Yes, provided you are a founder, independent or senior professional living in the city. On arrival, a reliable local network is the hardest thing to put together, and it takes the longest. Send in an application, explain what you do, and you will be able to meet members during co-working days and request introductions via the time bank."
+      },
+      {
+        "q": "What sets Bizcelona apart from Meetup and InterNations?",
+        "a": "Open meetups and big expat networks work well if you want to meet lots of people. Bizcelona is designed for something different: a small group that has to be approved, in which every member has committed to helping, and where that help continues between events via the time bank instead of ending when everyone goes home."
+      }
+    ]
+  },
+  "apply": {
+    "label": "Apply",
+    "h2Lead": "By invitation.",
+    "h2Accent": "Free",
+    "h2Tail": "during the relaunch.",
+    "lede": "We want to hear from founders, independents and senior professionals who are based in Barcelona.",
+    "steps": [
+      {
+        "title": "Create your account",
+        "body": "It only takes a few minutes."
+      },
+      {
+        "title": "Explain what you do and how you can be of help",
+        "body": "Here, help is the currency, so state what you are able to offer."
+      },
+      {
+        "title": "We read every application personally",
+        "body": "Due to demand, approval may take as long as a week. Once approved, we welcome you on WhatsApp."
+      }
+    ],
+    "boxTitle": "Ready?",
+    "boxBody": "Membership costs nothing while the relaunch is taking place. We will demonstrate the value before we ever ask you to pay.",
+    "primary": "Apply to join",
+    "login": "Member log in",
+    "mailLead": "Got questions first? Email ",
+    "photoAlt": "Barcelona rooftops and the Columbus monument at sunset"
+  },
+  "events": {
+    "title": "Business Networking Events in Barcelona | Bizcelona",
+    "description": "Business networking in Barcelona for founders and senior professionals: a co-working day once a fortnight plus at least one practical event a month, often more.",
+    "label": "Show up",
+    "h1": "Business networking events in Barcelona",
+    "lede": "A co-working day once a fortnight and at least one practical event a month, often more. Small rooms, genuine work, and people who help.",
+    "emptyTitle": "No dates published yet.",
+    "emptyBody": "Our schedule includes a co-working day every two weeks and at least one practical event per month, often more. Confirmed dates appear here as soon as they are settled.",
+    "errorTitle": "We were unable to load the events just now.",
+    "errorBody": "Please try again shortly, or email us at hello@bizcelona.com.",
+    "apply": "Apply to join",
+    "ogImageAlt": "Bizcelona, building wealth through community."
+  }
+}

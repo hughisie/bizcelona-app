@@ -1,106 +1,72 @@
-'use client';
+import Link from 'next/link';
+import { preload } from 'react-dom';
+import HeroNetwork from '@/components/site/HeroNetwork';
+import HeroMedia from '@/components/site/HeroMedia';
+import Picture from '@/components/site/Picture';
+import type { Content } from '@/lib/site/content';
 
-export default function Hero() {
-  const scrollToApply = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const element = document.querySelector('#apply');
-    if (element) {
-      const offsetTop = element.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  };
-
+// The signature: Owen's drone footage of Barcelona. As you scroll it darkens and dissolves into the Eixample
+// street grid, and the saffron lines draw between the blocks. The real city becomes the network.
+// Without scroll effects (reduced motion, Save-Data, no JavaScript) it is one calm picture: poster plus the finished grid.
+export default function Hero({ c }: { c: Content }) {
+  const HERO = c.hero;
+  // Fetch the poster at high priority; it is small (36 KB on phones) and the footage itself waits until after load.
+  preload('/media/hero-poster-960.avif', {
+    as: 'image',
+    type: 'image/avif',
+    imageSrcSet: '/media/hero-poster-960.avif 960w, /media/hero-poster-1920.avif 1920w',
+    imageSizes: '100vw',
+    fetchPriority: 'high',
+  });
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/videos/hero-poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-          preload="metadata"
-        >
-          <source src="/videos/hero-video.webm" type="video/webm" />
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-        </video>
-        {/* Dark overlay to hide blur and make text pop */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/30 via-transparent to-gray-900/40"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <h1
-          className="text-5xl md:text-7xl font-bold mb-6 opacity-0 animate-fade-in-up"
-          style={{
-            animationDelay: '0.2s',
-            textShadow: '0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4)'
-          }}
-        >
-          Bizcelona
-        </h1>
-        <p
-          className="text-xl md:text-2xl mb-4 opacity-0 animate-fade-in-up font-light"
-          style={{
-            animationDelay: '0.4s',
-            textShadow: '0 2px 12px rgba(0, 0, 0, 0.9), 0 1px 6px rgba(0, 0, 0, 0.7)'
-          }}
-        >
-          Barcelona's Business Community for Entrepreneurs & Executives
-        </p>
-        <p
-          className="text-lg md:text-xl mb-8 opacity-0 animate-fade-in-up font-light"
-          style={{
-            animationDelay: '0.5s',
-            textShadow: '0 2px 12px rgba(0, 0, 0, 0.9), 0 1px 6px rgba(0, 0, 0, 0.7)'
-          }}
-        >
-          Invite-only network for business owners, digital nomads, and senior professionals
-        </p>
-        <a
-          href="#apply"
-          onClick={scrollToApply}
-          className="btn-primary inline-block bg-saffron text-navy px-12 py-5 rounded-xl font-bold text-xl hover:bg-orange-400 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl opacity-0 animate-fade-in-up border-4 border-saffron hover:border-orange-400"
-          style={{
-            animationDelay: '0.6s',
-            boxShadow: '0 15px 40px rgba(246, 173, 85, 0.6), 0 8px 20px rgba(246, 173, 85, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)',
-            backdropFilter: 'blur(10px)'
-          }}
-        >
-          Apply to Join
-        </a>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white opacity-0 animate-fade-in-up"
-        style={{ animationDelay: '1s' }}
-      >
-        <div className="animate-bounce">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            ></path>
-          </svg>
+    <section id="home" className="hero on-navy" aria-labelledby="hero-title" data-scene="phase" data-phase="0">
+      <div className="hero__pin">
+        <div className="hero__bg" aria-hidden="true">
+          <div className="hero__media">
+            <picture>
+              <source type="image/avif" srcSet="/media/hero-poster-960.avif 960w, /media/hero-poster-1920.avif 1920w" sizes="100vw" />
+              <source type="image/webp" srcSet="/media/hero-poster-960.webp 960w, /media/hero-poster-1920.webp 1920w" sizes="100vw" />
+              <img
+                className="hero__poster"
+                src="/media/hero-poster-1920.webp"
+                alt=""
+                width={1920}
+                height={1080}
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
+            <HeroMedia />
+          </div>
+          <div className="hero__shade" />
+          <HeroNetwork />
         </div>
+
+        <div className="wrap hero__inner">
+          <div className="hero__copy">
+            <p className="label hero__label">{HERO.label}</p>
+            <h1 id="hero-title">{HERO.h1}</h1>
+            <p className="lede hero__lede">{HERO.lede}</p>
+            <div className="btn-row hero__cta">
+              <Link className="btn btn--saffron" href="/signup">{HERO.primary}</Link>
+              <a className="btn btn--ghost" href="#time-bank">{HERO.secondary}</a>
+            </div>
+            <ul className="hero__facts" aria-label={c.ui.atAGlance}>
+              {HERO.facts.map((f) => <li key={f}>{f}</li>)}
+            </ul>
+          </div>
+
+          <div className="hero__beat" aria-hidden="true">
+            <p className="display hero__beat-line">{HERO.beat}</p>
+            <p className="hero__beat-sub">{HERO.beatSub}</p>
+            <Link className="btn btn--saffron" href="/signup" tabIndex={-1}>{HERO.primary}</Link>
+          </div>
+        </div>
+
+        <p className="hero__scroll" aria-hidden="true"><span>{HERO.scroll}</span></p>
       </div>
+      <span className="mark" data-mark style={{ top: 'calc(55svh + 26svh)' }} aria-hidden="true" />
+      <span className="mark" data-mark style={{ top: 'calc(55svh + 95svh)' }} aria-hidden="true" />
     </section>
   );
 }
