@@ -3,7 +3,7 @@
 export const LOCALES = ['en', 'es', 'ca'] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = 'en';
-export const SITE_URL = 'https://bizcelona.com';
+export const SITE_URL = 'https://www.bizcelona.com';
 
 export const HTML_LANG: Record<Locale, string> = { en: 'en-GB', es: 'es', ca: 'ca' };
 export const HREFLANG: Record<Locale, string> = { en: 'en', es: 'es', ca: 'ca' };

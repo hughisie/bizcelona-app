@@ -80,8 +80,8 @@ describe('language routing', () => {
     expect(localePath('en', '/')).toBe('/');
     expect(localePath('es', '/')).toBe('/es');
     expect(localePath('ca', '/events/public')).toBe('/ca/events/public');
-    expect(absoluteUrl('en', '/')).toBe('https://bizcelona.com');
-    expect(absoluteUrl('es', '/events/public')).toBe('https://bizcelona.com/es/events/public');
+    expect(absoluteUrl('en', '/')).toBe('https://www.bizcelona.com');
+    expect(absoluteUrl('es', '/events/public')).toBe('https://www.bizcelona.com/es/events/public');
   });
 
   it('finds the same page in another language', () => {
@@ -95,6 +95,6 @@ describe('language routing', () => {
     const alt = languageAlternates('/');
     expect(Object.keys(alt).sort()).toEqual(['ca', 'en', 'es', 'x-default']);
     expect(alt['x-default']).toBe(alt.en);
-    for (const url of Object.values(alt)) expect(url).toMatch(/^https:\/\/bizcelona\.com(\/(es|ca))?$/);
+    for (const url of Object.values(alt)) expect(url).toMatch(/^https:\/\/www\.bizcelona\.com(\/(es|ca))?$/);
   });
 });

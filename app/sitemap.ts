@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
-import { LOCALES, absoluteUrl, languageAlternates } from '@/lib/site/locales';
+import { LOCALES, SITE_URL, absoluteUrl, languageAlternates } from '@/lib/site/locales';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://bizcelona.com';
+  const baseUrl = SITE_URL;
   const now = new Date();
 
   // Public pages exist in every language; each entry lists all of them plus x-default.
