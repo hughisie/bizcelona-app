@@ -237,7 +237,7 @@ html:not(.js) .site .nav__panel { position: static; visibility: visible; opacity
 html:not(.js) .site .nav__bar { flex-wrap: wrap; }
 html:not(.js) .site .nav__panel ul { display: flex; flex-wrap: wrap; gap: var(--s3); }
 
-@media (min-width: 62em) {
+@media (min-width: 72em) {
   .site .nav__toggle { display: none; }
   .site .nav__panel, .site .nav__panel[data-open] {
     position: static; background: none; border: 0; padding: 0;
@@ -882,7 +882,7 @@ html.fx .site .reveal.in { animation: rise 0.9s var(--ease-drawer) var(--d, 0s) 
 .site .nav__lang a[aria-current="true"] { color: var(--off-white); border-bottom-color: var(--saffron); }
 @media (hover: hover) and (pointer: fine) { .site .nav__lang a:hover { color: var(--saffron); } }
 html:not(.js) .site .nav__lang { margin-left: auto; }
-@media (min-width: 62em) {
+@media (min-width: 72em) {
   .site .nav__lang { order: 4; margin-left: var(--s6); margin-right: 0; }
   .site .nav__panel { margin-left: auto; }
 }
@@ -920,3 +920,9 @@ html:not(.js) .site .nav__lang { margin-left: auto; }
   .site .split--wins { grid-template-columns: 0.85fr 1.15fr; gap: var(--s9); align-items: start; }
   .site .wins__head { position: sticky; top: calc(var(--header-h) + var(--s6)); }
 }
+
+/* Longer Spanish and Catalan labels must never wrap or squeeze the logo */
+.site .nav__link, .site .nav__lang a { white-space: nowrap; }
+.site .nav__brand { flex: none; }
+@media (min-width: 72em) { .site .nav__panel ul { gap: var(--s3); } .site .nav__lang { margin-left: var(--s4); } }
+.site .split--wins h2 { font-size: clamp(2rem, 4.6vw, 3.5rem); }

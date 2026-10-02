@@ -53,6 +53,7 @@ export default function Navbar({ locale, ui }: { locale: Locale; ui: Content['ui
                 lang={HREFLANG[l]}
                 aria-label={LANGUAGE_NAME[l]}
                 aria-current={l === locale ? 'true' : undefined}
+                prefetch={false}
               >
                 {l.toUpperCase()}
               </Link>
