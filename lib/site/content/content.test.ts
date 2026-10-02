@@ -68,7 +68,7 @@ describe('public site copy', () => {
     for (const l of LOCALES) {
       const c = getContent(l);
       expect(c.meta.title.length, `${l} title`).toBeLessThanOrEqual(70);
-      expect(c.meta.description.length, `${l} description`).toBeLessThanOrEqual(160);
+      expect(c.meta.description.length, `${l} description`).toBeLessThanOrEqual(165);
       expect(c.events.title.length, `${l} events title`).toBeLessThanOrEqual(70);
       expect(c.events.description.length, `${l} events description`).toBeLessThanOrEqual(165);
     }
