@@ -290,6 +290,11 @@ html:not(.js) .site .nav__panel ul { display: flex; flex-wrap: wrap; gap: var(--
 }
 .site .mark { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
 @media (min-width: 48em) {
+  /* Keep the lines quiet behind the words on the left, full strength on the right */
+  .site .hero .net {
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.18) 34%, #000 64%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.18) 34%, #000 64%);
+  }
   .site .hero__pin { padding-block: 7rem 8.5rem; }
   .site .hero__shade {
     background:
@@ -337,6 +342,11 @@ html.fx .site .hero__beat-line { font-size: clamp(2rem, 5.4vw, 4rem); line-heigh
 html.fx .site .hero__beat-sub { margin: var(--s4) 0 var(--s5); color: var(--off-white); font-size: clamp(1.0625rem, 2vw, 1.375rem); }
 @media (min-width: 48em) { html.fx .site .hero__beat { max-width: 34rem; } }
 html.fx .site .hero__scroll { display: flex; }
+@media (max-width: 47.99em) {
+  html.fx .site .hero__scroll { display: none; }
+  html.fx .site .hero__beat { align-self: start; margin-top: var(--s7); }
+  html.fx .site .hero__copy { align-self: start; margin-top: var(--s6); }
+}
 html.fx .site .hero__copy:focus-within { opacity: 1 !important; transform: none !important; }
 /* In the scroll story the grid starts hidden and is drawn by scrolling */
 html.fx .site .hero .net { opacity: 0; }
@@ -389,7 +399,7 @@ html.fx.io .site .hero[data-phase="2"] .net { opacity: 1; }
 html.fx.io .site .hero[data-phase="2"] .net__diagonal { opacity: 0.3; }
 html.fx.io .site .hero[data-phase="2"] .net__edge { stroke-dashoffset: 0; }
 html.fx.io .site .hero[data-phase="2"] .net__node { opacity: 1; transform: none; }
-html.fx.io .site .hero[data-phase="2"] .hero__beat { opacity: 1; transform: none; }
+html.fx.io .site .hero[data-phase="1"] .hero__beat, html.fx.io .site .hero[data-phase="2"] .hero__beat { opacity: 1; transform: none; }
 html.fx.io .site .hero[data-phase="1"] .net { opacity: 0.5; }
 
 /* ---------- Parallax photos ---------- */

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { preload } from 'react-dom';
 import HeroNetwork from '@/components/site/HeroNetwork';
 import HeroMedia from '@/components/site/HeroMedia';
 import Picture from '@/components/site/Picture';
@@ -8,6 +9,14 @@ import { HERO } from '@/app/(site)/_content/content';
 // street grid, and the saffron lines draw between the blocks. The real city becomes the network.
 // Without scroll effects (reduced motion, Save-Data, no JavaScript) it is one calm picture: poster plus the finished grid.
 export default function Hero() {
+  // Fetch the poster at high priority; it is small (36 KB on phones) and the footage itself waits until after load.
+  preload('/media/hero-poster-960.avif', {
+    as: 'image',
+    type: 'image/avif',
+    imageSrcSet: '/media/hero-poster-960.avif 960w, /media/hero-poster-1920.avif 1920w',
+    imageSizes: '100vw',
+    fetchPriority: 'high',
+  });
   return (
     <section id="home" className="hero on-navy" aria-labelledby="hero-title" data-scene="phase" data-phase="0">
       <div className="hero__pin">
@@ -23,6 +32,7 @@ export default function Hero() {
                 width={1920}
                 height={1080}
                 decoding="async"
+                fetchPriority="high"
               />
             </picture>
             <HeroMedia />
@@ -54,8 +64,8 @@ export default function Hero() {
 
         <p className="hero__scroll" aria-hidden="true"><span>{HERO.scroll}</span></p>
       </div>
-      <span className="mark" data-mark style={{ top: '14%' }} aria-hidden="true" />
-      <span className="mark" data-mark style={{ top: '42%' }} aria-hidden="true" />
+      <span className="mark" data-mark style={{ top: 'calc(55svh + 26svh)' }} aria-hidden="true" />
+      <span className="mark" data-mark style={{ top: 'calc(55svh + 95svh)' }} aria-hidden="true" />
     </section>
   );
 }
