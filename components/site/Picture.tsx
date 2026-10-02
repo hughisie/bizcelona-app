@@ -1,7 +1,7 @@
 // A plain <picture> with AVIF first, WebP second. No next/image on the public pages: the files are
 // pre-sized in /public/media, so there is nothing for the optimiser to do and no runtime cost.
 type Props = {
-  name: string;            // file stem in /media, e.g. "panorama"
+  name: string;            // file stem in /media, e.g. "eixample"
   sizes: number[];         // widths that exist on disk
   alt: string;
   sizesAttr: string;       // the sizes="" attribute
