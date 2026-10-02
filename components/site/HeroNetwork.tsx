@@ -1,6 +1,6 @@
-// Hero background: an abstract top-down view of Cerdà's Eixample, with members
-// (points) helping each other (saffron lines). Pure SVG + CSS animation, no JavaScript.
-// Base styles are the settled end state, so reduced-motion and no-JS users get a calm static picture.
+// An abstract top-down view of Cerdà's Eixample, with members (points) helping each other (saffron lines).
+// Pure SVG, no JavaScript. Base styles are the settled end state, so reduced-motion and no-JS visitors get a calm
+// static picture laid over the footage poster. In the scroll story the lines draw as the footage dissolves.
 
 const PITCH = 100; // one block plus its street, in SVG units
 const COLS = 16;
@@ -61,7 +61,7 @@ export default function HeroNetwork() {
             x2={q.x}
             y2={q.y}
             pathLength={1}
-            style={{ '--d': `${(START + 0.25 + k * STEP).toFixed(2)}s` } as React.CSSProperties}
+            style={{ '--d': `${(START + 0.25 + k * STEP).toFixed(2)}s`, '--i': k } as React.CSSProperties}
           />
         );
       })}
@@ -73,7 +73,7 @@ export default function HeroNetwork() {
           <g
             key={`n${i}`}
             className="net__node"
-            style={{ '--d': `${(START + k * STEP).toFixed(2)}s` } as React.CSSProperties}
+            style={{ '--d': `${(START + k * STEP).toFixed(2)}s`, '--i': k } as React.CSSProperties}
           >
             <circle className="net__halo" cx={x} cy={y} r="11" />
             <circle className="net__dot" cx={x} cy={y} r="3.4" />

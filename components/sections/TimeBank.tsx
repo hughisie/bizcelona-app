@@ -1,53 +1,50 @@
-const STEPS = [
-  {
-    title: 'Search',
-    body: 'Track down the skill you are after and see who can help, along with how quickly they tend to reply and the hours they have given.',
-  },
-  {
-    title: 'Ask',
-    body: 'Set out your request in one or two lines. There is no charge for asking.',
-    free: true,
-  },
-  {
-    title: 'Introduce',
-    body: 'We send both parties a WhatsApp introduction that includes the context, so neither side is starting from scratch.',
-  },
-  {
-    title: '24-hour check',
-    body: 'A day afterwards we check whether you made contact, how helpful it proved and approximately how long it took. The person who helped confirms that you were in touch.',
-  },
-];
+import { TIME_BANK } from '@/app/(site)/_content/content';
 
+// Pinned storytelling: the section sticks while you scroll and the four steps light up one after another.
+// Without scroll effects it is a plain four-card row with a saffron thread.
 export default function TimeBank() {
   return (
-    <section id="time-bank" className="section on-navy" aria-labelledby="timebank-title">
+    <section id="time-bank" className="tb on-navy" aria-labelledby="timebank-title" data-scene="step" data-base="1" data-step="1">
+      <div className="tb__stage">
+        <div className="tb__pin">
+          <div className="wrap tb__grid">
+            <div className="tb__head reveal">
+              <p className="label">{TIME_BANK.label}</p>
+              <h2 id="timebank-title">{TIME_BANK.h2}</h2>
+              <p className="lede muted">{TIME_BANK.lede}</p>
+            </div>
+
+            <div className="tb__numerals" aria-hidden="true">
+              {TIME_BANK.steps.map((s, i) => (
+                <span key={s.title} className="tb__numeral" style={{ '--n': i } as React.CSSProperties}>{i + 1}</span>
+              ))}
+            </div>
+
+            <div className="steps-wrap">
+              <span className="steps__line" aria-hidden="true" />
+              <ol className="steps">
+                {TIME_BANK.steps.map((s, i) => (
+                  <li key={s.title} className="step" style={{ '--n': i } as React.CSSProperties}>
+                    <span className="step__num" aria-hidden="true">{i + 1}</span>
+                    <h3>
+                      {s.title}
+                      {s.free && <span className="tag-free">Free</span>}
+                    </h3>
+                    <p>{s.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+          <span className="tb__rail" aria-hidden="true"><span /></span>
+        </div>
+
+        {/* Invisible markers for the fallback that steps the scene in browsers without scroll-driven CSS. Not content. */}
+        {[1, 2, 3].map((k) => <span key={k} className="mark" data-mark aria-hidden="true" />)}
+      </div>
       <div className="wrap">
-        <div className="section-head reveal">
-          <p className="label">How members help each other</p>
-          <h2 id="timebank-title">The time bank, in four steps.</h2>
-          <p className="lede muted">
-            Looking for a particular skill? Describe what you need in a line or two, and we will make an introduction on WhatsApp, giving both sides the context.
-          </p>
-        </div>
-
-        <div className="steps-wrap">
-          <span className="steps__line reveal" aria-hidden="true" />
-          <ol className="steps">
-            {STEPS.map((s, i) => (
-              <li key={s.title} className="step reveal" style={{ '--d': `${i * 140}ms` } as React.CSSProperties}>
-                <span className="step__num" aria-hidden="true">{i + 1}</span>
-                <h3>
-                  {s.title}
-                  {s.free && <span className="tag-free">Free</span>}
-                </h3>
-                <p>{s.body}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-
         <p className="note reveal">
-          The time bank is <strong>being introduced to members as part of the relaunch.</strong>
+          <strong>{TIME_BANK.noteStrong}</strong>
         </p>
       </div>
     </section>

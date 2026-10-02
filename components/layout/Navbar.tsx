@@ -8,7 +8,7 @@ const LINKS = [
   { href: '/#about', label: 'About' },
   { href: '/#time-bank', label: 'Time bank' },
   { href: '/#rules', label: 'House rules' },
-  { href: '/#partnerships', label: 'Partnerships' },
+  { href: '/#faq', label: 'FAQ' },
   { href: '/events/public', label: 'Events' },
 ];
 

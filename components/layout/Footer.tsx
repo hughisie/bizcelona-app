@@ -6,6 +6,7 @@ export default function Footer() {
       <div className="wrap foot__grid">
         <div>
           <img src="/images/logo-offwhite-256.webp" alt="Bizcelona" width={128} height={55} loading="lazy" decoding="async" />
+          <p className="foot__meta">Invitation-only business networking in Barcelona.</p>
           <p className="foot__meta">&copy; 2026 Bizcelona. Built with love in Barcelona.</p>
         </div>
         <ul className="foot__links">

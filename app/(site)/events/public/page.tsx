@@ -1,16 +1,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import Picture from '@/components/site/Picture';
+import { EVENTS } from '../../_content/content';
 
 export const metadata: Metadata = {
-  title: 'Events | Bizcelona',
-  description:
-    'A co-working day once a fortnight and one quality event each month, for Barcelona founders, independents and senior business figures.',
+  title: { absolute: EVENTS.title },
+  description: EVENTS.description,
   alternates: { canonical: 'https://bizcelona.com/events/public' },
   openGraph: {
-    title: 'Events | Bizcelona',
-    description: 'A co-working day once a fortnight and one quality event each month.',
+    title: EVENTS.title,
+    description: EVENTS.description,
     url: 'https://bizcelona.com/events/public',
+    siteName: 'Bizcelona',
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'Bizcelona, building wealth through community.' }],
+    locale: 'en_GB',
+    type: 'website',
   },
 };
 
@@ -84,13 +89,45 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
       )
     : null;
 
+  const now = new Date();
+  const checkedIso = now.toISOString().split('T')[0];
+  const checkedLabel = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Madrid' }).format(now);
+
   return (
     <>
-      <section className="page-head on-navy" aria-labelledby="events-title">
-        <div className="wrap">
-          <p className="label">Show up</p>
-          <h1 id="events-title">Events</h1>
-          <p className="lede">A co-working day once a fortnight, and one quality event each month.</p>
+      {events.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': events.map((ev) => ({
+                '@type': 'Event',
+                name: ev.title,
+                startDate: ev.event_date,
+                eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+                eventStatus: 'https://schema.org/EventScheduled',
+                ...(ev.description ? { description: ev.description } : {}),
+                ...(ev.location ? { location: { '@type': 'Place', name: ev.location, address: 'Barcelona, Spain' } } : {}),
+                ...(safeUrl(ev.external_url) ? { url: safeUrl(ev.external_url) } : {}),
+                organizer: { '@type': 'Organization', name: 'Bizcelona', url: 'https://bizcelona.com/' },
+              })),
+            }),
+          }}
+        />
+      )}
+      <section className="page-head page-head--photo on-navy" aria-labelledby="events-title">
+        <div className="page-head__photo par" aria-hidden="true">
+          <Picture name="montjuic" sizes={[800, 1600]} sizesAttr="100vw" width={1600} height={900} alt="" priority />
+        </div>
+        <div className="page-head__veil" aria-hidden="true" />
+        <div className="wrap page-head__inner">
+          <p className="label">{EVENTS.label}</p>
+          <h1 id="events-title">{EVENTS.h1}</h1>
+          <p className="lede">{EVENTS.lede}</p>
+          <p className="page-head__checked">
+            Live listing, checked on <time dateTime={checkedIso}>{checkedLabel}</time>.
+          </p>
         </div>
       </section>
 
@@ -104,15 +141,13 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
 
           {error ? (
             <div className="empty">
-              <h2>We could not load the events just now.</h2>
-              <p className="muted measure">Please try again shortly, or email us at hello@bizcelona.com.</p>
+              <h2>{EVENTS.errorTitle}</h2>
+              <p className="muted measure">{EVENTS.errorBody}</p>
             </div>
           ) : events.length === 0 ? (
             <div className="empty">
-              <h2>No dates published yet.</h2>
-              <p className="muted measure">
-                We run a co-working day once a fortnight and one quality event each month. Dates are posted here as soon as they are confirmed.
-              </p>
+              <h2>{EVENTS.emptyTitle}</h2>
+              <p className="muted measure">{EVENTS.emptyBody}</p>
               <div className="btn-row">
                 <Link className="btn btn--navy" href="/signup">Apply to join</Link>
               </div>

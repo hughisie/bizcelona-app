@@ -1,18 +1,47 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
+import Outcomes from '@/components/sections/Outcomes';
+import Band from '@/components/sections/Band';
 import TimeBank from '@/components/sections/TimeBank';
 import Rhythm from '@/components/sections/Rhythm';
-import Ladder from '@/components/sections/Ladder';
-import Council from '@/components/sections/Council';
+import ForWhom from '@/components/sections/ForWhom';
 import Rules from '@/components/sections/Rules';
 import Partnerships from '@/components/sections/Partnerships';
+import Faq from '@/components/sections/Faq';
 import Apply from '@/components/sections/Apply';
+import { FAQ, HERO, META } from './_content/content';
 
-export const metadata: Metadata = {
-  alternates: { canonical: 'https://bizcelona.com' },
+const OG_IMAGE = {
+  url: '/images/og-image.jpg',
+  width: 1200,
+  height: 630,
+  alt: 'Bizcelona logo in off-white on navy, with the headline Building wealth through community.',
 };
 
+export const metadata: Metadata = {
+  title: { absolute: META.title },
+  description: META.description,
+  alternates: { canonical: 'https://bizcelona.com' },
+  openGraph: {
+    title: META.ogTitle,
+    description: META.ogDescription,
+    url: 'https://bizcelona.com',
+    siteName: 'Bizcelona',
+    images: [OG_IMAGE],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: META.ogTitle,
+    description: META.ogDescription,
+    images: [OG_IMAGE.url],
+    creator: '@bizcelona',
+  },
+};
+
+// Organization, WebSite, WebPage and FAQPage. The FAQ text comes from the same source as the visible answers.
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -23,8 +52,8 @@ const structuredData = {
       url: 'https://bizcelona.com/',
       logo: 'https://bizcelona.com/images/logo-navy.png',
       description:
-        "An invitation-only community for founders, independents and senior business figures based in Barcelona, built on giving before taking. Where the city's founders and professionals work together, exchange ideas and grow as a group.",
-      slogan: 'Building wealth through community.',
+        'An invitation-only business networking community in Barcelona for founders, independents and senior professionals, built on giving before taking.',
+      slogan: HERO.h1,
       areaServed: { '@type': 'City', name: 'Barcelona' },
       email: 'hello@bizcelona.com',
       sameAs: ['https://www.linkedin.com/company/110331955'],
@@ -36,6 +65,25 @@ const structuredData = {
       name: 'Bizcelona',
       inLanguage: 'en-GB',
       publisher: { '@id': 'https://bizcelona.com/#organization' },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': 'https://bizcelona.com/#webpage',
+      url: 'https://bizcelona.com/',
+      name: META.title,
+      description: META.description,
+      inLanguage: 'en-GB',
+      isPartOf: { '@id': 'https://bizcelona.com/#website' },
+      about: { '@id': 'https://bizcelona.com/#organization' },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://bizcelona.com/#faq',
+      mainEntity: FAQ.items.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
   ],
 };
@@ -49,12 +97,14 @@ export default function Home() {
       />
       <Hero />
       <About />
+      <Outcomes />
+      <Band />
       <TimeBank />
       <Rhythm />
-      <Ladder />
-      <Council />
+      <ForWhom />
       <Rules />
       <Partnerships />
+      <Faq />
       <Apply />
     </>
   );
