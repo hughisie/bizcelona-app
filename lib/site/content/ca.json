@@ -30,7 +30,7 @@
     "atAGlance": "D’un cop d’ull",
     "free": "Gratuït",
     "eventsFilterShowing": "Mostrant ",
-    "eventsFilterAll": "Veure tots els propers esdeveniments",
+    "eventsFilterAll": "Mostra tots els propers esdeveniments",
     "eventsCheckedPre": "Llistat en directe, comprovat el ",
     "eventsCheckedPost": ".",
     "eventsIn": "Esdeveniments a ",
@@ -63,7 +63,7 @@
       "Fer xarxa a la ciutat normalment vol dir una sala de cares desconegudes intercanviant targetes de visita. Bizcelona capgira aquest model. Una persona revisa cada sol·licitud, i cada membre que hi entra s’ha compromès a donar un cop de mà.",
       "Els membres s’ajuden els uns als altres amb les coses pràctiques que generen ingressos: aconseguir un primer client, negociar un preu millor amb un proveïdor, trobar un soci, fer una contractació o obtenir una resposta honesta d’algú que ja hi ha passat. Aquí el que compta és donar. Els qui contribueixen pugen; els qui només reben queden fora.",
       "Treballar pel teu compte a Barcelona pot ser una existència aïllada. No hi ha ningú al passadís per celebrar-ho quan es tanca un acord, ni ningú a qui adreçar-te quan sorgeixen problemes. Bizcelona proporciona aquests col·legues, juntament amb un grup que dona suport de veritat als èxits dels altres.",
-      "La mida és deliberadament limitada, amb un nucli objectiu de 100 a 150 membres actius. Una xarxa que pots fer servir de veritat és més petita que una que pots lluir."
+      "La mida és deliberadament limitada, amb un nucli objectiu de 100 a 150 membres actius. Una xarxa que pots fer servir de veritat és més petita que una de la qual pots presumir."
     ],
     "notList": [
       "Això no és un club de fundadors car.",
@@ -73,12 +73,12 @@
     "photoAlt": "Barcelona vista des dels turons, la ciutat estenent-se cap al mar",
     "photoCaption": "Barcelona des de l’aire. A cada illa de cases hi ha algú que podria donar un cop de mà.",
     "whyNowLabel": "Per què ara",
-    "whyNow": "Amb la IA absorbint cada cop més feina d’oficina, una xarxa local fiable de persones que es presenten en persona guanya valor any rere any."
+    "whyNow": "Amb la IA absorbint cada cop més feina d’oficina, una xarxa local fiable de persones que hi són de debò guanya valor any rere any."
   },
   "outcomes": {
     "label": "Per a què serveix",
     "h2": "Resultats en diners, no targetes de visita.",
-    "lede": "La riquesa que es construeix a través d’una comunitat es redueix a resultats tangibles: una base de clients més gran, millors preus i errors costosos evitats. Això és el que els membres es demanen entre ells.",
+    "lede": "La riquesa que es construeix a través d’una comunitat es redueix a resultats tangibles: una base de clients més gran, millors preus i errors costosos evitats. Això és el que els membres s’aporten entre ells.",
     "items": [
       {
         "title": "Un client o un soci.",
@@ -94,20 +94,20 @@
       },
       {
         "title": "La contractació adequada.",
-        "body": "Contracta un autònom o el teu primer empleat a través de persones que ja hi han treballat al costat."
+        "body": "Contracta un autònom o el teu primer empleat a través de persones que ja hi han treballat colze a colze."
       }
     ]
   },
   "band": {
     "label": "El nostre principi",
-    "quote": "Com els gremis d’abans, no només compartim un espai; defensem activament l’èxit dels altres.",
+    "quote": "Com els gremis d’abans, no només compartim un espai; impulsem activament l’èxit dels altres.",
     "cite": "Owen Hughes, fundador",
     "photoAlt": "Un gran panorama de Barcelona vist des dels turons, amb la ciutat i el mar trobant-se sota un cel clar"
   },
   "wins": {
     "label": "Celebrar els èxits",
     "h2": "Ningú hauria de celebrar un èxit tot sol.",
-    "lede": "Tirar endavant sol és la norma per a molta gent que dirigeix una empresa a Barcelona. Si tanca un tracte, o si les coses van malament, no hi ha ningú al passadís amb qui compartir-ho. Bizcelona et dona aquests col·legues.",
+    "lede": "Tirar endavant sol és la norma per a molta gent que dirigeix una empresa a Barcelona. Si es tanca un tracte, o si les coses van malament, no hi ha ningú al passadís amb qui compartir-ho. Bizcelona et dona aquests col·legues.",
     "moments": [
       {
         "kicker": "Sempre que vulguis",
@@ -142,7 +142,7 @@
         "free": true
       },
       {
-        "title": "Presenta",
+        "title": "Et presentem",
         "body": "Obrim un xat de WhatsApp que t’inclou a tu i el membre que et pot ajudar, amb el context, perquè ningú no hagi de començar de zero."
       },
       {
@@ -180,7 +180,7 @@
     "paras": [
       "Hi ha membres que fa anys que construeixen el seu negoci a la ciutat. D’altres van aterrar el mes passat i encara busquen un gestor fiable, un lloc de coworking adequat i els contactes que val la pena tenir. Bizcelona reuneix els dos grups a la mateixa sala.",
       "L’idioma de la comunitat és l’anglès. Les trobades i les presentacions es fan en anglès, i el castellà sempre és benvingut. Parlar tots dos no és cap requisit.",
-      "Mantenim deliberadament una barreja professional equilibrada, perquè cap sector domini la sala. Ara mateix ens interessa especialment sentir de persones que treballen en SEO, web, retail, legal i fiscal, finances, hostaleria, i oficis i artesania."
+      "Mantenim deliberadament una barreja professional equilibrada, perquè cap sector domini la sala. Ara mateix ens interessa especialment conèixer persones que treballen en SEO, web, retail, legal i fiscal, finances, hostaleria, i oficis i artesania."
     ],
     "chips": [
       "Fundadors",
@@ -207,15 +207,15 @@
       },
       {
         "title": "Respecte i confiança mútua",
-        "body": "Actua amb professionalitat i cortesia, compleix la teva paraula i presumeix bona fe. El nostre objectiu és construir relacions duradores, no tractes puntuals."
+        "body": "Actua amb professionalitat i cortesia, compleix la teva paraula i pressuposa la bona fe. El nostre objectiu és construir relacions duradores, no tractes puntuals."
       },
       {
         "title": "Sense missatges privats no sol·licitats",
-        "body": "Fes-te veure primer al grup, o assegura’t que ja coneixes la persona, abans d’enviar-li un missatge privat. La confiança es deteriora ràpidament amb aproximacions no sol·licitades i discursos de vendes. Saluda al grup i deixa que la relació es construeixi de manera natural a partir d’aquí."
+        "body": "Pregunta primer al grup, o assegura’t que ja coneixes la persona, abans d’enviar-li un missatge privat. La confiança es deteriora ràpidament amb aproximacions no sol·licitades i discursos de vendes. Saluda al grup i deixa que la relació es construeixi de manera natural a partir d’aquí."
       },
       {
         "title": "Sense publicacions promocionals",
-        "body": "Aquest no és un lloc per promocionar-se. No hi ha vendes agressives ni publicitat disfressada d’una altra cosa. Si el que fas és pertinent per a una conversa, treu-lo a col·lació d’una manera natural. No n’estàs segur? Pregunta-ho abans a un admin. Qui ho segueixi incomplint serà expulsat."
+        "body": "Aquest no és un lloc per promocionar-se. No hi ha vendes agressives ni publicitat disfressada d’una altra cosa. Si el que fas és pertinent per a una conversa, treu-ho a col·lació d’una manera natural. No n’estàs segur? Pregunta-ho abans a un admin. Qui ho segueixi incomplint serà expulsat."
       },
       {
         "title": "Privacitat i confidencialitat",
@@ -252,7 +252,7 @@
     "items": [
       {
         "q": "Què és Bizcelona?",
-        "a": "Bizcelona és una comunitat de networking empresarial de Barcelona que funciona per invitació, adreçada a fundadors, autònoms i professionals amb experiència. Els membres s’ajuden els uns als altres amb reptes empresarials reals, es promocionen mútuament els èxits, es troben per a una jornada de coworking cada dues setmanes i per a com a mínim un esdeveniment pràctic cada mes, sovint més, i demanen presentacions a través del banc del temps."
+        "a": "Bizcelona és una comunitat de networking empresarial de Barcelona que funciona per invitació, adreçada a fundadors, autònoms i professionals amb experiència. Els membres s’ajuden els uns als altres amb reptes empresarials reals, celebren els èxits dels altres, es troben per a una jornada de coworking cada dues setmanes i per a com a mínim un esdeveniment pràctic cada mes, sovint més, i demanen presentacions a través del banc del temps."
       },
       {
         "q": "Qui pot unir-se a Bizcelona?",
@@ -268,7 +268,7 @@
       },
       {
         "q": "Bizcelona és gratuïta?",
-        "a": "Sí. Unir-s’hi no costa res durant el nostre període de relançament, i demanar ajuda a través del banc del temps tampoc no té cap cost. El nostre objectiu és demostrar primer el benefici i després plantejar-nos cobrar. No garantim que això segueixi sent gratuït indefinidament, i els membres rebran un avís clar abans de qualsevol canvi."
+        "a": "Sí. Unir-s’hi no costa res durant el nostre període de relançament, i demanar ajuda a través del banc del temps tampoc no té cap cost. El nostre objectiu és demostrar primer el valor i després plantejar-nos cobrar. No garantim que això segueixi sent gratuït indefinidament, i els membres rebran un avís clar abans de qualsevol canvi."
       },
       {
         "q": "Què és el banc del temps, i com funciona?",
@@ -287,7 +287,7 @@
         "a": "Els membres publiquen els seus èxits al grup de WhatsApp dels membres, i cada esdeveniment és una oportunitat per fer-ho. Quan un membre hi està d’acord, també destaquem aquests èxits a la pàgina de LinkedIn de Bizcelona. Anar per lliure és habitual per a qui dirigeix un negoci a Barcelona, i així és com trobes col·legues amb qui compartir un èxit o una dificultat."
       },
       {
-        "q": "Quin idioma es parla a la comunitat? Caldrà que sàpiga castellà?",
+        "q": "Quin idioma es parla a la comunitat? Cal que sàpigues castellà?",
         "a": "L’idioma de la comunitat és l’anglès. Les presentacions i les reunions es fan en anglès, tot i que el castellà també hi és benvingut. No cal parlar castellà, i no s’espera que ningú parli les dues llengües. Quan les presentacions s’organitzen a través del banc del temps, es fan en anglès, o en castellà quan va millor per a les dues persones implicades."
       },
       {
@@ -296,7 +296,7 @@
       },
       {
         "q": "Què diferencia Bizcelona de Meetup i InterNations?",
-        "a": "Les trobades obertes i les grans xarxes d’expatriats funcionen bé si vols conèixer molta gent. Bizcelona està pensada per a una altra cosa: un grup petit que ha de ser aprovat, en què cada membre s’ha compromès a ajudar, i on aquesta ajuda continua entre esdeveniments a través del banc del temps en lloc d’acabar-se quan tothom se’n va a casa."
+        "a": "Les trobades obertes i les grans xarxes d’expatriats funcionen bé si vols conèixer molta gent. Bizcelona està pensada per a una altra cosa: un grup petit en què cada membre ha estat aprovat i s’ha compromès a ajudar, i on aquesta ajuda continua entre esdeveniments a través del banc del temps en lloc d’acabar-se quan tothom se’n va a casa."
       }
     ]
   },
@@ -321,10 +321,10 @@
       }
     ],
     "boxTitle": "A punt?",
-    "boxBody": "La condició de membre no costa res mentre dura el relançament. Demostrarem el valor abans de demanar-te mai que paguis.",
+    "boxBody": "La condició de membre no costa res mentre dura el relançament. Demostrarem el valor abans de demanar-te que paguis.",
     "primary": "Sol·licita plaça",
     "login": "Accés per a membres",
-    "mailLead": "Tens preguntes abans? Escriu a ",
+    "mailLead": "Tens dubtes? Escriu-nos a ",
     "photoAlt": "Teulades de Barcelona i el monument a Colom al capvespre"
   },
   "events": {
