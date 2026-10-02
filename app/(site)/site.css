@@ -22,6 +22,7 @@
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* 4/8 spacing scale */
   --s1: 0.25rem; --s2: 0.5rem; --s3: 0.75rem; --s4: 1rem; --s5: 1.5rem;
@@ -446,8 +447,11 @@ html.fx:not(.io) .site .par img { animation: par linear both; animation-timeline
 
 /* ---------- Photograph with a quote ---------- */
 .site .band { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--s9); min-height: min(36rem, 80svh); display: flex; align-items: center; }
-.site .band__photo { position: absolute; inset: 0; z-index: -2; }
-.site .band__photo img { object-position: 50% 60%; }
+.site .band__photo { position: absolute; inset: 0; z-index: -2; background: var(--charcoal); }
+.site .band__photo picture, .site .band__photo .clip__slot { position: absolute; inset: 0; }
+.site .band__photo img, .site .band__photo .clip__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.site .band__photo .clip__video { opacity: 0; transition: opacity 1.2s ease; }
+.site .band__photo .clip__video.is-playing { opacity: 1; }
 .site .band__veil { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(26, 32, 44, 0.84) 0%, rgba(26, 32, 44, 0.7) 50%, rgba(26, 32, 44, 0.86) 100%); }
 .site .band__inner { width: 100%; }
 .site .band figure { margin: 0; }
@@ -459,6 +463,16 @@ html.fx:not(.io) .site .par img { animation: par linear both; animation-timeline
 /* ---------- Time bank: pinned storytelling ---------- */
 /* Static state: head, then four cards in a row with a saffron thread. */
 .site .tb { padding-block: var(--s8) var(--s7); --header-h: 4.5rem; }
+.site .tb { position: relative; }
+.site .tb__stage { position: relative; }
+.site .tb__pin { position: relative; }
+.site .tb__bg { position: absolute; inset: 0; z-index: 0; background: var(--navy); overflow: hidden; }
+.site .tb__bg picture, .site .tb__bg .clip__slot { position: absolute; inset: 0; }
+.site .tb__bg img, .site .tb__bg .clip__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+.site .tb__bg .clip__video { opacity: 0; transition: opacity 1.2s ease; }
+.site .tb__bg .clip__video.is-playing { opacity: 0.5; }
+.site .tb__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26, 32, 44, 0.8), rgba(26, 32, 44, 0.9)); }
+.site .tb__grid { position: relative; z-index: 1; }
 .site .tb__head { margin-bottom: var(--s7); }
 .site .tb__head h2 { max-width: 22ch; }
 .site .tb__numerals, .site .tb__rail, .site .tb .mark { display: none; }
@@ -496,12 +510,13 @@ html.fx .site .tb {
   --q: calc((var(--Hw) - 100svh + var(--header-h)) / 4);     /* scroll distance given to each step */
   padding-block: 0 var(--s7);
 }
-html.fx .site .tb__stage { position: relative; height: var(--Hw); view-timeline: --tb block; }
+html.fx .site .tb__stage { height: var(--Hw); view-timeline: --tb block; }
 html.fx .site .tb__pin {
   position: sticky; top: var(--header-h);
   height: calc(100svh - var(--header-h));
   display: flex; align-items: center; overflow: hidden;
 }
+html.fx .site .tb__rail { z-index: 2; }
 html.fx .site .tb__grid { display: grid; gap: var(--s5); align-content: center; height: 100%; padding-block: var(--s5); }
 html.fx .site .tb__head { margin-bottom: 0; }
 html.fx .site .tb__head h2 { font-size: clamp(1.625rem, 6vw, 3rem); }
@@ -781,7 +796,67 @@ html.fx.io .site .tb[data-step="4"] .tb__rail span { transform: scaleX(1); }
    .reveal element start hidden; RevealObserver adds .in once, and the entrance plays once. */
 html.fx .site .reveal:not(.in) { opacity: 0; }
 html.fx .site .reveal.in { animation: rise 0.55s var(--ease-out) var(--d, 0s) backwards; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Polish pass: depth, rhythm, tactile controls (inside the brand book) ---------- */
+/* Macro whitespace: sections breathe */
+.site .section { padding-block: 5rem; }
+@media (min-width: 48em) { .site .section { padding-block: 8rem; } }
+.site .section-head { margin-bottom: var(--s8); }
+.site h2 { font-size: clamp(2.125rem, 6vw, 4.25rem); }
+.site .lede { text-wrap: pretty; }
+
+/* Eyebrows become small pill badges (labels stay capitals, tracked) */
+.site .label {
+  display: inline-block; padding: 0.4rem 0.9rem; margin-bottom: var(--s5);
+  border: 1px solid var(--grey-300); border-radius: 999px;
+  font-size: 0.6875rem; letter-spacing: 0.24em;
+}
+.site .on-navy .label { border-color: rgba(246, 173, 85, 0.4); }
+.site .hero .label { border-color: rgba(203, 213, 224, 0.4); }
+.site .on-navy .label--quiet, .site .band .label { border-color: rgba(160, 174, 192, 0.4); }
+.site .card .label, .site .moment__body .label { margin-bottom: var(--s4); }
+
+/* Double bezel: a hairline shell sits around each card, concentric with its radius */
+.site .outcome, .site .moment, .site .panel, .site .event, .site .empty, .site .apply-box {
+  border-radius: 1rem; border-color: rgba(26, 32, 44, 0.08);
+  box-shadow: 0 0 0 6px rgba(26, 32, 44, 0.035), 0 0 0 7px rgba(26, 32, 44, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  margin: 7px;
+}
+.site .apply-box { border: 1px solid rgba(250, 250, 250, 0.1); box-shadow: 0 0 0 6px rgba(250, 250, 250, 0.04), 0 0 0 7px rgba(250, 250, 250, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.site .step { border-radius: 1rem; }
+.site .par--tall { border-radius: 1rem; box-shadow: 0 0 0 6px rgba(26, 32, 44, 0.035), 0 0 0 7px rgba(26, 32, 44, 0.07); margin: 7px; }
+.site .moment__media { border-radius: 0; }
+.site .outcome { background: #fff; }
+@media (hover: hover) and (pointer: fine) {
+  .site .outcome:hover, .site .moment:hover, .site .panel:hover, .site .event:hover {
+    box-shadow: 0 0 0 6px rgba(26, 32, 44, 0.05), 0 0 0 7px rgba(26, 32, 44, 0.12), 0 1.5rem 2.5rem -1.25rem rgba(26, 32, 44, 0.28), inset 0 1px 0 #fff;
+  }
+}
+
+/* Button in button: the arrow lives in its own circle, flush with the right edge */
+.site .btn { transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out), border-color 0.35s var(--ease-out), transform 0.35s var(--ease-drawer); border-radius: 999px; }
+.site .btn:active { transform: scale(0.97); }
+.site .btn--saffron, .site .btn--navy { padding: 0 0.4rem 0 var(--s5); gap: var(--s3); }
+.site .btn--saffron::after, .site .btn--navy::after {
+  width: 2.25rem; height: 2.25rem; margin: 0; border-radius: 50%;
+  -webkit-mask: none; mask: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a202c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M9 7h8v8'/%3E%3C/svg%3E") center / 1.1rem no-repeat, rgba(26, 32, 44, 0.12);
+  transition: transform 0.45s var(--ease-drawer), background-color 0.35s var(--ease-out);
+}
+.site .btn--navy::after {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fafafa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M9 7h8v8'/%3E%3C/svg%3E") center / 1.1rem no-repeat, rgba(250, 250, 250, 0.14);
+}
+.site .nav__panel .btn--saffron { padding: 0 0.3rem 0 var(--s4); }
+.site .nav__panel .btn--saffron::after { width: 1.9rem; height: 1.9rem; }
+@media (hover: hover) and (pointer: fine) {
+  .site .btn--saffron:hover::after, .site .btn--navy:hover::after { transform: translate(2px, -1px) scale(1.06); }
+}
+.site .btn--ghost { padding-inline: var(--s5); }
+.site .event .btn--saffron { padding: 0 var(--s5); }
+
+/* Heavier, softer reveals */
+html.fx .site .reveal.in { animation: rise 0.9s var(--ease-drawer) var(--d, 0s) backwards; }
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Page transitions (React View Transitions) ---------- */
 @media (prefers-reduced-motion: no-preference) {

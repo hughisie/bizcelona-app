@@ -1,20 +1,16 @@
-import Picture from '@/components/site/Picture';
+import LazyClip from '@/components/site/LazyClip';
 import { BAND } from '@/app/(site)/_content/content';
 
-// A full-bleed photograph with Owen's reason for starting this, drifting slowly as you scroll past.
+// Owen's drone footage over the rooftops towards the sea, with his reason for starting this. Footage loads only when near the screen.
 export default function Band() {
   return (
     <section className="band on-navy" aria-labelledby="band-title">
-      <div className="band__photo par" aria-hidden="true">
-        <Picture
-          name="panorama"
-          sizes={[800, 1600]}
-          sizesAttr="100vw"
-          width={1600}
-          height={1200}
-          alt=""
-          lazy
-        />
+      <div className="band__photo" aria-hidden="true">
+        <picture>
+          <source type="image/avif" srcSet="/media/band-rooftops-poster.avif" />
+          <img src="/media/band-rooftops-poster.webp" alt="" width={960} height={540} loading="lazy" decoding="async" />
+        </picture>
+        <LazyClip name="band-rooftops" />
       </div>
       <div className="band__veil" aria-hidden="true" />
       <div className="wrap band__inner">

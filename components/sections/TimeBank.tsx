@@ -1,3 +1,4 @@
+import LazyClip from '@/components/site/LazyClip';
 import { TIME_BANK } from '@/app/(site)/_content/content';
 
 // Pinned storytelling: the section sticks while you scroll and the four steps light up one after another.
@@ -7,6 +8,13 @@ export default function TimeBank() {
     <section id="time-bank" className="tb on-navy" aria-labelledby="timebank-title" data-scene="step" data-base="1" data-step="1">
       <div className="tb__stage">
         <div className="tb__pin">
+          <div className="tb__bg" aria-hidden="true">
+            <picture>
+              <source type="image/avif" srcSet="/media/tb-topdown-poster.avif" />
+              <img src="/media/tb-topdown-poster.webp" alt="" width={960} height={540} loading="lazy" decoding="async" />
+            </picture>
+            <LazyClip name="tb-topdown" />
+          </div>
           <div className="wrap tb__grid">
             <div className="tb__head reveal">
               <p className="label">{TIME_BANK.label}</p>
