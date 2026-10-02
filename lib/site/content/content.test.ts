@@ -54,14 +54,14 @@ describe('public site copy', () => {
   it('says the events are at least monthly, approval takes up to a week, and the community language is English', () => {
     const text = (k: string) => strings(en).filter(([p]) => p.startsWith(k)).map(([, t]) => t).join(' ');
     expect(text('rhythm.cards[1]')).toMatch(/at least/i);
-    expect(text('faq.items')).toMatch(/up to a week/);
-    expect(text('apply')).toMatch(/up to a week/);
-    expect(text('forWhom')).toMatch(/community language is English/);
-    expect(text('faq.items')).toMatch(/community language is English/);
+    expect(text('faq.items')).toMatch(/(up to|as long as) (a week|seven days)/);
+    expect(text('apply')).toMatch(/(up to|as long as) (a week|seven days)/);
+    expect(text('forWhom')).toMatch(/English is the language of our community|community language is English/);
+    expect(text('faq.items')).toMatch(/English is the language we use as a community|community language is English/);
     expect(text('meta')).toMatch(/at least one/);
     expect(text('events')).toMatch(/at least one/);
     expect(en.faq.items.map((f) => f.q)).toContain('What happens at a co-working day?');
-    expect(en.rules.items[1].body).toMatch(/Celebrate other members’ successes/);
+    expect(en.rules.items[1].body).toMatch(/members’ achievements|members’ successes/);
   });
 
   it('keeps SEO text within sensible lengths in every language', () => {
