@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import Picture from '@/components/site/Picture';
 import { getContent } from '@/lib/site/content';
-import { localePath, type Locale } from '@/lib/site/locales';
+import { SITE_URL, localePath, type Locale } from '@/lib/site/locales';
 
 type PublicEvent = {
   id: string;
@@ -96,7 +96,7 @@ export default async function EventsPage({ locale, month: monthParam }: { locale
                 ...(ev.description ? { description: ev.description } : {}),
                 ...(ev.location ? { location: { '@type': 'Place', name: ev.location, address: 'Barcelona, Spain' } } : {}),
                 ...(safeUrl(ev.external_url) ? { url: safeUrl(ev.external_url) } : {}),
-                organizer: { '@type': 'Organization', name: 'Bizcelona', url: 'https://bizcelona.com/' },
+                organizer: { '@type': 'Organization', name: 'Bizcelona', url: `${SITE_URL}/` },
               })),
             }),
           }}

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { SITE_URL } from './locales';
 
 const TITLE = 'Bizcelona | Building wealth through community';
 const DESCRIPTION =
@@ -6,7 +7,7 @@ const DESCRIPTION =
 
 // Defaults for the whole site. Public pages override title, description, canonical and Open Graph per language.
 export const rootMetadata: Metadata = {
-  metadataBase: new URL('https://bizcelona.com'),
+  metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
   authors: [{ name: 'Bizcelona' }],
@@ -17,7 +18,7 @@ export const rootMetadata: Metadata = {
     title: 'Bizcelona | Building wealth through community',
     description:
       "Barcelona's business community for founders, independents and senior business figures. Members support one another. Invitation only, free during the relaunch.",
-    url: 'https://bizcelona.com',
+    url: SITE_URL,
     siteName: 'Bizcelona',
     images: [
       {
