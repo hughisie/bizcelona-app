@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { FOR_WHOM } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
-export default function ForWhom() {
+export default function ForWhom({ c }: { c: Content }) {
+  const FOR_WHOM = c.forWhom;
   return (
     <section id="who" className="section section--mist on-light" aria-labelledby="who-title">
       <div className="wrap">
@@ -14,7 +15,7 @@ export default function ForWhom() {
             <div className="measure stack stack--first">
               {FOR_WHOM.paras.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
             </div>
-            <ul className="chips" aria-label="Who we welcome">
+            <ul className="chips" aria-label={FOR_WHOM.chipsAria}>
               {FOR_WHOM.chips.map((c) => <li key={c}>{c}</li>)}
             </ul>
             <div className="btn-row">

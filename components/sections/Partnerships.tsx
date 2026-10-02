@@ -1,6 +1,7 @@
-import { PARTNERS } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
-export default function Partnerships() {
+export default function Partnerships({ c }: { c: Content }) {
+  const PARTNERS = c.partners;
   return (
     <section id="partnerships" className="section on-light" aria-labelledby="partners-title">
       <div className="wrap">
@@ -21,7 +22,7 @@ export default function Partnerships() {
           ))}
         </div>
         <div className="btn-row reveal">
-          <a className="btn btn--navy" href="mailto:hello@bizcelona.com?subject=Partnering%20with%20Bizcelona">
+          <a className="btn btn--navy" href={`mailto:hello@bizcelona.com?subject=${encodeURIComponent(PARTNERS.mailSubject)}`}>
             {PARTNERS.cta}
           </a>
         </div>

@@ -4,6 +4,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import RevealObserver from '@/components/site/RevealObserver';
 import SceneController from '@/components/site/SceneController';
+import { getContent } from '@/lib/site/content';
+import type { Locale } from '@/lib/site/locales';
 import './site.css';
 
 // Self-hosted, trimmed copies of the brand fonts (SIL OFL), cut down to Latin glyphs and only the
@@ -34,18 +36,20 @@ const inter = localFont({
 //   io    this browser has no CSS scroll-driven animation, so SceneController steps the scenes instead
 const FLAGS = `(function(){var h=document.documentElement,c=h.classList,n=navigator.connection,r=false,s=false;try{r=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}c.add('js');if(n&&(n.saveData||/2g|3g/.test(n.effectiveType||'')))c.add('lite');else if(!r)c.add('fx');try{s=CSS.supports('animation-timeline:scroll()')}catch(e){}if(!s)c.add('io')})()`;
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+// The public site chrome (header, footer, scroll effects) in one language.
+export default function SiteShell({ locale, children }: { locale: Locale; children: React.ReactNode }) {
+  const { ui } = getContent(locale);
   return (
     <div className={`site ${bricolage.variable} ${inter.variable}`}>
       <script dangerouslySetInnerHTML={{ __html: FLAGS }} />
-      <a className="skip-link" href="#main">Skip to main content</a>
-      <Navbar />
+      <a className="skip-link" href="#main">{ui.skip}</a>
+      <Navbar locale={locale} ui={ui} />
       <ViewTransition default="page">
         <main id="main" tabIndex={-1}>
           {children}
         </main>
       </ViewTransition>
-      <Footer />
+      <Footer locale={locale} ui={ui} />
       <RevealObserver />
       <SceneController />
     </div>

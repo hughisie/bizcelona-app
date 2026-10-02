@@ -3,12 +3,13 @@ import { preload } from 'react-dom';
 import HeroNetwork from '@/components/site/HeroNetwork';
 import HeroMedia from '@/components/site/HeroMedia';
 import Picture from '@/components/site/Picture';
-import { HERO } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
 // The signature: Owen's drone footage of Barcelona. As you scroll it darkens and dissolves into the Eixample
 // street grid, and the saffron lines draw between the blocks. The real city becomes the network.
 // Without scroll effects (reduced motion, Save-Data, no JavaScript) it is one calm picture: poster plus the finished grid.
-export default function Hero() {
+export default function Hero({ c }: { c: Content }) {
+  const HERO = c.hero;
   // Fetch the poster at high priority; it is small (36 KB on phones) and the footage itself waits until after load.
   preload('/media/hero-poster-960.avif', {
     as: 'image',
@@ -50,7 +51,7 @@ export default function Hero() {
               <Link className="btn btn--saffron" href="/signup">{HERO.primary}</Link>
               <a className="btn btn--ghost" href="#time-bank">{HERO.secondary}</a>
             </div>
-            <ul className="hero__facts" aria-label="At a glance">
+            <ul className="hero__facts" aria-label={c.ui.atAGlance}>
               {HERO.facts.map((f) => <li key={f}>{f}</li>)}
             </ul>
           </div>

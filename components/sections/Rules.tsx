@@ -1,6 +1,7 @@
-import { RULES } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
-export default function Rules() {
+export default function Rules({ c }: { c: Content }) {
+  const RULES = c.rules;
   return (
     <section id="rules" className="section section--rule on-navy" aria-labelledby="rules-title">
       <div className="wrap">

@@ -1,9 +1,10 @@
 import LazyClip from '@/components/site/LazyClip';
-import { TIME_BANK } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
 // Pinned storytelling: the section sticks while you scroll and the four steps light up one after another.
 // Without scroll effects it is a plain four-card row with a saffron thread.
-export default function TimeBank() {
+export default function TimeBank({ c }: { c: Content }) {
+  const TIME_BANK = c.timeBank;
   return (
     <section id="time-bank" className="tb on-navy" aria-labelledby="timebank-title" data-scene="step" data-base="1" data-step="1">
       <div className="tb__stage">
@@ -36,7 +37,7 @@ export default function TimeBank() {
                     <span className="step__num" aria-hidden="true">{i + 1}</span>
                     <h3>
                       {s.title}
-                      {s.free && <span className="tag-free">Free</span>}
+                      {s.free && <span className="tag-free">{c.ui.free}</span>}
                     </h3>
                     <p>{s.body}</p>
                   </li>
@@ -52,7 +53,7 @@ export default function TimeBank() {
       </div>
       <div className="wrap">
         <p className="note reveal">
-          <strong>{TIME_BANK.noteStrong}</strong>
+          <strong>{TIME_BANK.note}</strong>
         </p>
       </div>
     </section>

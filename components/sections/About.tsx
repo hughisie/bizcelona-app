@@ -1,7 +1,8 @@
 import Picture from '@/components/site/Picture';
-import { ABOUT } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
-export default function About() {
+export default function About({ c }: { c: Content }) {
+  const ABOUT = c.about;
   return (
     <section id="about" className="section on-light" aria-labelledby="about-title">
       <div className="wrap">
@@ -13,7 +14,7 @@ export default function About() {
             <div className="measure stack">
               {ABOUT.paras.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
             </div>
-            <ul className="not-list measure" aria-label="What Bizcelona is not">
+            <ul className="not-list measure" aria-label={ABOUT.notListAria}>
               {ABOUT.notList.map((n) => <li key={n}>{n}</li>)}
             </ul>
           </div>

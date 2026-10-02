@@ -1,7 +1,8 @@
-import { FAQ } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
 // Native <details>: keyboard and screen-reader friendly, works without JavaScript, and every answer is in the HTML.
-export default function Faq() {
+export default function Faq({ c }: { c: Content }) {
+  const FAQ = c.faq;
   return (
     <section id="faq" className="section section--mist on-light" aria-labelledby="faq-title">
       <div className="wrap">

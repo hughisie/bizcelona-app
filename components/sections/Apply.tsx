@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Picture from '@/components/site/Picture';
-import { APPLY } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
-export default function Apply() {
+export default function Apply({ c }: { c: Content }) {
+  const APPLY = c.apply;
   return (
     <section id="apply" className="section apply-sec on-navy" aria-labelledby="apply-title">
       <div className="apply-sec__photo par" aria-hidden="true">

@@ -1,25 +1,8 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import Picture from '@/components/site/Picture';
-import { EVENTS } from '../../_content/content';
-
-export const metadata: Metadata = {
-  title: { absolute: EVENTS.title },
-  description: EVENTS.description,
-  alternates: { canonical: 'https://bizcelona.com/events/public' },
-  openGraph: {
-    title: EVENTS.title,
-    description: EVENTS.description,
-    url: 'https://bizcelona.com/events/public',
-    siteName: 'Bizcelona',
-    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'Bizcelona, building wealth through community.' }],
-    locale: 'en_GB',
-    type: 'website',
-  },
-};
-
-type SearchParams = Promise<{ month?: string }>;
+import { getContent } from '@/lib/site/content';
+import { localePath, type Locale } from '@/lib/site/locales';
 
 type PublicEvent = {
   id: string;
@@ -41,18 +24,18 @@ const PLATFORMS: Record<string, string> = {
 
 const MONTH = /^\d{4}-(0[1-9]|1[0-2])$/;
 
-function formatWhen(value: string): { date: string; time: string } {
+function formatWhen(value: string, loc: string): { date: string; time: string } {
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return { date: value, time: '' };
   // A start of exactly 00:00 UTC means the event was saved with a date and no time.
   const dateOnly = d.getUTCHours() === 0 && d.getUTCMinutes() === 0;
   const zone = dateOnly ? 'UTC' : 'Europe/Madrid';
-  const date = new Intl.DateTimeFormat('en-GB', {
+  const date = new Intl.DateTimeFormat(loc, {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: zone,
   }).format(d);
   const time = dateOnly
     ? ''
-    : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: zone }).format(d);
+    : new Intl.DateTimeFormat(loc, { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: zone }).format(d);
   return { date, time };
 }
 
@@ -60,8 +43,11 @@ function safeUrl(url: string | null): string {
   return url && /^https?:\/\//i.test(url) ? url : '';
 }
 
-export default async function PublicEventsPage({ searchParams }: { searchParams: SearchParams }) {
-  const { month: monthParam } = await searchParams;
+export default async function EventsPage({ locale, month: monthParam }: { locale: Locale; month?: string }) {
+  const c = getContent(locale);
+  const EVENTS = c.events;
+  const ui = c.ui;
+  const loc = ui.dateLocale;
   const month = monthParam && MONTH.test(monthParam) ? monthParam : null;
 
   const supabase = await createClient();
@@ -84,14 +70,14 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
   const events = (data ?? []) as PublicEvent[];
 
   const monthLabel = month
-    ? new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+    ? new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
         new Date(`${month}-01T00:00:00Z`),
       )
     : null;
 
   const now = new Date();
   const checkedIso = now.toISOString().split('T')[0];
-  const checkedLabel = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Madrid' }).format(now);
+  const checkedLabel = new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Madrid' }).format(now);
 
   return (
     <>
@@ -126,16 +112,16 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
           <h1 id="events-title">{EVENTS.h1}</h1>
           <p className="lede">{EVENTS.lede}</p>
           <p className="page-head__checked">
-            Live listing, checked on <time dateTime={checkedIso}>{checkedLabel}</time>.
+            {ui.eventsCheckedPre}<time dateTime={checkedIso}>{checkedLabel}</time>{ui.eventsCheckedPost}
           </p>
         </div>
       </section>
 
-      <section className="section on-light" aria-label={monthLabel ? `Events in ${monthLabel}` : 'Upcoming events'}>
+      <section className="section on-light" aria-label={monthLabel ? `${ui.eventsIn}${monthLabel}` : ui.eventsUpcoming}>
         <div className="wrap">
           {monthLabel && (
             <p className="events__filter">
-              Showing {monthLabel}. <Link className="link-plain" href="/events/public">See all upcoming events</Link>
+              {ui.eventsFilterShowing}{monthLabel}. <Link className="link-plain" href={localePath(locale, '/events/public')}>{ui.eventsFilterAll}</Link>
             </p>
           )}
 
@@ -149,13 +135,13 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
               <h2>{EVENTS.emptyTitle}</h2>
               <p className="muted measure">{EVENTS.emptyBody}</p>
               <div className="btn-row">
-                <Link className="btn btn--navy" href="/signup">Apply to join</Link>
+                <Link className="btn btn--navy" href="/signup">{EVENTS.apply}</Link>
               </div>
             </div>
           ) : (
             <ul className="events">
               {events.map((ev) => {
-                const when = formatWhen(ev.event_date);
+                const when = formatWhen(ev.event_date, loc);
                 const url = safeUrl(ev.external_url);
                 const platform = ev.platform ? PLATFORMS[ev.platform] : undefined;
                 return (
@@ -171,8 +157,8 @@ export default async function PublicEventsPage({ searchParams }: { searchParams:
                       {ev.description && <p className="event__desc">{ev.description}</p>}
                       {url && (
                         <a className="btn btn--saffron" href={url} target="_blank" rel="noopener noreferrer">
-                          RSVP{platform ? ` on ${platform}` : ''}
-                          <span className="sr-only"> for {ev.title} (opens in a new tab)</span>
+                          {ui.rsvp}{platform ? `${ui.rsvpOn}${platform}` : ''}
+                          <span className="sr-only">{ui.rsvpFor}{ev.title}{ui.opensNewTab}</span>
                         </a>
                       )}
                     </div>

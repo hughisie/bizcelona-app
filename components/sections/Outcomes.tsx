@@ -1,6 +1,7 @@
-import { OUTCOMES } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
-export default function Outcomes() {
+export default function Outcomes({ c }: { c: Content }) {
+  const OUTCOMES = c.outcomes;
   return (
     <section id="outcomes" className="section section--mist on-light" aria-labelledby="outcomes-title">
       <div className="wrap">

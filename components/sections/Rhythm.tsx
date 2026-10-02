@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import LazyClip from '@/components/site/LazyClip';
-import { RHYTHM } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
+import { localePath, type Locale } from '@/lib/site/locales';
 
 const CLIPS = ['clip-cowork', 'clip-evening'] as const;
 
-export default function Rhythm() {
+export default function Rhythm({ c, locale }: { c: Content; locale: Locale }) {
+  const RHYTHM = c.rhythm;
   return (
     <section id="rhythm" className="section on-light" aria-labelledby="rhythm-title">
       <div className="wrap">
@@ -19,7 +21,7 @@ export default function Rhythm() {
               <div className="moment__media" role="img" aria-label={c.clipAlt}>
                 <picture>
                   <source type="image/avif" srcSet={`/media/${CLIPS[i]}-poster.avif`} />
-                  <img src={`/media/${CLIPS[i]}-poster.webp`} alt="" width={480} height={640} loading="lazy" decoding="async" />
+                  <img src={`/media/${CLIPS[i]}-poster.webp`} alt="" width={960} height={600} loading="lazy" decoding="async" />
                 </picture>
                 <LazyClip name={CLIPS[i]} />
               </div>
@@ -33,7 +35,7 @@ export default function Rhythm() {
         </div>
         <p className="muted reveal rhythm__note">
           {RHYTHM.notePre}
-          <Link className="link-plain" href="/events/public">{RHYTHM.noteLink}</Link>
+          <Link className="link-plain" href={localePath(locale, '/events/public')}>{RHYTHM.noteLink}</Link>
           {RHYTHM.notePost}
         </p>
       </div>

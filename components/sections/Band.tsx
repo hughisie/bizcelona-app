@@ -1,8 +1,9 @@
 import LazyClip from '@/components/site/LazyClip';
-import { BAND } from '@/app/(site)/_content/content';
+import type { Content } from '@/lib/site/content';
 
 // Owen's drone footage over the rooftops towards the sea, with his reason for starting this. Footage loads only when near the screen.
-export default function Band() {
+export default function Band({ c }: { c: Content }) {
+  const BAND = c.band;
   return (
     <section className="band on-navy" aria-labelledby="band-title">
       <div className="band__photo" aria-hidden="true">
